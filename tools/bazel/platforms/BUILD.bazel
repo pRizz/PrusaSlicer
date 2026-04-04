@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+platform(
+    name = "linux",
+    constraint_values = [
+        "@platforms//os:linux",
+    ],
+)
+
+platform(
+    name = "macos",
+    constraint_values = [
+        "@platforms//os:osx",
+    ],
+)
+
+# Reserved for later phases. Do not wire active Windows behavior here yet.
+platform(
+    name = "windows_future",
+    constraint_values = [
+        "@platforms//os:windows",
+    ],
+)

@@ -6,3 +6,16 @@ module(
 # This MODULE.bazel establishes Bazel as the repo-root module boundary and
 # front door. It does not imply that the full PrusaSlicer target graph is
 # already migrated; later phases expand the actual product coverage.
+
+# Phase 2 placeholder registration hooks.
+# These make the centralized platform/toolchain skeleton visible without claiming
+# that full toolchain bring-up or product-target enablement is already done.
+register_execution_platforms(
+    "//tools/bazel/platforms:linux",
+    "//tools/bazel/platforms:macos",
+)
+
+register_toolchains(
+    "//tools/bazel/toolchains:linux_placeholder_toolchain",
+    "//tools/bazel/toolchains:macos_placeholder_toolchain",
+)

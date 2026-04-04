@@ -4,10 +4,10 @@ common --enable_bzlmod
 common:dev --announce_rc
 
 # Centralized platform names consumed by ./prusa.
-build:linux --platforms=@platforms//os:linux
-test:linux --platforms=@platforms//os:linux
-build:macos --platforms=@platforms//os:osx
-test:macos --platforms=@platforms//os:osx
+build:linux --platforms=//tools/bazel/platforms:linux
+test:linux --platforms=//tools/bazel/platforms:linux
+build:macos --platforms=//tools/bazel/platforms:macos
+test:macos --platforms=//tools/bazel/platforms:macos
 
 # Placeholder compile-database config. Phase 4 will wire the real tool.
 build:compdb --remote_download_outputs=toplevel

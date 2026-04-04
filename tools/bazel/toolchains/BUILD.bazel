@@ -1,0 +1,39 @@
+package(default_visibility = ["//visibility:public"])
+
+toolchain_type(
+    name = "placeholder_cc_toolchain_type",
+)
+
+filegroup(
+    name = "linux_placeholder_impl",
+    srcs = [],
+)
+
+filegroup(
+    name = "macos_placeholder_impl",
+    srcs = [],
+)
+
+toolchain(
+    name = "linux_placeholder_toolchain",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+    ],
+    target_compatible_with = [
+        "@platforms//os:linux",
+    ],
+    toolchain = ":linux_placeholder_impl",
+    toolchain_type = ":placeholder_cc_toolchain_type",
+)
+
+toolchain(
+    name = "macos_placeholder_toolchain",
+    exec_compatible_with = [
+        "@platforms//os:osx",
+    ],
+    target_compatible_with = [
+        "@platforms//os:osx",
+    ],
+    toolchain = ":macos_placeholder_impl",
+    toolchain_type = ":placeholder_cc_toolchain_type",
+)
