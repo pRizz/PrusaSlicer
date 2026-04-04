@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01: Define evaluation criteria, parity gates, and authority cutoff signals
-- [ ] 01-02: Run the Bazel vs Meson comparison and record the build-system decision
+- [x] 01-02: Run the Bazel vs Meson comparison and record the build-system decision
 
 ### Phase 2: Establish Build Graph Skeleton
 **Goal**: Put the selected build system at repo root with one authoritative command surface and explicit policy for platform and system-library exceptions.
