@@ -1,0 +1,9 @@
+module(
+    name = "prusaslicer_phase1_eval",
+    version = "0.1.0",
+)
+
+# Phase 1 note:
+# This is a narrow comparison prototype, not the future repo-root module.
+# External dependencies are intentionally not modeled fully here; the goal is
+# to expose proof-slice and bridge pressure, not to complete migration work.
