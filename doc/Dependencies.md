@@ -1,4 +1,23 @@
 # Dependency report for PrusaSlicer
+
+## Bazel Phase 2 policy
+
+The Bazel-first skeleton does **not** treat the historical dependency inventory
+below as automatically approved for system-library use.
+
+- Default stance: source-fetched ownership
+- Approval path: `tools/bazel/policies/system_libraries.bzl`
+- Required metadata for each approved exception:
+  - library name
+  - allowed platforms
+  - scope
+  - rationale
+  - lifetime (`temporary` or `long-term`)
+
+If the registry is empty, no system-library exception has been approved for the
+Bazel path yet. This document remains the legacy dependency inventory during the
+transition, not the Bazel exception list.
+
 ## Possible dynamic linking on Linux
 * zlib: Strict dependency required from the system, linked dynamically. Many other libs depend on zlib.
 * wxWidgets >= 3.2
@@ -30,5 +49,4 @@
 * nanosvg
 * agg
 * catch2: Only Arch has packages for catch2, other distros at most catch (v1.x). Being strictly header only, we bundle this in the source tree. Used for the unit-test suites.
-
 
