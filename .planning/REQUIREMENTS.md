@@ -7,9 +7,9 @@
 
 ### Evaluation
 
-- [ ] **EVAL-01**: Maintainers can compare Bazel and Meson + Ninja against documented migration criteria for PrusaSlicer
+- [x] **EVAL-01**: Maintainers can compare Bazel and Meson + Ninja against documented migration criteria for PrusaSlicer
 - [ ] **EVAL-02**: Maintainers can record one authoritative build-system decision with rationale and explicit rejection criteria for the non-selected option
-- [ ] **EVAL-03**: Maintainers can define parity gates and an authority cutoff plan before long-term migration work proceeds
+- [x] **EVAL-03**: Maintainers can define parity gates and an authority cutoff plan before long-term migration work proceeds
 
 ### Build
 
@@ -71,9 +71,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EVAL-01 | Phase 1 | Pending |
+| EVAL-01 | Phase 1 | Complete |
 | EVAL-02 | Phase 1 | Pending |
-| EVAL-03 | Phase 1 | Pending |
+| EVAL-03 | Phase 1 | Complete |
 | BLD-01 | Phase 3 | Pending |
 | BLD-02 | Phase 3 | Pending |
 | BLD-03 | Phase 2 | Pending |
@@ -96,4 +96,4 @@
 
 ---
 *Requirements defined: 2026-04-03*
-*Last updated: 2026-04-03 after roadmap creation*
+*Last updated: 2026-04-04 after 01-01 plan execution*

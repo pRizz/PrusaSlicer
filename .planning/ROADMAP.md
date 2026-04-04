@@ -28,10 +28,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Maintainers can compare Bazel and Meson + Ninja against written evaluation criteria for PrusaSlicer.
   2. Maintainers can point to one selected authoritative build stack with rationale and rejection criteria for the alternative.
   3. Maintainers can describe the parity gates and cutoff policy that will end long-term dual-build authority.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Define evaluation criteria, parity gates, and authority cutoff signals
+- [x] 01-01: Define evaluation criteria, parity gates, and authority cutoff signals
 - [ ] 01-02: Run the Bazel vs Meson comparison and record the build-system decision
 
 ### Phase 2: Establish Build Graph Skeleton
@@ -100,7 +100,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Evaluate Build-System Fit | 0/TBD | Not started | - |
+| 1. Evaluate Build-System Fit | 1/2 | In Progress | - |
 | 2. Establish Build Graph Skeleton | 0/TBD | Not started | - |
 | 3. Migrate Core Targets and Dependencies | 0/TBD | Not started | - |
 | 4. Add Local Tooling and Validation | 0/TBD | Not started | - |
