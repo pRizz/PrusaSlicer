@@ -61,6 +61,7 @@ This project should include an explicit evaluation phase instead of assuming Baz
 |----------|-----------|---------|
 | Include an explicit build-system evaluation phase | Bazel is preferred, but the repo should not commit blindly if Meson + Ninja fits the migration better | — Pending |
 | Prefer Bazel as the initial target candidate | Hermeticity, dependency modeling, repeatability, and CI ergonomics match the stated goals well | — Pending |
+| Select Bazel as the authoritative Phase 2 target, with Meson + Ninja as explicit fallback | Phase 1 scorecard favored Bazel on the project’s highest-weighted criteria even though Meson was easier to prototype | — Pending |
 | Accept Meson + Ninja as fallback if Bazel is too painful | Simpler C/C++ ergonomics may outweigh Bazel's advantages in practice for this repo | — Pending |
 | Target Linux and macOS first | This keeps the migration tractable while still covering the primary near-term authoritative path | — Pending |
 | Keep the project focused on build/tooling migration only | Avoids scope creep into unrelated slicer feature development | — Pending |

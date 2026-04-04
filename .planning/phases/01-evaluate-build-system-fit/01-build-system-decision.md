@@ -1,0 +1,58 @@
+# Phase 1 Build-System Decision
+
+**Phase:** 01 - Evaluate Build-System Fit  
+**Date:** 2026-04-04  
+**Selected candidate:** Bazel  
+**Rejected candidate:** Meson + Ninja  
+**Fallback candidate:** Meson + Ninja
+
+## Decision
+
+Select **Bazel** as the authoritative build-system target for Phase 2 planning and migration work.
+
+This selection is based on the weighted scorecard defined in `01-candidate-scorecard.md`, not on generic popularity or prior preference. Bazel wins because the project’s highest-ranked priorities are reliability/repeatability and explicit dependency ownership, and Bazel aligns with those better than Meson for a long-lived authoritative build path.
+
+Meson + Ninja remains the explicit fallback if Bazel proves too painful when Phase 2 starts building the real root graph and dependency model.
+
+## Why Bazel Won
+
+- It scored highest on the weighted criteria that matter most to this project.
+- It aligns best with the repo’s need to replace opaque dependency/discovery behavior with an explicit graph.
+- Its CI and authoritative-command story fits the roadmap’s end state more directly.
+- After prototype blocker fixes, it reached real-source compilation pressure rather than remaining a purely paper comparison.
+
+## Why Meson + Ninja Lost
+
+- Meson was easier to prototype and is stronger on immediate ergonomics, but that did not outweigh Bazel’s advantage on the top-ranked criteria.
+- Meson’s dependency model is more practical than CMake’s current state, but still weaker than Bazel’s for the repo’s explicit reproducibility goal.
+- Choosing Meson would optimize the early migration path more than the long-term authoritative-build outcome.
+
+## Explicit Uncertainties
+
+This decision is strong enough to guide Phase 2, but it is not evidence-complete in every direction:
+
+- Linux app proof was not executed in this macOS environment.
+- Linux core test proof was not executed in this macOS environment.
+- Bazel’s editor-metadata path is still a risk and must be validated early in Phase 2.
+
+These are not hidden. They are the first confirmation gates for the next phase.
+
+## Phase 2 implication
+
+Phase 2 should proceed as a **Bazel-first** root-graph effort with these early confirmation checks:
+
+1. Prove the selected representative slice on Linux.
+2. Prove at least one Linux core test target.
+3. Validate the editor-metadata path (`clangd` / compile database story) early.
+4. Reconfirm that bridge pressure is manageable and explicitly tracked.
+
+If Bazel fails those confirmation checks in a way that materially violates the Phase 1 hard gates, the project should pivot to **Meson + Ninja** rather than force Bazel.
+
+## Deferred from Phase 1
+
+- Packaging parity
+- Windows support
+- Full third-party dependency migration
+- Full GUI parity
+
+These remain later-phase work and were not required to make the Phase 1 decision.
