@@ -68,4 +68,4 @@ This project should include an explicit evaluation phase instead of assuming Baz
 | Allow temporary legacy-tool overlap where justified | Controlled overlap is acceptable during migration, but only on the way to one authoritative path | — Pending |
 
 ---
-*Last updated: 2026-04-03 after initialization*
+*Last updated: 2026-04-04 after Phase 1 candidate comparison*
