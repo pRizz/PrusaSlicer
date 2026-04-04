@@ -44,8 +44,8 @@
 | Linux app proof | Fail | Fail | Both candidates were executed in a Linux container against the agreed slice and failed on concrete dependency/include-model blockers |
 | Linux core test proof | Fail | Fail | Both candidates reached the representative Linux core test target and failed on concrete missing test/dependency closure |
 | macOS smoke-build path | Pass | Pass | Both candidates reached real source compilation attempts on macOS |
-| Editor metadata without legacy build | Risk | Pass | Bazel likely needs extra compile-database tooling; Meson naturally supports `compile_commands.json` |
-| Format/lint command surface | Risk | Pass | Both can expose commands, but Meson’s local tooling shape is simpler and closer to compiler defaults |
+| Editor metadata without legacy build | Fail | Pass | Bazel tooling proof used a concrete compile-commands extractor path, but it failed under the current Bazel 9 prototype with a `py_binary` tooling integration error |
+| Format/lint command surface | Partial | Pass | Bazel has a concrete `clang-format` command path, but `clang-tidy` remains blocked by missing metadata output and missing local binary |
 | Contributor-facing command clarity | Pass | Pass | Both have explicit commands documented in `prototypes/README.md` |
 | Scope discipline | Pass | Pass | Both prototypes stayed inside the agreed Phase 1 boundary |
 
@@ -81,7 +81,7 @@
 ### Bazel weaknesses
 
 - Higher authoring friction in the prototype itself.
-- Weaker editor-metadata path unless extra tooling is adopted.
+- Bazel's selected compile-commands path failed under the current prototype and remains an explicit contributor-UX risk.
 - Likely higher bridge pressure in early migration work.
 - Linux proof still fails on unresolved dependency/include closure in the current shallow prototype.
 
@@ -103,7 +103,7 @@
 
 The weighted score still favors **Bazel** under the project’s locked priorities, even though Meson is the easier Phase 1 prototype and remains the more credible fallback if Bazel later proves too painful in real migration work.
 
-The hard-gate record is no longer incomplete. Linux app-build and Linux core-test proof were both executed in a Linux container, and both candidates failed on explicit blockers. The decision packet should therefore describe Linux evidence as concrete failure evidence rather than unresolved uncertainty.
+The hard-gate record is no longer incomplete. Linux app-build and Linux core-test proof were both executed in a Linux container, and both candidates failed on explicit blockers. Bazel tooling viability is also no longer a vague concern: the chosen metadata path was executed and failed with a concrete integration error, while the formatting command surface is real and the lint path remains blocked by missing metadata plus missing local tooling.
 
 ## Commands Run
 
@@ -114,7 +114,13 @@ cd .planning/phases/01-evaluate-build-system-fit/prototypes/bazel
 npx -y @bazel/bazelisk version
 npx -y @bazel/bazelisk build //:prusaslicer_cli_eval
 npx -y @bazel/bazelisk test //:libslic3r_core_eval_test
+npx -y @bazel/bazelisk run :refresh_compile_commands -- //:prusaslicer_cli_eval //:libslic3r_core_eval_test
 ```
+
+**Tooling outcomes:**
+- `refresh_compile_commands` failed with `no native function or rule 'py_binary'`
+- `xcrun clang-format --dry-run --Werror src/CLI/Run.cpp` ran and surfaced current formatting drift
+- `clang-tidy` was not present on the host, so lint execution was not demonstrated
 
 ### Meson
 

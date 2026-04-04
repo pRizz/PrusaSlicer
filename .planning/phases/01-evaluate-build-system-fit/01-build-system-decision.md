@@ -34,9 +34,10 @@ This is now backed by Linux evidence, not just macOS-only prototype inference. B
 This decision is strong enough to guide Phase 2, but it still carries these explicit risks:
 
 - Neither candidate cleared the Linux app-build or Linux core-test proof bar with the intentionally shallow prototype.
-- Bazel’s editor-metadata path is still a risk and must be validated early in Phase 2.
+- Bazel’s editor-metadata path was attempted through a concrete compile-commands extractor flow and still failed with a `py_binary` integration error under the current Bazel 9 prototype.
+- Bazel’s format command shape is concrete, but `clang-tidy` remains unproven because the compile database was not generated and no local `clang-tidy` binary is available.
 
-These are not hidden. The Linux proof gap is now an evidenced failure mode rather than an untested hole, and the Bazel tooling path remains the next closure target.
+These are not hidden. The Linux proof gap is now an evidenced failure mode rather than an untested hole, and the Bazel tooling gap is now an evidenced integration problem rather than a vague risk.
 
 ## Phase 2 implication
 
@@ -44,7 +45,7 @@ Phase 2 should proceed as a **Bazel-first** root-graph effort with these early c
 
 1. Prove the selected representative slice on Linux.
 2. Prove at least one Linux core test target in a way that clears the current dependency/include-model blockers.
-3. Validate the editor-metadata path (`clangd` / compile database story) early.
+3. Resolve the compile-commands / editor-metadata path (`clangd` story) early, because the current prototype still fails there.
 4. Reconfirm that bridge pressure is manageable and explicitly tracked.
 
 If Bazel fails those confirmation checks in a way that materially violates the Phase 1 hard gates, the project should pivot to **Meson + Ninja** rather than force Bazel.
