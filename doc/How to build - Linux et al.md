@@ -1,6 +1,23 @@
 
 # Building PrusaSlicer on UNIX/Linux
 
+## Phase 2 transition note
+
+The repository front door is moving to a Bazel-first skeleton:
+
+```shell
+./prusa build --dry-run
+# bazel build --config=dev --config=linux //...
+
+./prusa test --dry-run
+# bazel test --config=dev --config=linux //...
+```
+
+That Bazel path is the authoritative root command surface for the migration
+work, but it does not yet replace the full product build in this phase. The
+remainder of this document describes the legacy CMake-based Linux flow that is
+still available during the transition.
+
 Please understand that PrusaSlicer team cannot support compilation on all possible Linux distros. Namely, we cannot help troubleshoot OpenGL driver issues or dependency issues if compiled against distro provided libraries. **We can only support PrusaSlicer statically linked against the dependencies compiled with the `deps` scripts**, the same way we compile PrusaSlicer for our [binary builds](https://github.com/prusa3d/PrusaSlicer/releases).
 
 If you have some reason to link dynamically to your system libraries, you are free to do so, but we can not and will not troubleshoot any issues you possibly run into.

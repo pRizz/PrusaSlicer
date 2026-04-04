@@ -1,6 +1,23 @@
 
 # Building PrusaSlicer on macOS
 
+## Phase 2 transition note
+
+The repository front door is moving to a Bazel-first skeleton:
+
+```shell
+./prusa build --dry-run
+# bazel build --config=dev --config=macos //...
+
+./prusa test --dry-run
+# bazel test --config=dev --config=macos //...
+```
+
+That Bazel path is the authoritative root command surface for the migration
+work, but it does not yet replace the full product build in this phase. The
+remainder of this document describes the legacy CMake-based macOS flow that is
+still available during the transition.
+
 To build PrusaSlicer on macOS, you will need Xcode, which is available through Apple's App Store. In addition, you will need couple of other tools, all of which are available through [brew](https://brew.sh/): use
 
 ```

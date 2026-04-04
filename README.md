@@ -19,6 +19,34 @@ PrusaSlicer is based on [Slic3r](https://github.com/Slic3r/Slic3r) by Alessandro
 See the [project homepage](https://www.prusa3d.com/slic3r-prusa-edition/) and
 the [documentation directory](doc/) for more information.
 
+### Bazel-first front door
+
+The repository is moving to a Bazel-first build skeleton. The supported Phase 2
+entry point is `./prusa`, with the direct Bazel equivalent shown for each
+action:
+
+```shell
+./prusa build --dry-run
+# bazel build --config=dev --config=<platform> //...
+
+./prusa test --dry-run
+# bazel test --config=dev --config=<platform> //...
+
+./prusa fmt --dry-run
+# bazel build --config=dev //tools/bazel:fmt
+
+./prusa lint --dry-run
+# bazel build --config=dev //tools/bazel:lint
+
+./prusa compdb --dry-run
+# bazel build --config=dev --config=compdb //tools/bazel:compdb
+```
+
+This Phase 2 front door establishes the repo-root Bazel skeleton and command
+surface only. Full PrusaSlicer target migration remains a later phase. The
+existing platform-specific CMake build guides remain available below as legacy
+transition documentation while the Bazel graph is expanded.
+
 ### What language is it written in?
 
 All user facing code is written in C++.
