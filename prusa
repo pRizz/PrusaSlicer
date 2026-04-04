@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-detect_bazel() {
+set_bazel_prefix() {
   if command -v bazelisk >/dev/null 2>&1; then
-    printf '%s' "bazelisk"
+    BAZEL_PREFIX=(bazelisk)
     return
   fi
 
   if command -v bazel >/dev/null 2>&1; then
-    printf '%s' "bazel"
+    BAZEL_PREFIX=(bazel)
     return
   fi
 
-  printf '%s' "bazelisk"
+  if command -v npx >/dev/null 2>&1; then
+    BAZEL_PREFIX=(npx -y @bazel/bazelisk)
+    return
+  fi
+
+  BAZEL_PREFIX=(bazelisk)
 }
 
 usage() {
@@ -20,7 +25,7 @@ usage() {
 PrusaSlicer Bazel front door (Phase 2 skeleton)
 
 Usage:
-  ./prusa <command> [--dry-run|--print-command]
+  ./prusa <command> [--platform linux|macos] [--dry-run|--print-command]
 
 Commands:
   build    Run the default Bazel build path
@@ -46,6 +51,8 @@ Notes:
   - Bazel is the repo-root front door for the migration work.
   - Full product-target migration remains a later phase.
   - Legacy CMake build docs remain available during the transition.
+  - Platform configs are centralized under //tools/bazel/platforms.
+  - System-library exceptions are centralized under tools/bazel/policies/system_libraries.bzl.
 EOF
 }
 
@@ -66,11 +73,22 @@ platform_config() {
 main() {
   local maybe_command="${1:-help}"
   local dry_run="false"
+  local platform
 
   shift || true
 
+  platform="$(platform_config)"
+
   while (($#)); do
     case "$1" in
+      --platform)
+        if (($# < 2)); then
+          printf 'Missing value for --platform\n' >&2
+          exit 1
+        fi
+        platform="$2"
+        shift
+        ;;
       --dry-run|--print-command)
         dry_run="true"
         ;;
@@ -82,27 +100,25 @@ main() {
     shift
   done
 
-  local bazel_bin
-  bazel_bin="$(detect_bazel)"
-  local platform
-  platform="$(platform_config)"
+  local -a BAZEL_PREFIX
+  set_bazel_prefix
   local -a cmd
 
   case "${maybe_command}" in
     build)
-      cmd=("${bazel_bin}" build --config=dev --config="${platform}" //...)
+      cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config="${platform}" //...)
       ;;
     test)
-      cmd=("${bazel_bin}" test --config=dev --config="${platform}" //...)
+      cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${platform}" //...)
       ;;
     fmt)
-      cmd=("${bazel_bin}" build --config=dev //tools/bazel:fmt)
+      cmd=("${BAZEL_PREFIX[@]}" build --config=dev //tools/bazel:fmt)
       ;;
     lint)
-      cmd=("${bazel_bin}" build --config=dev //tools/bazel:lint)
+      cmd=("${BAZEL_PREFIX[@]}" build --config=dev //tools/bazel:lint)
       ;;
     compdb)
-      cmd=("${bazel_bin}" build --config=dev --config=compdb //tools/bazel:compdb)
+      cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config=compdb //tools/bazel:compdb)
       ;;
     help)
       usage
