@@ -1,0 +1,8 @@
+module(
+    name = "prusaslicer",
+)
+
+# Phase 2 note:
+# This MODULE.bazel establishes Bazel as the repo-root module boundary and
+# front door. It does not imply that the full PrusaSlicer target graph is
+# already migrated; later phases expand the actual product coverage.

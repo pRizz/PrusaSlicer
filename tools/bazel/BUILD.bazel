@@ -1,0 +1,19 @@
+package(default_visibility = ["//visibility:public"])
+
+# Phase 2 note:
+# These are placeholder front-door labels so the repo has a consistent Bazel
+# command surface before the deeper tooling and target graph work lands.
+filegroup(
+    name = "fmt",
+    srcs = [],
+)
+
+filegroup(
+    name = "lint",
+    srcs = [],
+)
+
+filegroup(
+    name = "compdb",
+    srcs = [],
+)

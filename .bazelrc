@@ -1,0 +1,14 @@
+common --enable_bzlmod
+
+# Shared developer defaults for the Phase 2 Bazel-first skeleton.
+common:dev --announce_rc
+
+# Centralized platform names consumed by ./prusa.
+build:linux --platforms=@platforms//os:linux
+test:linux --platforms=@platforms//os:linux
+build:macos --platforms=@platforms//os:osx
+test:macos --platforms=@platforms//os:osx
+
+# Placeholder compile-database config. Phase 4 will wire the real tool.
+build:compdb --remote_download_outputs=toplevel
+run:compdb --remote_download_outputs=toplevel
