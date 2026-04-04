@@ -71,29 +71,29 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EVAL-01 | Phase TBD | Pending |
-| EVAL-02 | Phase TBD | Pending |
-| EVAL-03 | Phase TBD | Pending |
-| BLD-01 | Phase TBD | Pending |
-| BLD-02 | Phase TBD | Pending |
-| BLD-03 | Phase TBD | Pending |
-| BLD-04 | Phase TBD | Pending |
-| DEPS-01 | Phase TBD | Pending |
-| DEPS-02 | Phase TBD | Pending |
-| DEPS-03 | Phase TBD | Pending |
-| TOOL-01 | Phase TBD | Pending |
-| TOOL-02 | Phase TBD | Pending |
-| TOOL-03 | Phase TBD | Pending |
-| TOOL-04 | Phase TBD | Pending |
-| CI-01 | Phase TBD | Pending |
-| CI-02 | Phase TBD | Pending |
-| CI-03 | Phase TBD | Pending |
+| EVAL-01 | Phase 1 | Pending |
+| EVAL-02 | Phase 1 | Pending |
+| EVAL-03 | Phase 1 | Pending |
+| BLD-01 | Phase 3 | Pending |
+| BLD-02 | Phase 3 | Pending |
+| BLD-03 | Phase 2 | Pending |
+| BLD-04 | Phase 4 | Pending |
+| DEPS-01 | Phase 3 | Pending |
+| DEPS-02 | Phase 2 | Pending |
+| DEPS-03 | Phase 3 | Pending |
+| TOOL-01 | Phase 4 | Pending |
+| TOOL-02 | Phase 4 | Pending |
+| TOOL-03 | Phase 4 | Pending |
+| TOOL-04 | Phase 5 | Pending |
+| CI-01 | Phase 5 | Pending |
+| CI-02 | Phase 5 | Pending |
+| CI-03 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 17 total
-- Mapped to phases: 0
-- Unmapped: 17
+- Mapped to phases: 17
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-03*
-*Last updated: 2026-04-03 after initial definition*
+*Last updated: 2026-04-03 after roadmap creation*
