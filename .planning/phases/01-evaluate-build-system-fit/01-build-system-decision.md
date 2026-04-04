@@ -14,6 +14,8 @@ This selection is based on the weighted scorecard defined in `01-candidate-score
 
 Meson + Ninja remains the explicit fallback if Bazel proves too painful when Phase 2 starts building the real root graph and dependency model.
 
+This is now backed by Linux evidence, not just macOS-only prototype inference. Both Bazel and Meson were executed against the agreed Linux proof slice and both failed on concrete blockers, so the choice is no longer waiting on missing Linux execution. Instead, it reflects a comparison where neither shallow prototype cleared the hard gates, but Bazel still fits the project’s top-weighted long-term criteria better.
+
 ## Why Bazel Won
 
 - It scored highest on the weighted criteria that matter most to this project.
@@ -29,20 +31,19 @@ Meson + Ninja remains the explicit fallback if Bazel proves too painful when Pha
 
 ## Explicit Uncertainties
 
-This decision is strong enough to guide Phase 2, but it is not evidence-complete in every direction:
+This decision is strong enough to guide Phase 2, but it still carries these explicit risks:
 
-- Linux app proof was not executed in this macOS environment.
-- Linux core test proof was not executed in this macOS environment.
+- Neither candidate cleared the Linux app-build or Linux core-test proof bar with the intentionally shallow prototype.
 - Bazel’s editor-metadata path is still a risk and must be validated early in Phase 2.
 
-These are not hidden. They are the first confirmation gates for the next phase.
+These are not hidden. The Linux proof gap is now an evidenced failure mode rather than an untested hole, and the Bazel tooling path remains the next closure target.
 
 ## Phase 2 implication
 
 Phase 2 should proceed as a **Bazel-first** root-graph effort with these early confirmation checks:
 
 1. Prove the selected representative slice on Linux.
-2. Prove at least one Linux core test target.
+2. Prove at least one Linux core test target in a way that clears the current dependency/include-model blockers.
 3. Validate the editor-metadata path (`clangd` / compile database story) early.
 4. Reconfirm that bridge pressure is manageable and explicitly tracked.
 
