@@ -39,6 +39,15 @@ npx -y @bazel/bazelisk test //:libslic3r_core_eval_test
 Editor/tooling notes:
 - `clangd` support is expected to require a Bazel-specific compilation database bridge rather than falling out of the build by default.
 - Format/lint command shape would likely be explicit wrapper targets or repo scripts rather than native editor-first defaults.
+- Phase 1 tooling proof path:
+
+```bash
+cd .planning/phases/01-evaluate-build-system-fit/prototypes/bazel
+npx -y @bazel/bazelisk run :refresh_compile_commands -- //:prusaslicer_cli_eval //:libslic3r_core_eval_test
+xcrun clang-format --dry-run --Werror /Users/peterryszkiewicz/Repos/PrusaSlicer/src/CLI/Run.cpp
+```
+
+- Current Phase 1 result: the compile-commands extractor path is concrete but failed under the Bazel 9 prototype because the extractor expected `py_binary` support that was not available in the current setup. Formatting command shape is concrete via `clang-format`; `clang-tidy` remains unproven in this environment.
 
 ## Meson Prototype
 
