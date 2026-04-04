@@ -3,6 +3,8 @@ module(
     version = "0.1.0",
 )
 
+bazel_dep(name = "rules_cc", version = "0.2.17")
+
 # Phase 1 note:
 # This is a narrow comparison prototype, not the future repo-root module.
 # External dependencies are intentionally not modeled fully here; the goal is
