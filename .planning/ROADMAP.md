@@ -12,7 +12,7 @@ This roadmap takes PrusaSlicer from a CMake-first build and dependency workflow 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Evaluate Build-System Fit** - Choose the authoritative build stack with explicit migration criteria and cutoff policy
+- [x] **Phase 1: Evaluate Build-System Fit** - Choose the authoritative build stack with explicit migration criteria and cutoff policy
 - [ ] **Phase 2: Establish Build Graph Skeleton** - Create the root build definitions, command surface, and platform/dependency policy
 - [ ] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
 - [ ] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
@@ -28,11 +28,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Maintainers can compare Bazel and Meson + Ninja against written evaluation criteria for PrusaSlicer.
   2. Maintainers can point to one selected authoritative build stack with rationale and rejection criteria for the alternative.
   3. Maintainers can describe the parity gates and cutoff policy that will end long-term dual-build authority.
-**Plans**: 2 plans
+**Plans**: 4 plans
 
 Plans:
 - [x] 01-01: Define evaluation criteria, parity gates, and authority cutoff signals
 - [x] 01-02: Run the Bazel vs Meson comparison and record the build-system decision
+- [x] 01-03: Close the Linux proof gap and refresh the scorecard from real Linux evidence
+- [x] 01-04: Validate Bazel tooling evidence and refresh the decision packet
 
 ### Phase 2: Establish Build Graph Skeleton
 **Goal**: Put the selected build system at repo root with one authoritative command surface and explicit policy for platform and system-library exceptions.
@@ -100,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Evaluate Build-System Fit | 1/2 | In Progress | - |
+| 1. Evaluate Build-System Fit | 4/4 | Complete | 2026-04-04 |
 | 2. Establish Build Graph Skeleton | 0/TBD | Not started | - |
 | 3. Migrate Core Targets and Dependencies | 0/TBD | Not started | - |
 | 4. Add Local Tooling and Validation | 0/TBD | Not started | - |

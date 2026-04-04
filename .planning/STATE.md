@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 1: Evaluate Build-System Fit
+**Current focus:** Phase 2: Establish Build Graph Skeleton
 
 ## Current Position
 
-Phase: 1 of 5 (Evaluate Build-System Fit)
-Plan: 2 of 2 (01-02 ready)
-Status: Ready to execute
-Last activity: 2026-04-04 — Completed 01-01 plan and created the evaluation framework and comparison runbook
+Phase: 2 of 5 (Establish Build Graph Skeleton)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-04-04 — Phase 1 verified complete after Linux proof and Bazel tooling gap closure
 
-Progress: [█░░░░░░░░░] 10%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
+- Total plans completed: 4
 - Average duration: 0 min
 - Total execution time: 0.0 hours
 
@@ -27,11 +27,11 @@ Progress: [█░░░░░░░░░] 10%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01 | 1 | 0 min | 0 min |
+| 01 | 4 | 21 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 0 min
-- Trend: Stable
+- Last 5 plans: 0 min, 6 min, 15 min, 0 min
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -46,6 +46,7 @@ Recent decisions affecting current work:
 - Initialization: Linux and macOS are the first-class migration targets
 - Initialization: Keep the project focused on build/tooling migration only
 - Phase 01-01: Use a weighted scorecard plus hard gates and a real PrusaSlicer proof slice for the build-system decision
+- Phase 01-02: Select Bazel as the Phase 2 target, with Meson + Ninja as the explicit fallback
 
 ### Pending Todos
 
@@ -53,10 +54,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- The authoritative build-system choice is intentionally unresolved until Phase 1 evaluation is complete.
+- Phase 2 must confirm Bazel can clear dependency/include closure on the selected slice early.
+- Phase 2 must validate or replace the current Bazel compile-commands path for contributor tooling.
 
 ## Session Continuity
 
-Last session: 2026-04-04 03:21 CDT
-Stopped at: Completed 01-01-PLAN.md; 01-02 is ready to execute
-Resume file: .planning/phases/01-evaluate-build-system-fit/01-02-PLAN.md
+Last session: 2026-04-04 04:10 CDT
+Stopped at: Phase 1 complete; Phase 2 is ready to discuss and plan
+Resume file: None
