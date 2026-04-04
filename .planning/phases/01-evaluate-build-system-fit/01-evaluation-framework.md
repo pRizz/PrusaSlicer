@@ -132,7 +132,7 @@ Meson winning is a **valid success path** for the project. Phase 1 is about sele
 - The losing candidate must have explicit rejection rationale.
 - The winner must have explicit Phase 2 implications so later work does not reopen the choice casually.
 
-## Plan 01-02 Outputs
+## Plan 01-02 outputs
 
 Plan 01-02 must produce all of the following:
 - candidate proof artifacts for both Bazel and Meson + Ninja,
@@ -140,7 +140,7 @@ Plan 01-02 must produce all of the following:
 - hard-gate pass/fail assessment,
 - recommendation for one authoritative winner,
 - rejection rationale for the loser,
-- decision packet for future maintainers,
+- Decision packet for future maintainers,
 - and the corresponding decision update in `.planning/PROJECT.md`.
 
 ## Requirement Mapping

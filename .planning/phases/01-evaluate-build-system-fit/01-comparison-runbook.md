@@ -8,6 +8,8 @@
 
 This runbook defines the exact proof scope for comparing Bazel against Meson + Ninja in Phase 1. It translates the evaluation framework into a concrete, repeatable comparison that Plan 01-02 can execute without reopening scope or decision rules.
 
+This runbook operationalizes `EVAL-01` by fixing what evidence the comparison must gather, and supports `EVAL-03` by honoring the already-defined parity gates and authority-cutoff boundaries from the evaluation framework.
+
 ## Representative proof slice
 
 Phase 1 must use the smallest slice that still reflects the real PrusaSlicer product shape.
@@ -94,6 +96,8 @@ For each candidate:
 
 Do not interleave candidate conclusions before both candidates have been evaluated against the same runbook.
 
+The comparison runbook references the scorecard and hard-gate rules defined in the evaluation framework and must not redefine them locally.
+
 ## Evidence recording rules
 
 - Record the same categories of evidence for Bazel and Meson + Ninja.
@@ -133,7 +137,7 @@ Plan 01-02 must produce all of the following:
 - hard-gate outcomes for both candidates,
 - a recommendation naming one winner,
 - a rejection rationale for the loser,
-- a short decision packet,
+- a short Decision packet,
 - and the project-level decision update in `.planning/PROJECT.md`.
 
 ## Handoff to Plan 01-02
