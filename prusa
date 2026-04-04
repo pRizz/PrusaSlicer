@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+detect_bazel() {
+  if command -v bazelisk >/dev/null 2>&1; then
+    printf '%s' "bazelisk"
+    return
+  fi
+
+  if command -v bazel >/dev/null 2>&1; then
+    printf '%s' "bazel"
+    return
+  fi
+
+  printf '%s' "bazelisk"
+}
+
+usage() {
+  cat <<'EOF'
+PrusaSlicer Bazel front door (Phase 2 skeleton)
+
+Usage:
+  ./prusa <command> [--dry-run|--print-command]
+
+Commands:
+  build    Run the default Bazel build path
+  test     Run the default Bazel test path
+  fmt      Invoke the placeholder Bazel formatting target
+  lint     Invoke the placeholder Bazel lint target
+  compdb   Invoke the placeholder Bazel compile-database target
+  help     Show this help
+
+Examples:
+  ./prusa build --dry-run
+  ./prusa test --dry-run
+  ./prusa compdb --dry-run
+
+Direct Bazel equivalents:
+  build  -> bazel build --config=dev --config=<platform> //...
+  test   -> bazel test --config=dev --config=<platform> //...
+  fmt    -> bazel build --config=dev //tools/bazel:fmt
+  lint   -> bazel build --config=dev //tools/bazel:lint
+  compdb -> bazel build --config=dev --config=compdb //tools/bazel:compdb
+
+Notes:
+  - Bazel is the repo-root front door for the migration work.
+  - Full product-target migration remains a later phase.
+  - Legacy CMake build docs remain available during the transition.
+EOF
+}
+
+platform_config() {
+  case "$(uname -s)" in
+    Linux)
+      printf '%s' "linux"
+      ;;
+    Darwin)
+      printf '%s' "macos"
+      ;;
+    *)
+      printf '%s' "linux"
+      ;;
+  esac
+}
+
+main() {
+  local maybe_command="${1:-help}"
+  local dry_run="false"
+
+  shift || true
+
+  while (($#)); do
+    case "$1" in
+      --dry-run|--print-command)
+        dry_run="true"
+        ;;
+      *)
+        printf 'Unknown argument: %s\n' "$1" >&2
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  local bazel_bin
+  bazel_bin="$(detect_bazel)"
+  local platform
+  platform="$(platform_config)"
+  local -a cmd
+
+  case "${maybe_command}" in
+    build)
+      cmd=("${bazel_bin}" build --config=dev --config="${platform}" //...)
+      ;;
+    test)
+      cmd=("${bazel_bin}" test --config=dev --config="${platform}" //...)
+      ;;
+    fmt)
+      cmd=("${bazel_bin}" build --config=dev //tools/bazel:fmt)
+      ;;
+    lint)
+      cmd=("${bazel_bin}" build --config=dev //tools/bazel:lint)
+      ;;
+    compdb)
+      cmd=("${bazel_bin}" build --config=dev --config=compdb //tools/bazel:compdb)
+      ;;
+    help)
+      usage
+      exit 0
+      ;;
+    *)
+      printf 'Unknown command: %s\n\n' "${maybe_command}" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+
+  if [[ "${dry_run}" == "true" ]]; then
+    printf 'Direct Bazel equivalent:\n'
+    printf '  %q' "${cmd[0]}"
+    local idx
+    for ((idx = 1; idx < ${#cmd[@]}; idx++)); do
+      printf ' %q' "${cmd[idx]}"
+    done
+    printf '\n'
+    exit 0
+  fi
+
+  exec "${cmd[@]}"
+}
+
+main "$@"
