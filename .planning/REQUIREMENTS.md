@@ -15,13 +15,13 @@
 
 - [ ] **BLD-01**: Contributor can build the PrusaSlicer application on Linux through the authoritative build path
 - [ ] **BLD-02**: Contributor can build the PrusaSlicer application on macOS through the authoritative build path
-- [ ] **BLD-03**: Contributor can run one documented authoritative command surface instead of choosing between competing primary build workflows
+- [x] **BLD-03**: Contributor can run one documented authoritative command surface instead of choosing between competing primary build workflows
 - [ ] **BLD-04**: Contributor can run the core automated test suites through the authoritative build path on Linux and macOS
 
 ### Dependencies
 
 - [ ] **DEPS-01**: Maintainer can declare third-party dependencies through explicit, version-pinned, reproducible metadata in the new build stack
-- [ ] **DEPS-02**: Maintainer can allow selected system-library exceptions only when they are documented with rationale and scope
+- [x] **DEPS-02**: Maintainer can allow selected system-library exceptions only when they are documented with rationale and scope
 - [ ] **DEPS-03**: Maintainer can track temporary legacy-build bridges with clear ownership and retirement criteria
 
 ### Tooling
@@ -76,10 +76,10 @@
 | EVAL-03 | Phase 1 | Complete |
 | BLD-01 | Phase 3 | Pending |
 | BLD-02 | Phase 3 | Pending |
-| BLD-03 | Phase 2 | Pending |
+| BLD-03 | Phase 2 | Complete |
 | BLD-04 | Phase 4 | Pending |
 | DEPS-01 | Phase 3 | Pending |
-| DEPS-02 | Phase 2 | Pending |
+| DEPS-02 | Phase 2 | Complete |
 | DEPS-03 | Phase 3 | Pending |
 | TOOL-01 | Phase 4 | Pending |
 | TOOL-02 | Phase 4 | Pending |

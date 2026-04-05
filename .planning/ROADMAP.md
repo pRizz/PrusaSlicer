@@ -13,7 +13,7 @@ This roadmap takes PrusaSlicer from a CMake-first build and dependency workflow 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Evaluate Build-System Fit** - Choose the authoritative build stack with explicit migration criteria and cutoff policy
-- [ ] **Phase 2: Establish Build Graph Skeleton** - Create the root build definitions, command surface, and platform/dependency policy
+- [x] **Phase 2: Establish Build Graph Skeleton** - Create the root build definitions, command surface, and platform/dependency policy
 - [ ] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
 - [ ] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
 - [ ] **Phase 5: Make the New Path Authoritative** - Move CI and contributor guidance onto the new path and define the legacy exit
@@ -44,11 +44,11 @@ Plans:
   1. Contributors can see one documented authoritative build entry point at the repository root.
   2. Maintainers can define when system-library exceptions are allowed and where they are documented.
   3. The selected build system has a visible root graph/toolchain structure for Linux and macOS.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Create root build files, target conventions, and command surface
-- [ ] 02-02: Define platform branching and system-library exception policy
+- [x] 02-01: Create root build files, target conventions, and command surface
+- [x] 02-02: Define platform branching and system-library exception policy
 
 ### Phase 3: Migrate Core Targets and Dependencies
 **Goal**: Build the real PrusaSlicer application on Linux and macOS through the new path with explicit third-party dependency ownership and tracked bridge boundaries.
@@ -103,7 +103,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Evaluate Build-System Fit | 4/4 | Complete | 2026-04-04 |
-| 2. Establish Build Graph Skeleton | 0/TBD | Not started | - |
+| 2. Establish Build Graph Skeleton | 2/2 | Complete | 2026-04-04 |
 | 3. Migrate Core Targets and Dependencies | 0/TBD | Not started | - |
 | 4. Add Local Tooling and Validation | 0/TBD | Not started | - |
 | 5. Make the New Path Authoritative | 0/TBD | Not started | - |

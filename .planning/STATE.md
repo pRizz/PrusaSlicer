@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 2: Establish Build Graph Skeleton
+**Current focus:** Phase 3: Migrate Core Targets and Dependencies
 
 ## Current Position
 
-Phase: 2 of 5 (Establish Build Graph Skeleton)
+Phase: 3 of 5 (Migrate Core Targets and Dependencies)
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-04-04 — Phase 2 context gathered and ready for planning
+Last activity: 2026-04-04 — Phase 2 verified complete and Phase 3 is ready to discuss and plan
 
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 0 min
+- Total plans completed: 6
+- Average duration: 5 min
 - Total execution time: 0.0 hours
 
 **By Phase:**
@@ -28,10 +28,11 @@ Progress: [██░░░░░░░░] 20%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
+| 02 | 2 | 9 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 0 min, 6 min, 15 min, 0 min
-- Trend: Improving
+- Last 5 plans: 6 min, 15 min, 0 min, 6 min, 3 min
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -47,6 +48,8 @@ Recent decisions affecting current work:
 - Initialization: Keep the project focused on build/tooling migration only
 - Phase 01-01: Use a weighted scorecard plus hard gates and a real PrusaSlicer proof slice for the build-system decision
 - Phase 01-02: Select Bazel as the Phase 2 target, with Meson + Ninja as the explicit fallback
+- Phase 02-01: Use a thin `./prusa` wrapper as the Bazel-first repo front door instead of hiding Bazel or colliding with the existing `build/` directory
+- Phase 02-02: Keep platform/toolchain work at placeholder skeleton scope and route all system-library exceptions through one centralized registry
 
 ### Pending Todos
 
@@ -54,11 +57,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 2 must confirm Bazel can clear dependency/include closure on the selected slice early.
-- Phase 2 must validate or replace the current Bazel compile-commands path for contributor tooling.
+- Phase 3 must prove real Bazel target migration on Linux and macOS against the selected PrusaSlicer slice.
+- Phase 3 must keep system-library exceptions explicit and avoid turning the Phase 2 skeleton into ad hoc target logic.
 
 ## Session Continuity
 
-Last session: 2026-04-04 08:05 CDT
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-establish-build-graph-skeleton/02-CONTEXT.md
+Last session: 2026-04-04 20:23 CDT
+Stopped at: Phase 2 complete; Phase 3 is ready to discuss and plan
+Resume file: None
