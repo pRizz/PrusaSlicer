@@ -4,6 +4,8 @@ common --enable_bzlmod
 common:dev --announce_rc
 
 # Centralized platform names consumed by ./prusa.
+# Phase 3 currently proves Linux through a Linux/arm64 environment so the
+# shared proof-slice labels can be validated from the available macOS host.
 build:linux --platforms=//tools/bazel/platforms:linux
 test:linux --platforms=//tools/bazel/platforms:linux
 build:macos --platforms=//tools/bazel/platforms:macos

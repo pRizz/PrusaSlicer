@@ -14,11 +14,12 @@ already migrated. Full product-target migration remains later-phase work.
 
 ## Phase 3 Proof Slice
 
-Phase 3 starts from a deliberately small Bazel-owned binary boundary:
+Phase 3 now proves the same bounded Bazel-owned slice on macOS and Linux/arm64:
 
 - `//src:PrusaSlicer`
-- one narrow proof-slice bridge if absolutely required
-- no broad `libslic3r` or GUI migration in the first step
+- `//tests/libslic3r:config_test`
+- one shared config-oriented seam in `//src/libslic3r:config_core`
+- no broad `libslic3r` or GUI migration in the proof
 
 Owned dependencies for the current proof slice live in
 `tools/bazel/deps/proof_slice_deps.bzl`.
@@ -29,15 +30,42 @@ Temporary proof-slice bridges live in
 Temporary system-library exceptions for the proof slice are tracked in
 `tools/bazel/policies/system_libraries.bzl`.
 
-Current Wave 1 proof result:
-- `npx -y @bazel/bazelisk build --config=dev --config=macos //src:PrusaSlicer` succeeds
-- `npx -y @bazel/bazelisk run --config=dev --config=macos //src:PrusaSlicer -- --help` succeeds
-- The current macOS proof uses a temporary Bazel-only entry shim behind the stable `//src:PrusaSlicer` label to avoid the oversized `libslic3r.h` header fanout in Wave 1
+Current proof status:
+- `//src:PrusaSlicer` builds on macOS and Linux/arm64 behind the same public label
+- `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
+- `--help` is served directly by Bazel-owned source, while other runtime paths still use the explicit legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
+- binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
 
-Current Wave 2 seam result:
-- `--help` is now served directly by Bazel-owned source behind `//src:PrusaSlicer`
-- the remaining runtime handoff is still explicit in `tools/bazel/policies/proof_slice_bridges.md`
-- no temporary system-library exception is currently required for this narrowed seam
+macOS proof commands:
+
+```shell
+npx -y @bazel/bazelisk build --config=dev --config=macos //src:PrusaSlicer
+npx -y @bazel/bazelisk test --config=dev --config=macos //tests/libslic3r:config_test
+```
+
+Linux/arm64 proof commands inside a Linux environment:
+
+```shell
+sudo apt-get install -y libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2
+bazelisk build --config=dev --config=linux //src:PrusaSlicer
+bazelisk test --config=dev --config=linux //tests/libslic3r:config_test
+```
+
+Linux/arm64 proof command from a macOS host via Docker:
+
+```shell
+docker run --rm --platform=linux/arm64 --user 0:0 -v "$PWD:/workspace" -w /workspace ubuntu:24.04 bash -lc '
+set -euo pipefail
+export DEBIAN_FRONTEND=noninteractive
+apt-get update >/dev/null
+apt-get install -y ca-certificates curl git unzip zip openjdk-21-jdk build-essential python3 pkg-config cmake ninja-build libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2 >/dev/null
+curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-arm64
+chmod +x /usr/local/bin/bazelisk
+mkdir -p /tmp/codex-home /tmp/bazelroot
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux //src:PrusaSlicer
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //tests/libslic3r:config_test
+'
+```
 
 ## Layout
 

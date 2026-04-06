@@ -14,6 +14,8 @@ namespace {
 const char *candidate_binary_paths[] = {
     "build/src/Debug/PrusaSlicer",
     "build/src/Debug/prusa-slicer",
+    "build/src/PrusaSlicer",
+    "build/src/prusa-slicer",
 };
 
 std::string make_workspace_path(const char *workspace_root, const char *relative_path)
@@ -37,14 +39,14 @@ bool wants_help(int argc, char **argv)
 
 void print_bazel_help()
 {
-    puts("PrusaSlicer Bazel Phase 3 macOS proof slice");
+    puts("PrusaSlicer Bazel Phase 3 proof slice");
     puts("");
     puts("This Bazel-owned seam handles `--help` directly while later Phase 3");
     puts("waves deepen the owned CLI/core slice behind the same //src:PrusaSlicer label.");
     puts("");
     puts("Current behavior:");
     puts("- `--help` and `-h` are served directly by the Bazel-owned CLI seam");
-    puts("- other arguments still hand off to the locally built PrusaSlicer binary");
+    puts("- other arguments still hand off to the locally built legacy PrusaSlicer binary");
 }
 
 } // namespace
@@ -79,7 +81,7 @@ int run(int argc, char **argv)
 
     if (binary == nullptr) {
         fprintf(stderr,
-                "Bazel handoff seam could not find an executable PrusaSlicer binary in build/src/Debug.\n");
+                "Bazel handoff seam could not find an executable legacy PrusaSlicer binary in build/src.\n");
         return 1;
     }
 

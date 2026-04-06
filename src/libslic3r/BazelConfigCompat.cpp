@@ -1,12 +1,21 @@
 #include "Config.hpp"
+#include "I18N.hpp"
 #include "PrintConfig.hpp"
 #include "GCode/Thumbnails.hpp"
 
+#include <LibBGCode/binarize/binarize.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/format.hpp>
+#include <core/core.hpp>
 
 namespace Slic3r {
+
+namespace I18N {
+
+translate_fn_type translate_fn = nullptr;
+
+} // namespace I18N
 
 static std::vector<std::string> s_Bazel_sla_tilt_options{
      "delay_before_exposure"
@@ -119,3 +128,65 @@ std::string get_error_string(const ThumbnailErrors& errors)
 } // namespace GCodeThumbnails
 
 } // namespace Slic3r
+
+namespace {
+
+std::string_view unsupported_bgcode_result(bgcode::core::EResult result)
+{
+    using bgcode::core::EResult;
+
+    switch (result) {
+    case EResult::BlockNotFound:
+        return "Block not found in Bazel proof-slice bgcode stub";
+    case EResult::InvalidBinaryGCodeFile:
+    default:
+        return "Binary G-code parsing is deferred outside the Bazel proof slice";
+    }
+}
+
+} // namespace
+
+namespace bgcode::core {
+
+FileHeader::FileHeader()
+    : magic(0)
+    , version(0)
+    , checksum_type(static_cast<uint16_t>(EChecksumType::CRC32))
+{
+}
+
+std::string_view translate_result(EResult result)
+{
+    return unsupported_bgcode_result(result);
+}
+
+EResult is_valid_binary_gcode(FILE&, bool, std::byte*, size_t)
+{
+    return EResult::InvalidBinaryGCodeFile;
+}
+
+EResult read_header(FILE&, FileHeader&, const uint32_t* const)
+{
+    return EResult::InvalidBinaryGCodeFile;
+}
+
+EResult read_next_block_header(FILE&, const FileHeader&, BlockHeader&, std::byte*, size_t)
+{
+    return EResult::InvalidBinaryGCodeFile;
+}
+
+EResult read_next_block_header(FILE&, const FileHeader&, BlockHeader&, EBlockType, std::byte*, size_t)
+{
+    return EResult::BlockNotFound;
+}
+
+} // namespace bgcode::core
+
+namespace bgcode::binarize {
+
+core::EResult SlicerMetadataBlock::read_data(FILE&, const core::FileHeader&, const core::BlockHeader&)
+{
+    return core::EResult::InvalidBinaryGCodeFile;
+}
+
+} // namespace bgcode::binarize

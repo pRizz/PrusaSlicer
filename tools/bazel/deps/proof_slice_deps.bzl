@@ -7,8 +7,6 @@ PROOF_SLICE_DIRECT_DEPS = [
     "cereal",
     "catch2",
     "eigen3",
-    "libbgcode_binarize",
-    "libbgcode_core",
     "localesutils",
     "semver",
 ]

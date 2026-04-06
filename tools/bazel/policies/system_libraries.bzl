@@ -20,4 +20,15 @@ def system_library_exception(
         "lifetime": lifetime,
     }
 
-SYSTEM_LIBRARY_EXCEPTIONS = []
+SYSTEM_LIBRARY_EXCEPTIONS = [
+    system_library_exception(
+        name = "phase-03-linux-proof-slice-system-libs",
+        allowed_platforms = ["linux-aarch64"],
+        scope = [
+            "//src:PrusaSlicer",
+            "//tests/libslic3r:config_test",
+        ],
+        rationale = "Linux/arm64 proof uses distro-provided Boost, TBB, EXPAT, libpng, and Catch2 because the checked-in vendor archives under deps/build/destdir/usr/local/lib are macOS arm64 Mach-O artifacts.",
+        lifetime = "Retire when the bounded proof slice links against Bazel-owned or imported Linux vendor artifacts instead of distro packages.",
+    ),
+]
