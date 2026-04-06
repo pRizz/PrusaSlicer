@@ -1,0 +1,24 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//tools/bazel/deps:proof_slice_deps.bzl", "PROOF_SLICE_COPTS")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "prusa_headers",
+    hdrs = [
+        "PrusaSlicer.hpp",
+    ],
+    includes = ["."],
+)
+
+cc_binary(
+    name = "PrusaSlicer",
+    srcs = ["BazelMain.cpp"],
+    copts = PROOF_SLICE_COPTS,
+    deps = [
+        "//src/CLI:bazel_handoff",
+        ":prusa_headers",
+        "@boost_headers_macos//:boost_headers",
+    ],
+)

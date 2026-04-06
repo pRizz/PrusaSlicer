@@ -10,9 +10,14 @@ platform(
 platform(
     name = "macos",
     constraint_values = [
+        "@platforms//cpu:aarch64",
         "@platforms//os:osx",
     ],
 )
+
+# Phase 3 wave 1 note:
+# Keep macOS as the first proving ground without creating a separate target
+# namespace. The same labels must later work on Linux.
 
 # Reserved for later phases. Do not wire active Windows behavior here yet.
 platform(
