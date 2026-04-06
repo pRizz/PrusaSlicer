@@ -29,14 +29,15 @@ Temporary proof-slice bridges live in
 Temporary system-library exceptions for the proof slice are tracked in
 `tools/bazel/policies/system_libraries.bzl`.
 
-Current macOS proof-slice exception:
-- Boost headers are sourced from the local Homebrew installation through
-  `@boost_headers_macos` while the Wave 1 binary boundary is being proven.
-
 Current Wave 1 proof result:
 - `npx -y @bazel/bazelisk build --config=dev --config=macos //src:PrusaSlicer` succeeds
 - `npx -y @bazel/bazelisk run --config=dev --config=macos //src:PrusaSlicer -- --help` succeeds
 - The current macOS proof uses a temporary Bazel-only entry shim behind the stable `//src:PrusaSlicer` label to avoid the oversized `libslic3r.h` header fanout in Wave 1
+
+Current Wave 2 seam result:
+- `--help` is now served directly by Bazel-owned source behind `//src:PrusaSlicer`
+- the remaining runtime handoff is still explicit in `tools/bazel/policies/proof_slice_bridges.md`
+- no temporary system-library exception is currently required for this narrowed seam
 
 ## Layout
 

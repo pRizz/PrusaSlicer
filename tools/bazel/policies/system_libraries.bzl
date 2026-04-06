@@ -20,12 +20,4 @@ def system_library_exception(
         "lifetime": lifetime,
     }
 
-SYSTEM_LIBRARY_EXCEPTIONS = [
-    system_library_exception(
-        name = "boost_headers",
-        allowed_platforms = ["macOS"],
-        scope = "//src:PrusaSlicer Wave 1 binary-boundary proof",
-        rationale = "PrusaSlicer.cpp requires Boost.Nowide headers before the proof slice can cross the binary boundary; Bazel consumes them through the local repository @boost_headers_macos.",
-        lifetime = "temporary",
-    ),
-]
+SYSTEM_LIBRARY_EXCEPTIONS = []

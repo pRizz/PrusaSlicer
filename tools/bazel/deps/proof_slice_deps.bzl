@@ -1,9 +1,8 @@
 """Bounded dependency metadata for the Phase 3 proof slice."""
 
-# The first Wave 1 proof owns only the Bazel binary boundary and one narrow
-# seam. The only approved system-level header dependency at this point is Boost
-# on macOS so `src/PrusaSlicer.cpp` can compile.
+# The current Phase 3 proof slice owns only a very small Bazel-native CLI help
+# seam behind `//src:PrusaSlicer`. It does not yet own a deeper `libslic3r`
+# core slice, so the dependency cut line stays intentionally tiny.
 PROOF_SLICE_COPTS = [
     "-Isrc",
-    "-Ibuild/src/libslic3r",
 ]
