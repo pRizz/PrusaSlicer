@@ -1,0 +1,24 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+load("//tools/bazel/deps:proof_slice_deps.bzl", "PROOF_SLICE_COPTS")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_test(
+    name = "config_test",
+    srcs = [
+        "BazelCatchMain.cpp",
+        "test_config.cpp",
+    ],
+    copts = PROOF_SLICE_COPTS + [
+        "-DTEST_DATA_DIR=\\\"tests/data\\\"",
+    ],
+    local_defines = [
+        "CATCH_CONFIG_FAST_COMPILE",
+    ],
+    deps = [
+        "//deps/build/destdir/usr/local/include:vendor_headers",
+        "//src/libslic3r:config_core",
+    ],
+    data = ["//tests:test_data"],
+    linkopts = [],
+)
