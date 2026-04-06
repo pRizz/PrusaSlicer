@@ -2,6 +2,34 @@ module(
     name = "prusaslicer",
 )
 
+bazel_dep(name = "rules_cc", version = "0.2.17")
+bazel_dep(name = "platforms", version = "0.0.11")
+
+new_local_repository = use_repo_rule(
+    "@bazel_tools//tools/build_defs/repo:local.bzl",
+    "new_local_repository",
+)
+
+new_local_repository(
+    name = "boost_headers_macos",
+    path = "/opt/homebrew/include",
+    build_file_content = """
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "boost_headers",
+    hdrs = glob([
+        "boost/**/*.h",
+        "boost/**/*.hpp",
+        "boost/**/*.ipp",
+    ]),
+    includes = ["."],
+)
+""",
+)
+
 # Phase 2 note:
 # This MODULE.bazel establishes Bazel as the repo-root module boundary and
 # front door. It does not imply that the full PrusaSlicer target graph is

@@ -12,6 +12,27 @@ This directory holds the Bazel-owned structural skeleton introduced in Phase 2.
 This directory does **not** imply that the full PrusaSlicer target graph is
 already migrated. Full product-target migration remains later-phase work.
 
+## Phase 3 Proof Slice
+
+Phase 3 starts from a deliberately small Bazel-owned binary boundary:
+
+- `//src:PrusaSlicer`
+- one narrow proof-slice bridge if absolutely required
+- no broad `libslic3r` or GUI migration in the first step
+
+Owned dependencies for the current proof slice live in
+`tools/bazel/deps/proof_slice_deps.bzl`.
+
+Temporary proof-slice bridges live in
+`tools/bazel/policies/proof_slice_bridges.md`.
+
+Temporary system-library exceptions for the proof slice are tracked in
+`tools/bazel/policies/system_libraries.bzl`.
+
+Current macOS proof-slice exception:
+- Boost headers are sourced from the local Homebrew installation through
+  `@boost_headers_macos` while the Wave 1 binary boundary is being proven.
+
 ## Layout
 
 - `BUILD.bazel`
