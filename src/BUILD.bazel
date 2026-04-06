@@ -19,6 +19,5 @@ cc_binary(
     deps = [
         "//src/CLI:bazel_handoff",
         ":prusa_headers",
-        "@boost_headers_macos//:boost_headers",
     ],
 )

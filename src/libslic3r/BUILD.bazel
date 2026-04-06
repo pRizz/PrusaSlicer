@@ -1,0 +1,10 @@
+package(default_visibility = ["//visibility:public"])
+
+# Phase 3 placeholder:
+# The current Wave 2 seam has not yet taken real source ownership inside
+# libslic3r. This package exists so later waves can deepen the CLI/core seam
+# without moving the package boundary again.
+filegroup(
+    name = "phase3_placeholder",
+    srcs = [],
+)
