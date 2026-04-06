@@ -33,6 +33,11 @@ Current macOS proof-slice exception:
 - Boost headers are sourced from the local Homebrew installation through
   `@boost_headers_macos` while the Wave 1 binary boundary is being proven.
 
+Current Wave 1 proof result:
+- `npx -y @bazel/bazelisk build --config=dev --config=macos //src:PrusaSlicer` succeeds
+- `npx -y @bazel/bazelisk run --config=dev --config=macos //src:PrusaSlicer -- --help` succeeds
+- The current macOS proof uses a temporary Bazel-only entry shim behind the stable `//src:PrusaSlicer` label to avoid the oversized `libslic3r.h` header fanout in Wave 1
+
 ## Layout
 
 - `BUILD.bazel`
