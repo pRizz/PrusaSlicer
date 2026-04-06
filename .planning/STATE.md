@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-04-03)
 Phase: 3 of 5 (Migrate Core Targets and Dependencies)
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-04-05 — Phase 3 context gathered and ready for planning
+Last activity: 2026-04-06 — Aborted oversized Phase 3 attempt and replanned into 4 smaller waves
 
 Progress: [████░░░░░░] 40%
 
@@ -53,6 +53,7 @@ Recent decisions affecting current work:
 - Phase 03 context: Use a CLI/core proof slice first, not a full GUI proof
 - Phase 03 context: Treat macOS as the immediate proving ground, but require explicit Linux evidence in the same target shape
 - Phase 03 context: Every bridge must be visible, scoped, and temporary by default
+- Phase 03 replan: Replace the oversized 2-wave proof with a 4-wave dependency ladder, starting from a tiny macOS binary boundary and narrowing bridge scope aggressively
 
 ### Pending Todos
 
@@ -60,11 +61,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 3 must prove real Bazel target migration on Linux and macOS against the selected PrusaSlicer slice.
-- Phase 3 must keep system-library exceptions explicit and avoid turning the Phase 2 skeleton into ad hoc target logic.
+- Phase 3 must start from the replanned 4-wave path, not from the aborted broad proof attempt.
+- Any bridge used in Phase 3 must stay narrow and explicitly documented with retirement conditions.
 
 ## Session Continuity
 
-Last session: 2026-04-05 03:33 CDT
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-migrate-core-targets-and-dependencies/03-CONTEXT.md
+Last session: 2026-04-06 00:00 CDT
+Stopped at: Aborted broad Phase 3 proof, replanned to 4 waves, cleanup pending before execution
+Resume file: .planning/phases/03-migrate-core-targets-and-dependencies/03-01-PLAN.md
