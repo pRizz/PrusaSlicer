@@ -18,6 +18,7 @@ cc_binary(
     copts = PROOF_SLICE_COPTS,
     deps = [
         "//src/CLI:bazel_handoff",
+        "//src/libslic3r:config_core",
         ":prusa_headers",
     ],
 )

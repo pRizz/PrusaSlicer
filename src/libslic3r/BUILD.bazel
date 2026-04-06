@@ -1,10 +1,54 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//tools/bazel/deps:proof_slice_deps.bzl", "PROOF_SLICE_COPTS")
+
 package(default_visibility = ["//visibility:public"])
 
-# Phase 3 placeholder:
-# The current Wave 2 seam has not yet taken real source ownership inside
-# libslic3r. This package exists so later waves can deepen the CLI/core seam
-# without moving the package boundary again.
-filegroup(
-    name = "phase3_placeholder",
-    srcs = [],
+genrule(
+    name = "libslic3r_version_header",
+    srcs = [
+        "libslic3r_version.h.in",
+        "//:version.inc",
+    ],
+    outs = ["libslic3r_version.h"],
+    cmd = """
+set -e
+APP_NAME=$$(sed -n 's/^set(SLIC3R_APP_NAME \"\\(.*\\)\")/\\1/p' $(location //:version.inc))
+APP_KEY=$$(sed -n 's/^set(SLIC3R_APP_KEY \"\\(.*\\)\")/\\1/p' $(location //:version.inc))
+VERSION=$$(sed -n 's/^set(SLIC3R_VERSION \"\\(.*\\)\")/\\1/p' $(location //:version.inc))
+BUILD_ID=$$(sed -n 's/^set(SLIC3R_BUILD_ID \"\\(.*\\)\")/\\1/p' $(location //:version.inc))
+sed \
+  -e "s/@SLIC3R_APP_NAME@/$${APP_NAME}/g" \
+  -e "s/@SLIC3R_APP_KEY@/$${APP_KEY}/g" \
+  -e "s/@SLIC3R_VERSION@/$${VERSION}/g" \
+  -e "s/@SLIC3R_BUILD_ID@/$${BUILD_ID}/g" \
+  $(location libslic3r_version.h.in) > $@
+""",
+)
+
+cc_library(
+    name = "config_core",
+    srcs = [
+        "BazelConfigCompat.cpp",
+        "BoundingBox.cpp",
+        "Config.cpp",
+        "Point.cpp",
+        "PrintConfig.cpp",
+    ],
+    hdrs = glob([
+        "**/*.h",
+        "**/*.hpp",
+    ]) + [":libslic3r_version_header"],
+    copts = PROOF_SLICE_COPTS,
+    includes = [
+        ".",
+        "..",
+    ],
+    deps = [
+        "//bundled_deps/int128:int128_headers",
+        "//bundled_deps/semver:semver",
+        "//bundled_deps/localesutils:localesutils",
+        "//deps/build/destdir/usr/local/include:vendor_headers",
+        "//deps/build/destdir/usr/local/lib:proof_slice_vendor_libs",
+    ],
+    linkopts = [],
 )

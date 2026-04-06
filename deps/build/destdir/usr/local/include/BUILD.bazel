@@ -1,0 +1,19 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "vendor_headers",
+    hdrs = glob([
+        "**/*.h",
+        "**/*.hpp",
+        "**/*.ipp",
+        "eigen3/Eigen/**",
+        "eigen3/unsupported/**",
+    ]),
+    includes = [
+        ".",
+        "eigen3",
+        "LibBGCode",
+    ],
+)

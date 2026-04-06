@@ -1,0 +1,13 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "localesutils",
+    srcs = ["LocalesUtils.cpp"],
+    hdrs = ["LocalesUtils.hpp"],
+    deps = [
+        "//bundled_deps/fast_float:fast_float_headers",
+    ],
+    includes = ["."],
+)
