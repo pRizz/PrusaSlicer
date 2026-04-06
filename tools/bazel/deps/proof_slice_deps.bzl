@@ -1,10 +1,19 @@
 """Bounded dependency metadata for the Phase 3 proof slice."""
 
-# The current Phase 3 proof slice owns only a very small Bazel-native CLI help
-# seam behind `//src:PrusaSlicer`. It does not yet own a deeper `libslic3r`
-# core slice, so the dependency cut line stays intentionally tiny.
-PROOF_SLICE_DIRECT_DEPS = []
+# The current Phase 3 proof slice owns one narrow config-oriented core seam plus
+# one representative test target. It still avoids broad GUI/package ownership.
+PROOF_SLICE_DIRECT_DEPS = [
+    "boost",
+    "cereal",
+    "catch2",
+    "eigen3",
+    "libbgcode_binarize",
+    "libbgcode_core",
+    "localesutils",
+    "semver",
+]
 
 PROOF_SLICE_COPTS = [
     "-Isrc",
+    "-Itests",
 ]
