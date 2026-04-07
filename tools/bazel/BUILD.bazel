@@ -1,5 +1,13 @@
 package(default_visibility = ["//visibility:public"])
 
+test_suite(
+    name = "test_suite",
+    tests = [
+        "//tests/libslic3r:config_test",
+        "//tests/thumbnails:thumbnails_test",
+    ],
+)
+
 # Phase 2 note:
 # These are placeholder front-door labels so the repo has a consistent Bazel
 # command surface before the deeper tooling and target graph work lands.
