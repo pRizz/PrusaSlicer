@@ -173,6 +173,10 @@ It runs `clang-tidy` on the bounded Bazel-owned contributor surface:
 - `tests/thumbnails/test_thumbnails_ini_string.cpp`
 - `tests/thumbnails/test_thumbnails_input_string.cpp`
 
+On macOS, the wrapper prefers `clang-tidy` from Homebrew LLVM at
+`/opt/homebrew/opt/llvm/bin/clang-tidy`; on Linux it uses `clang-tidy` from
+`PATH`.
+
 Tracked lint deferrals currently include:
 
 - broader readability and modernization checks across the legacy tree

@@ -21,6 +21,20 @@ find_bazel_prefix() {
   exit 1
 }
 
+host_platform() {
+  case "$(uname -s)" in
+    Linux)
+      printf '%s\n' linux
+      ;;
+    Darwin)
+      printf '%s\n' macos
+      ;;
+    *)
+      printf '%s\n' linux
+      ;;
+  esac
+}
+
 find_clang_tidy() {
   if [[ -x /opt/homebrew/opt/llvm/bin/clang-tidy ]]; then
     printf '%s\n' /opt/homebrew/opt/llvm/bin/clang-tidy
@@ -50,11 +64,12 @@ fi
 declare -a BAZEL_PREFIX
 find_bazel_prefix
 clang_tidy="$(find_clang_tidy)"
-execution_root="$("${BAZEL_PREFIX[@]}" info --config=dev --config=macos execution_root | tail -n 1)"
+platform="$(host_platform)"
+execution_root="$("${BAZEL_PREFIX[@]}" info --config=dev --config="${platform}" execution_root | tail -n 1)"
 
 "${BAZEL_PREFIX[@]}" aquery \
   --config=dev \
-  --config=macos \
+  --config="${platform}" \
   --output=jsonproto \
   --include_commandline \
   'mnemonic("CppCompile", deps(//src:PrusaSlicer + //tests/libslic3r:config_test + //tests/thumbnails:thumbnails_test))' > "${raw_output}"

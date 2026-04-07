@@ -90,6 +90,10 @@ the inherited proof-slice core translation units in `src/libslic3r`, and the
 current Catch-heavy `tests/libslic3r/test_config.cpp`, plus the GUI, packaging,
 and larger CTest-only suites outside the migrated proof slice.
 
+On macOS, `./prusa lint` uses `clang-tidy` from Homebrew LLVM
+(`/opt/homebrew/opt/llvm/bin/clang-tidy`) when present and otherwise falls back
+to `clang-tidy` on `PATH`.
+
 Current bounded Phase 4 editor metadata path:
 - `./prusa compdb`
 - `build/compdb/compile_commands.json`
