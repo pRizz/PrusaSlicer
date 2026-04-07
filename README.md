@@ -45,7 +45,7 @@ action:
 # bazel run --config=dev //tools/bazel/lint:clang_tidy
 
 ./prusa compdb --dry-run
-# bazel build --config=dev --config=compdb //tools/bazel:compdb
+# bazel run --config=dev --config=compdb //tools/bazel/compdb:refresh
 ```
 
 Current bounded Phase 4 local test surface:
@@ -89,6 +89,15 @@ Tracked lint deferrals currently include broader readability/modernization work,
 the inherited proof-slice core translation units in `src/libslic3r`, and the
 current Catch-heavy `tests/libslic3r/test_config.cpp`, plus the GUI, packaging,
 and larger CTest-only suites outside the migrated proof slice.
+
+Current bounded Phase 4 editor metadata path:
+- `./prusa compdb`
+- `build/compdb/compile_commands.json`
+- `.clangd` points editors at `build/compdb`
+
+Refresh this metadata after changing Bazel BUILD definitions, moving files into
+or out of the bounded test surface, or changing compile-affecting flags for the
+current proof slice.
 
 The existing platform-specific CMake build guides remain available below as
 legacy transition documentation while the Bazel graph is expanded.

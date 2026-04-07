@@ -34,7 +34,7 @@ Commands:
   test     Run the bounded Bazel Phase 4 test suite
   fmt      Run bounded Bazel-backed formatting checks or fixes
   lint     Run the bounded Bazel Phase 4 lint pass
-  compdb   Invoke the placeholder Bazel compile-database target
+  compdb   Refresh bounded Bazel compile commands for clangd
   help     Show this help
 
 Examples:
@@ -43,19 +43,21 @@ Examples:
   ./prusa test --platform linux --dry-run
   ./prusa fmt --check --dry-run
   ./prusa fmt --fix --dry-run
+  ./prusa compdb --dry-run
 
 Direct Bazel equivalents:
   build  -> bazel build --config=dev --config=<platform> //...
   test   -> bazel test --config=dev --config=<platform> //tools/bazel:test_suite
   fmt    -> bazel run --config=dev //tools/bazel/format:<check|fix>
   lint   -> bazel run --config=dev //tools/bazel/lint:clang_tidy
-  compdb -> bazel build --config=dev --config=compdb //tools/bazel:compdb
+  compdb -> bazel run --config=dev --config=compdb //tools/bazel/compdb:refresh
 
 Notes:
   - Bazel is the repo-root front door for the migration work.
   - `test` is the bounded non-GUI local test surface for Phase 4, not full legacy CTest parity.
   - `fmt` currently covers the Bazel-owned proof slice and adjacent non-GUI tests, not the whole repo.
   - `lint` currently uses clang-tidy on the Bazel-owned proof slice and adjacent non-GUI tests only.
+  - `compdb` writes to build/compdb/compile_commands.json for clangd and other editor tooling.
   - On macOS, `--platform linux` runs the same Bazel suite inside Docker.
   - Legacy CMake build docs remain available during the transition.
   - Platform configs are centralized under //tools/bazel/platforms.
@@ -165,7 +167,7 @@ main() {
       cmd=("${BAZEL_PREFIX[@]}" run --config=dev //tools/bazel/lint:clang_tidy)
       ;;
     compdb)
-      cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config=compdb //tools/bazel:compdb)
+      cmd=("${BAZEL_PREFIX[@]}" run --config=dev --config=compdb //tools/bazel/compdb:refresh)
       ;;
     help)
       usage

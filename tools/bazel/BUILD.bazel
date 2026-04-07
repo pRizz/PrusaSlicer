@@ -21,7 +21,7 @@ alias(
     actual = "//tools/bazel/lint:clang_tidy",
 )
 
-filegroup(
+alias(
     name = "compdb",
-    srcs = [],
+    actual = "//tools/bazel/compdb:refresh",
 )

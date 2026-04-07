@@ -11,6 +11,6 @@ test:linux --platforms=//tools/bazel/platforms:linux
 build:macos --platforms=//tools/bazel/platforms:macos
 test:macos --platforms=//tools/bazel/platforms:macos
 
-# Placeholder compile-database config. Phase 4 will wire the real tool.
+# Compile-database refresh keeps top-level outputs for the bounded Phase 4 slice.
 build:compdb --remote_download_outputs=toplevel
 run:compdb --remote_download_outputs=toplevel

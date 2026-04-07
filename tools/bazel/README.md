@@ -183,6 +183,20 @@ Tracked lint deferrals currently include:
 - `tests/libslic3r/test_config.cpp`
 - GUI, packaging, and larger CTest-only suites outside the migrated proof slice
 
+## Phase 4 Editor Metadata
+
+The authoritative metadata refresh command is:
+
+- `./prusa compdb`
+
+It writes the bounded slice compile database to:
+
+- `build/compdb/compile_commands.json`
+
+`.clangd` points editors at `build/compdb`, so contributors only need to rerun
+`./prusa compdb` when BUILD targets, source membership, or compile-affecting
+flags change for the migrated proof slice.
+
 ## Policy
 
 System-library exceptions are centralized in
