@@ -4,6 +4,7 @@ module(
 
 bazel_dep(name = "rules_cc", version = "0.2.17")
 bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 
 # Phase 2 note:
 # This MODULE.bazel establishes Bazel as the repo-root module boundary and

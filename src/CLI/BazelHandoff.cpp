@@ -18,8 +18,7 @@ const char *candidate_binary_paths[] = {
     "build/src/prusa-slicer",
 };
 
-std::string make_workspace_path(const char *workspace_root, const char *relative_path)
-{
+std::string make_workspace_path(const char *workspace_root, const char *relative_path) {
     std::string path = workspace_root;
     if (!path.empty() && path.back() != '/')
         path.push_back('/');
@@ -27,8 +26,7 @@ std::string make_workspace_path(const char *workspace_root, const char *relative
     return path;
 }
 
-bool wants_help(int argc, char **argv)
-{
+bool wants_help(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0)
             return true;
@@ -37,8 +35,7 @@ bool wants_help(int argc, char **argv)
     return false;
 }
 
-void print_bazel_help()
-{
+void print_bazel_help() {
     puts("PrusaSlicer Bazel Phase 3 proof slice");
     puts("");
     puts("This Bazel-owned seam handles `--help` directly while later Phase 3");
@@ -53,8 +50,7 @@ void print_bazel_help()
 
 namespace Slic3r::CLI {
 
-int run(int argc, char **argv)
-{
+int run(int argc, char **argv) {
     if (wants_help(argc, argv)) {
         print_bazel_help();
         return 0;
@@ -80,8 +76,9 @@ int run(int argc, char **argv)
     }
 
     if (binary == nullptr) {
-        fprintf(stderr,
-                "Bazel handoff seam could not find an executable legacy PrusaSlicer binary in build/src.\n");
+        fprintf(
+            stderr, "Bazel handoff seam could not find an executable legacy PrusaSlicer binary in build/src.\n"
+        );
         return 1;
     }
 

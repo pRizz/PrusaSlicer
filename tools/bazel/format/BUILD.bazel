@@ -1,0 +1,16 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//tools/bazel/format:clang_format_targets.bzl", "CLANG_FORMAT_TARGETS")
+
+package(default_visibility = ["//visibility:public"])
+
+sh_binary(
+    name = "check",
+    srcs = ["run_clang_format.sh"],
+    args = ["--mode=check"] + CLANG_FORMAT_TARGETS,
+)
+
+sh_binary(
+    name = "fix",
+    srcs = ["run_clang_format.sh"],
+    args = ["--mode=fix"] + CLANG_FORMAT_TARGETS,
+)

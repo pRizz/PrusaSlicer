@@ -35,8 +35,11 @@ action:
 ./prusa test --platform linux --dry-run
 # bazel test --config=dev --config=linux //tools/bazel:test_suite
 
-./prusa fmt --dry-run
-# bazel build --config=dev //tools/bazel:fmt
+./prusa fmt --check --dry-run
+# bazel run --config=dev //tools/bazel/format:check
+
+./prusa fmt --fix --dry-run
+# bazel run --config=dev //tools/bazel/format:fix
 
 ./prusa lint --dry-run
 # bazel build --config=dev //tools/bazel:lint
@@ -61,6 +64,19 @@ expands.
 On a macOS host, `./prusa test --platform linux` runs the same bounded Bazel
 suite inside Docker so the Linux label stays visible without pretending
 host-side cross-platform toolchains already exist.
+
+Current bounded Phase 4 formatting surface:
+- `src/BazelMain.cpp`
+- `src/CLI/BazelHandoff.cpp`
+- `src/libslic3r/BazelConfigCompat.cpp`
+- `tests/libslic3r/{BazelCatchMain.cpp,test_config.cpp}`
+- `tests/thumbnails/*.cpp`
+
+Tracked formatting exclusions still include the inherited proof-slice core
+translation units in `src/libslic3r/{BoundingBox.cpp,Config.cpp,Point.cpp,PrintConfig.cpp}`,
+plus `tests/fff_print`, `tests/sla_print`, `tests/slic3rutils`,
+`tests/arrange`, and the broader GUI and packaging-heavy source tree outside
+the migrated proof slice.
 
 The existing platform-specific CMake build guides remain available below as
 legacy transition documentation while the Bazel graph is expanded.

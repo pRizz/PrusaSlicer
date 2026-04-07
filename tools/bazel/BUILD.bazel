@@ -11,9 +11,9 @@ test_suite(
 # Phase 2 note:
 # These are placeholder front-door labels so the repo has a consistent Bazel
 # command surface before the deeper tooling and target graph work lands.
-filegroup(
+alias(
     name = "fmt",
-    srcs = [],
+    actual = "//tools/bazel/format:check",
 )
 
 filegroup(

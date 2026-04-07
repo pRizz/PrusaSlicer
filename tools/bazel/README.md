@@ -88,7 +88,8 @@ Use the root wrapper first:
 ./prusa build --dry-run
 ./prusa test --platform macos --dry-run
 ./prusa test --platform linux --dry-run
-./prusa fmt --dry-run
+./prusa fmt --check --dry-run
+./prusa fmt --fix --dry-run
 ./prusa lint --dry-run
 ./prusa compdb --dry-run
 ```
@@ -125,6 +126,36 @@ Tracked legacy CTest exceptions still include broader suites such as:
 On macOS, `./prusa test --platform linux` runs the same Bazel suite inside
 Docker so the Linux label stays explicit while the project still relies on the
 Phase 3 Linux/arm64 containerized proof path.
+
+## Phase 4 Formatting Surface
+
+The current authoritative formatting commands are:
+
+- `./prusa fmt --check`
+- `./prusa fmt --fix`
+
+They operate on the bounded Phase 4 C/C++ contributor surface:
+
+- `src/BazelMain.cpp`
+- `src/CLI/BazelHandoff.cpp`
+- `src/libslic3r/BazelConfigCompat.cpp`
+- `tests/libslic3r/BazelCatchMain.cpp`
+- `tests/libslic3r/test_config.cpp`
+- `tests/thumbnails/BazelCatchMain.cpp`
+- `tests/thumbnails/test_thumbnails_ini_string.cpp`
+- `tests/thumbnails/test_thumbnails_input_string.cpp`
+
+Tracked formatting exclusions still include:
+
+- `src/libslic3r/BoundingBox.cpp`
+- `src/libslic3r/Config.cpp`
+- `src/libslic3r/Point.cpp`
+- `src/libslic3r/PrintConfig.cpp`
+- `tests/fff_print`
+- `tests/sla_print`
+- `tests/slic3rutils`
+- `tests/arrange`
+- broader GUI and packaging-heavy source files outside the migrated proof slice
 
 ## Policy
 

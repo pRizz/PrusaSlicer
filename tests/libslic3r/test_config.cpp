@@ -7,13 +7,13 @@
 
 #include <LocalesUtils.hpp>
 #include <cereal/types/polymorphic.hpp>
-#include <cereal/types/string.hpp> 
-#include <cereal/types/vector.hpp> 
+#include <cereal/types/string.hpp>
+#include <cereal/types/vector.hpp>
 #include <cereal/archives/binary.hpp>
 
 using namespace Slic3r;
 
-TEST_CASE("Dynamic config serialization - tests ConfigBase", "[Config]"){
+TEST_CASE("Dynamic config serialization - tests ConfigBase", "[Config]") {
     DynamicPrintConfig config;
     INFO("Serialize float");
     config.set_key_value("layer_height", new ConfigOptionFloat(0.3));
@@ -58,24 +58,33 @@ TEST_CASE("Dynamic config serialization - tests ConfigBase", "[Config]"){
     CHECK(config.opt_serialize("nozzle_diameter") == "0.2,3");
     INFO("Deserialize floats");
     config.set_deserialize_strict("nozzle_diameter", "0.1,0.4");
-    CHECK_THAT(config.option<ConfigOptionFloats>("nozzle_diameter")->values, Catch::Matchers::Approx(std::vector{0.1, 0.4}));
+    CHECK_THAT(
+        config.option<ConfigOptionFloats>("nozzle_diameter")->values,
+        Catch::Matchers::Approx(std::vector{0.1, 0.4})
+    );
     INFO("Deserialize floats from one value");
     config.set_deserialize_strict("nozzle_diameter", "3");
-    CHECK_THAT(config.option<ConfigOptionFloats>("nozzle_diameter")->values, Catch::Matchers::Approx(std::vector{3.0}));
+    CHECK_THAT(
+        config.option<ConfigOptionFloats>("nozzle_diameter")->values,
+        Catch::Matchers::Approx(std::vector{3.0})
+    );
 
     INFO("Serialize ints");
     config.set_key_value("temperature", new ConfigOptionInts({180, 210}));
     CHECK(config.opt_serialize("temperature") == "180,210");
     INFO("Deserialize ints");
     config.set_deserialize_strict("temperature", "195,220");
-    CHECK(config.option<ConfigOptionInts>("temperature")->values == std::vector{195,220});
+    CHECK(config.option<ConfigOptionInts>("temperature")->values == std::vector{195, 220});
 
     INFO("Serialize bools");
     config.set_key_value("wipe", new ConfigOptionBools({true, false}));
     CHECK(config.opt_serialize("wipe") == "1,0");
     INFO("Deserialize bools");
     config.set_deserialize_strict("wipe", "0,1,1");
-    CHECK(config.option<ConfigOptionBools>("wipe")->values == std::vector<unsigned char>{false, true, true});
+    CHECK(
+        config.option<ConfigOptionBools>("wipe")->values ==
+        std::vector<unsigned char>{false, true, true}
+    );
 
     INFO("Deserialize bools from empty stirng");
     config.set_deserialize_strict("wipe", "");
@@ -90,10 +99,13 @@ TEST_CASE("Dynamic config serialization - tests ConfigBase", "[Config]"){
     CHECK(config.opt_serialize("post_process") == "foo;bar");
     INFO("Deserialize strings");
     config.set_deserialize_strict("post_process", "bar;baz");
-    CHECK(config.option<ConfigOptionStrings>("post_process")->values == std::vector<std::string>{"bar", "baz"});
+    CHECK(
+        config.option<ConfigOptionStrings>("post_process")->values ==
+        std::vector<std::string>{"bar", "baz"}
+    );
 }
 
-TEST_CASE("Get keys", "[Config]"){
+TEST_CASE("Get keys", "[Config]") {
     DynamicPrintConfig config = DynamicPrintConfig::full_print_config();
     CHECK(!config.keys().empty());
 }
@@ -108,7 +120,7 @@ TEST_CASE("Config apply dynamic to static", "[Config]") {
     config.set_deserialize_strict("perimeters", "2");
 
     // This trick is taken directly from perl.
-    StaticPrintConfig* config2 = static_cast<GCodeConfig*>(new FullPrintConfig());
+    StaticPrintConfig *config2 = static_cast<GCodeConfig *>(new FullPrintConfig());
     config2->apply(config, true);
 
     CHECK(config2->opt_int("perimeters") == 2);
@@ -117,7 +129,7 @@ TEST_CASE("Config apply dynamic to static", "[Config]") {
 
 TEST_CASE("Config apply static to dynamic", "[Config]") {
     // This trick is taken directly from perl.
-    StaticPrintConfig* config = static_cast<GCodeConfig*>(new FullPrintConfig());
+    StaticPrintConfig *config = static_cast<GCodeConfig *>(new FullPrintConfig());
 
     DynamicPrintConfig config2;
     config2.apply(*config, true);
@@ -127,11 +139,9 @@ TEST_CASE("Config apply static to dynamic", "[Config]") {
         config2.opt_int("perimeters") ==
         DynamicPrintConfig::full_print_config().opt_int("perimeters")
     );
-
 }
 
 TEST_CASE("Config apply dynamic to dynamic", "[Config]") {
-
     DynamicPrintConfig config;
     config.set_key_value("extruder_offset", new ConfigOptionPoints({{0, 0}, {20, 0}, {0, 20}}));
     DynamicPrintConfig config2;
@@ -144,7 +154,7 @@ TEST_CASE("Config apply dynamic to dynamic", "[Config]") {
 }
 
 TEST_CASE("Get abs value on percent", "[Config]") {
-    StaticPrintConfig* config = static_cast<GCodeConfig*>(new FullPrintConfig());
+    StaticPrintConfig *config = static_cast<GCodeConfig *>(new FullPrintConfig());
 
     config->set_deserialize_strict("solid_infill_speed", "60");
     config->set_deserialize_strict("top_solid_infill_speed", "10%");
@@ -186,7 +196,10 @@ TEST_CASE("Normalize fdm retract layer change", "[Config]") {
     config.set("spiral_vase", true, true);
     config.set_key_value("retract_layer_change", new ConfigOptionBools({true, false}));
     config.normalize_fdm();
-    CHECK(config.option<ConfigOptionBools>("retract_layer_change")->values == std::vector<unsigned char>{0, 0});
+    CHECK(
+        config.option<ConfigOptionBools>("retract_layer_change")->values ==
+        std::vector<unsigned char>{0, 0}
+    );
 }
 
 TEST_CASE("Can read ini with invalid items", "[Config]") {
@@ -194,56 +207,40 @@ TEST_CASE("Can read ini with invalid items", "[Config]") {
 
     DynamicPrintConfig config;
     config.load(path, ForwardCompatibilitySubstitutionRule::Disable);
-    //Did not crash.
+    // Did not crash.
 }
 
-struct SerializationTestData {
+struct SerializationTestData
+{
     std::string name;
     std::vector<std::string> values;
     std::string serialized;
 };
 
-TEST_CASE("Config serialization of multiple values", "[Config]"){
+TEST_CASE("Config serialization of multiple values", "[Config]") {
     DynamicPrintConfig config = DynamicPrintConfig::full_print_config();
     std::vector<SerializationTestData> test_data{
-        {
-            "empty",
-            {},
-            ""
-        },
-        {
-            "single empty",
-            {""},
-            "\"\""
-        },
-        {
-            "single noempty, simple",
-            {"RGB"},
-            "RGB"
-        },
-        {
-            "multiple noempty, simple",
-            {"ABC", "DEF", "09182745@!#$*(&"},
-            "ABC;DEF;09182745@!#$*(&"
-        },
-        {
-            "multiple, simple, some empty",
-            {"ABC", "DEF", "", "09182745@!#$*(&", ""},
-            "ABC;DEF;;09182745@!#$*(&;"
-        },
-        {
-            "complex",
-            {"some \"quoted\" notes", "yet\n some notes", "whatever \n notes", ""},
-            "\"some \\\"quoted\\\" notes\";\"yet\\n some notes\";\"whatever \\n notes\";"
-        }
+        {"empty", {}, ""},
+        {"single empty", {""}, "\"\""},
+        {"single noempty, simple", {"RGB"}, "RGB"},
+        {"multiple noempty, simple", {"ABC", "DEF", "09182745@!#$*(&"}, "ABC;DEF;09182745@!#$*(&"},
+        {"multiple, simple, some empty",
+         {"ABC", "DEF", "", "09182745@!#$*(&", ""},
+         "ABC;DEF;;09182745@!#$*(&;"},
+        {"complex",
+         {"some \"quoted\" notes", "yet\n some notes", "whatever \n notes", ""},
+         "\"some \\\"quoted\\\" notes\";\"yet\\n some notes\";\"whatever \\n notes\";"}
     };
 
-    for (const SerializationTestData& data : test_data) {
+    for (const SerializationTestData &data : test_data) {
         config.set_key_value("filament_notes", new ConfigOptionStrings(data.values));
         CHECK(config.opt_serialize("filament_notes") == data.serialized);
 
         config.set_deserialize_strict("filament_notes", "");
-        CHECK(config.option<ConfigOptionStrings>("filament_notes")->values == std::vector<std::string>{});
+        CHECK(
+            config.option<ConfigOptionStrings>("filament_notes")->values ==
+            std::vector<std::string>{}
+        );
 
         config.set_deserialize_strict("filament_notes", data.serialized);
         CHECK(config.option<ConfigOptionStrings>("filament_notes")->values == data.values);
@@ -255,22 +252,16 @@ SCENARIO("Generic config validation performs as expected.", "[Config]") {
         Slic3r::DynamicPrintConfig config = Slic3r::DynamicPrintConfig::full_print_config();
         WHEN("perimeter_extrusion_width is set to 250%, a valid value") {
             config.set_deserialize_strict("perimeter_extrusion_width", "250%");
-            THEN( "The config is read as valid.") {
-                REQUIRE(config.validate().empty());
-            }
+            THEN("The config is read as valid.") { REQUIRE(config.validate().empty()); }
         }
         WHEN("perimeter_extrusion_width is set to -10, an invalid value") {
             config.set("perimeter_extrusion_width", -10);
-            THEN( "Validate returns error") {
-                REQUIRE(! config.validate().empty());
-            }
+            THEN("Validate returns error") { REQUIRE(!config.validate().empty()); }
         }
 
         WHEN("perimeters is set to -10, an invalid value") {
             config.set("perimeters", -10);
-            THEN( "Validate returns error") {
-                REQUIRE(! config.validate().empty());
-            }
+            THEN("Validate returns error") { REQUIRE(!config.validate().empty()); }
         }
     }
 }
@@ -336,7 +327,9 @@ SCENARIO("Config accessor functions perform as expected.", "[Config]") {
         }
         WHEN("A numeric option is set to a non-numeric value.") {
             THEN("A BadOptionTypeException exception is thown.") {
-                REQUIRE_THROWS_AS(config.set_deserialize_strict("perimeter_speed", "zzzz"), BadOptionValueException);
+                REQUIRE_THROWS_AS(
+                    config.set_deserialize_strict("perimeter_speed", "zzzz"), BadOptionValueException
+                );
             }
             THEN("The value does not change.") {
                 REQUIRE(config.opt<ConfigOptionFloat>("perimeter_speed")->getFloat() == 60.0);
@@ -357,7 +350,10 @@ SCENARIO("Config accessor functions perform as expected.", "[Config]") {
         WHEN("A string option is set through the double interface") {
             config.set("end_gcode", 100.5);
             THEN("The underlying value is set correctly.") {
-                REQUIRE(config.opt<ConfigOptionString>("end_gcode")->value == float_to_string_decimal_point(100.5));
+                REQUIRE(
+                    config.opt<ConfigOptionString>("end_gcode")->value ==
+                    float_to_string_decimal_point(100.5)
+                );
             }
         }
         WHEN("A float or percent is set as a percent through the string interface.") {
@@ -403,18 +399,42 @@ SCENARIO("Config accessor functions perform as expected.", "[Config]") {
 
         WHEN("An invalid option is requested during get.") {
             THEN("A UnknownOptionException exception is thrown.") {
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionString>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionFloat>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionInt>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionBool>("deadbeef_invalid_option", false), UnknownOptionException);
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionString>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionFloat>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionInt>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionBool>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
             }
         }
         WHEN("An invalid option is requested during opt.") {
             THEN("A UnknownOptionException exception is thrown.") {
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionString>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionFloat>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionInt>("deadbeef_invalid_option", false), UnknownOptionException);
-                REQUIRE_THROWS_AS(config.option_throw<ConfigOptionBool>("deadbeef_invalid_option", false), UnknownOptionException);
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionString>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionFloat>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionInt>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
+                REQUIRE_THROWS_AS(
+                    config.option_throw<ConfigOptionBool>("deadbeef_invalid_option", false),
+                    UnknownOptionException
+                );
             }
         }
 
@@ -428,9 +448,7 @@ SCENARIO("Config accessor functions perform as expected.", "[Config]") {
 
         WHEN("getFloat called on an option that has been set.") {
             config.set("layer_height", 0.5);
-            THEN("The set value is returned.") {
-                REQUIRE(config.opt_float("layer_height") == 0.5);
-            }
+            THEN("The set value is returned.") { REQUIRE(config.opt_float("layer_height") == 0.5); }
         }
     };
     GIVEN("DynamicPrintConfig generated from default options") {
@@ -445,12 +463,17 @@ SCENARIO("Config accessor functions perform as expected.", "[Config]") {
 
 SCENARIO("Config ini load/save interface", "[Config]") {
     WHEN("new_from_ini is called") {
-		Slic3r::DynamicPrintConfig config;
-		std::string path = std::string(TEST_DATA_DIR) + "/test_config/new_from_ini.ini";
-		config.load_from_ini(path, ForwardCompatibilitySubstitutionRule::Disable);
+        Slic3r::DynamicPrintConfig config;
+        std::string path = std::string(TEST_DATA_DIR) + "/test_config/new_from_ini.ini";
+        config.load_from_ini(path, ForwardCompatibilitySubstitutionRule::Disable);
         THEN("Config object contains ini file options.") {
-			REQUIRE(config.option_throw<ConfigOptionStrings>("filament_colour", false)->values.size() == 1);
-			REQUIRE(config.option_throw<ConfigOptionStrings>("filament_colour", false)->values.front() == "#ABCD");
+            REQUIRE(
+                config.option_throw<ConfigOptionStrings>("filament_colour", false)->values.size() == 1
+            );
+            REQUIRE(
+                config.option_throw<ConfigOptionStrings>("filament_colour", false)->values.front() ==
+                "#ABCD"
+            );
         }
     }
 }

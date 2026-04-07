@@ -32,7 +32,7 @@ Usage:
 Commands:
   build    Run the default Bazel build path
   test     Run the bounded Bazel Phase 4 test suite
-  fmt      Invoke the placeholder Bazel formatting target
+  fmt      Run bounded Bazel-backed formatting checks or fixes
   lint     Invoke the placeholder Bazel lint target
   compdb   Invoke the placeholder Bazel compile-database target
   help     Show this help
@@ -41,18 +41,20 @@ Examples:
   ./prusa build --dry-run
   ./prusa test --platform macos --dry-run
   ./prusa test --platform linux --dry-run
-  ./prusa compdb --dry-run
+  ./prusa fmt --check --dry-run
+  ./prusa fmt --fix --dry-run
 
 Direct Bazel equivalents:
   build  -> bazel build --config=dev --config=<platform> //...
   test   -> bazel test --config=dev --config=<platform> //tools/bazel:test_suite
-  fmt    -> bazel build --config=dev //tools/bazel:fmt
+  fmt    -> bazel run --config=dev //tools/bazel/format:<check|fix>
   lint   -> bazel build --config=dev //tools/bazel:lint
   compdb -> bazel build --config=dev --config=compdb //tools/bazel:compdb
 
 Notes:
   - Bazel is the repo-root front door for the migration work.
   - `test` is the bounded non-GUI local test surface for Phase 4, not full legacy CTest parity.
+  - `fmt` currently covers the Bazel-owned proof slice and adjacent non-GUI tests, not the whole repo.
   - On macOS, `--platform linux` runs the same Bazel suite inside Docker.
   - Legacy CMake build docs remain available during the transition.
   - Platform configs are centralized under //tools/bazel/platforms.
@@ -103,6 +105,7 @@ main() {
   local maybe_command="${1:-help}"
   local dry_run="false"
   local platform
+  local fmt_mode="check"
 
   shift || true
 
@@ -120,6 +123,20 @@ main() {
         ;;
       --dry-run|--print-command)
         dry_run="true"
+        ;;
+      --check)
+        if [[ "${maybe_command}" != "fmt" ]]; then
+          printf 'Unsupported flag for %s: %s\n' "${maybe_command}" "$1" >&2
+          exit 1
+        fi
+        fmt_mode="check"
+        ;;
+      --fix)
+        if [[ "${maybe_command}" != "fmt" ]]; then
+          printf 'Unsupported flag for %s: %s\n' "${maybe_command}" "$1" >&2
+          exit 1
+        fi
+        fmt_mode="fix"
         ;;
       *)
         printf 'Unknown argument: %s\n' "$1" >&2
@@ -141,7 +158,7 @@ main() {
       cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${platform}" "${BAZEL_TEST_SUITE}")
       ;;
     fmt)
-      cmd=("${BAZEL_PREFIX[@]}" build --config=dev //tools/bazel:fmt)
+      cmd=("${BAZEL_PREFIX[@]}" run --config=dev "//tools/bazel/format:${fmt_mode}")
       ;;
     lint)
       cmd=("${BAZEL_PREFIX[@]}" build --config=dev //tools/bazel:lint)
