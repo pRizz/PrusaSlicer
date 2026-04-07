@@ -1,0 +1,11 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//tools/bazel/lint:clang_tidy_targets.bzl", "CLANG_TIDY_TARGETS")
+
+package(default_visibility = ["//visibility:public"])
+
+sh_binary(
+    name = "clang_tidy",
+    srcs = ["run_clang_tidy.sh"],
+    args = CLANG_TIDY_TARGETS,
+)
+

@@ -42,7 +42,7 @@ action:
 # bazel run --config=dev //tools/bazel/format:fix
 
 ./prusa lint --dry-run
-# bazel build --config=dev //tools/bazel:lint
+# bazel run --config=dev //tools/bazel/lint:clang_tidy
 
 ./prusa compdb --dry-run
 # bazel build --config=dev --config=compdb //tools/bazel:compdb
@@ -77,6 +77,18 @@ translation units in `src/libslic3r/{BoundingBox.cpp,Config.cpp,Point.cpp,PrintC
 plus `tests/fff_print`, `tests/sla_print`, `tests/slic3rutils`,
 `tests/arrange`, and the broader GUI and packaging-heavy source tree outside
 the migrated proof slice.
+
+Current bounded Phase 4 lint surface:
+- `src/BazelMain.cpp`
+- `src/CLI/BazelHandoff.cpp`
+- `src/libslic3r/BazelConfigCompat.cpp`
+- `tests/libslic3r/BazelCatchMain.cpp`
+- `tests/thumbnails/*.cpp`
+
+Tracked lint deferrals currently include broader readability/modernization work,
+the inherited proof-slice core translation units in `src/libslic3r`, and the
+current Catch-heavy `tests/libslic3r/test_config.cpp`, plus the GUI, packaging,
+and larger CTest-only suites outside the migrated proof slice.
 
 The existing platform-specific CMake build guides remain available below as
 legacy transition documentation while the Bazel graph is expanded.

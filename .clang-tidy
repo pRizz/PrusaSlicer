@@ -1,0 +1,7 @@
+Checks: >
+  -*,
+  clang-analyzer-*
+WarningsAsErrors: "*"
+FormatStyle: file
+HeaderFilterRegex: "^(src/(BazelMain\\.cpp|CLI/BazelHandoff\\.cpp|libslic3r/BazelConfigCompat\\.cpp)|tests/(libslic3r/BazelCatchMain\\.cpp|thumbnails)/)"
+SystemHeaders: false

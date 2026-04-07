@@ -157,6 +157,32 @@ Tracked formatting exclusions still include:
 - `tests/arrange`
 - broader GUI and packaging-heavy source files outside the migrated proof slice
 
+## Phase 4 Lint Surface
+
+The current authoritative lint command is:
+
+- `./prusa lint`
+
+It runs `clang-tidy` on the bounded Bazel-owned contributor surface:
+
+- `src/BazelMain.cpp`
+- `src/CLI/BazelHandoff.cpp`
+- `src/libslic3r/BazelConfigCompat.cpp`
+- `tests/libslic3r/BazelCatchMain.cpp`
+- `tests/thumbnails/BazelCatchMain.cpp`
+- `tests/thumbnails/test_thumbnails_ini_string.cpp`
+- `tests/thumbnails/test_thumbnails_input_string.cpp`
+
+Tracked lint deferrals currently include:
+
+- broader readability and modernization checks across the legacy tree
+- `src/libslic3r/BoundingBox.cpp`
+- `src/libslic3r/Config.cpp`
+- `src/libslic3r/Point.cpp`
+- `src/libslic3r/PrintConfig.cpp`
+- `tests/libslic3r/test_config.cpp`
+- GUI, packaging, and larger CTest-only suites outside the migrated proof slice
+
 ## Policy
 
 System-library exceptions are centralized in

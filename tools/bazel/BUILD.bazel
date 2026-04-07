@@ -16,9 +16,9 @@ alias(
     actual = "//tools/bazel/format:check",
 )
 
-filegroup(
+alias(
     name = "lint",
-    srcs = [],
+    actual = "//tools/bazel/lint:clang_tidy",
 )
 
 filegroup(
