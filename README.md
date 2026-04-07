@@ -21,7 +21,7 @@ the [documentation directory](doc/) for more information.
 
 ### Bazel-first front door
 
-The repository is moving to a Bazel-first build skeleton. The supported Phase 2
+The repository is moving to a Bazel-first local workflow. The supported root
 entry point is `./prusa`, with the direct Bazel equivalent shown for each
 action:
 
@@ -29,8 +29,11 @@ action:
 ./prusa build --dry-run
 # bazel build --config=dev --config=<platform> //...
 
-./prusa test --dry-run
-# bazel test --config=dev --config=<platform> //...
+./prusa test --platform macos --dry-run
+# bazel test --config=dev --config=macos //tools/bazel:test_suite
+
+./prusa test --platform linux --dry-run
+# bazel test --config=dev --config=linux //tools/bazel:test_suite
 
 ./prusa fmt --dry-run
 # bazel build --config=dev //tools/bazel:fmt
@@ -42,10 +45,25 @@ action:
 # bazel build --config=dev --config=compdb //tools/bazel:compdb
 ```
 
-This Phase 2 front door establishes the repo-root Bazel skeleton and command
-surface only. Full PrusaSlicer target migration remains a later phase. The
-existing platform-specific CMake build guides remain available below as legacy
-transition documentation while the Bazel graph is expanded.
+Current bounded Phase 4 local test surface:
+- `//tools/bazel:test_suite`
+- `//tests/libslic3r:config_test`
+- `//tests/thumbnails:thumbnails_test`
+
+This is the authoritative non-GUI smoke-plus-regression test surface for the
+Bazel path right now. It is intentionally not full legacy CTest parity.
+
+Tracked legacy test exceptions still remain under CMake/CTest for broader
+surfaces such as `tests/fff_print`, `tests/sla_print`, `tests/slic3rutils`,
+`tests/arrange`, and the larger `tests/libslic3r` suite while the Bazel graph
+expands.
+
+On a macOS host, `./prusa test --platform linux` runs the same bounded Bazel
+suite inside Docker so the Linux label stays visible without pretending
+host-side cross-platform toolchains already exist.
+
+The existing platform-specific CMake build guides remain available below as
+legacy transition documentation while the Bazel graph is expanded.
 
 ### What language is it written in?
 

@@ -86,7 +86,8 @@ Use the root wrapper first:
 
 ```shell
 ./prusa build --dry-run
-./prusa test --dry-run
+./prusa test --platform macos --dry-run
+./prusa test --platform linux --dry-run
 ./prusa fmt --dry-run
 ./prusa lint --dry-run
 ./prusa compdb --dry-run
@@ -98,6 +99,32 @@ shared `.bazelrc` config names:
 - `--config=linux`
 - `--config=macos`
 - `--config=compdb`
+
+## Phase 4 Test Surface
+
+The current authoritative local Bazel test front door is:
+
+- `//tools/bazel:test_suite`
+
+Its bounded non-GUI contents are:
+
+- `//tests/libslic3r:config_test`
+- `//tests/thumbnails:thumbnails_test`
+
+This is the credible local core test surface for now. It is intentionally not
+full CTest parity.
+
+Tracked legacy CTest exceptions still include broader suites such as:
+
+- `tests/fff_print`
+- `tests/sla_print`
+- `tests/slic3rutils`
+- `tests/arrange`
+- the larger `tests/libslic3r` CMake suite beyond `config_test`
+
+On macOS, `./prusa test --platform linux` runs the same Bazel suite inside
+Docker so the Linux label stays explicit while the project still relies on the
+Phase 3 Linux/arm64 containerized proof path.
 
 ## Policy
 
