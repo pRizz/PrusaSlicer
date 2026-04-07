@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+readonly BAZEL_TEST_SUITE="//tools/bazel:test_suite"
+
 set_bazel_prefix() {
   if command -v bazelisk >/dev/null 2>&1; then
     BAZEL_PREFIX=(bazelisk)
@@ -22,14 +24,14 @@ set_bazel_prefix() {
 
 usage() {
   cat <<'EOF'
-PrusaSlicer Bazel front door (Phase 2 skeleton)
+PrusaSlicer Bazel front door
 
 Usage:
   ./prusa <command> [--platform linux|macos] [--dry-run|--print-command]
 
 Commands:
   build    Run the default Bazel build path
-  test     Run the default Bazel test path
+  test     Run the bounded Bazel Phase 4 test suite
   fmt      Invoke the placeholder Bazel formatting target
   lint     Invoke the placeholder Bazel lint target
   compdb   Invoke the placeholder Bazel compile-database target
@@ -37,23 +39,29 @@ Commands:
 
 Examples:
   ./prusa build --dry-run
-  ./prusa test --dry-run
+  ./prusa test --platform macos --dry-run
+  ./prusa test --platform linux --dry-run
   ./prusa compdb --dry-run
 
 Direct Bazel equivalents:
   build  -> bazel build --config=dev --config=<platform> //...
-  test   -> bazel test --config=dev --config=<platform> //...
+  test   -> bazel test --config=dev --config=<platform> //tools/bazel:test_suite
   fmt    -> bazel build --config=dev //tools/bazel:fmt
   lint   -> bazel build --config=dev //tools/bazel:lint
   compdb -> bazel build --config=dev --config=compdb //tools/bazel:compdb
 
 Notes:
   - Bazel is the repo-root front door for the migration work.
-  - Full product-target migration remains a later phase.
+  - `test` is the bounded non-GUI local test surface for Phase 4, not full legacy CTest parity.
+  - On macOS, `--platform linux` runs the same Bazel suite inside Docker.
   - Legacy CMake build docs remain available during the transition.
   - Platform configs are centralized under //tools/bazel/platforms.
   - System-library exceptions are centralized under tools/bazel/policies/system_libraries.bzl.
 EOF
+}
+
+workspace_root() {
+  cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd
 }
 
 platform_config() {
@@ -68,6 +76,27 @@ platform_config() {
       printf '%s' "linux"
       ;;
   esac
+}
+
+run_linux_test_via_docker() {
+  if ! command -v docker >/dev/null 2>&1; then
+    printf 'Docker is required to run the Linux Bazel test suite from macOS.\n' >&2
+    exit 1
+  fi
+
+  local repo_root
+  repo_root="$(workspace_root)"
+
+  docker run --rm --platform=linux/arm64 --user 0:0 -v "${repo_root}:/workspace" -w /workspace ubuntu:24.04 bash -lc '
+set -euo pipefail
+export DEBIAN_FRONTEND=noninteractive
+apt-get update >/dev/null
+apt-get install -y ca-certificates curl git unzip zip openjdk-21-jdk build-essential python3 pkg-config cmake ninja-build libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2 >/dev/null
+curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-arm64
+chmod +x /usr/local/bin/bazelisk
+mkdir -p /tmp/codex-home /tmp/bazelroot
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //tools/bazel:test_suite
+'
 }
 
 main() {
@@ -109,7 +138,7 @@ main() {
       cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config="${platform}" //...)
       ;;
     test)
-      cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${platform}" //...)
+      cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${platform}" "${BAZEL_TEST_SUITE}")
       ;;
     fmt)
       cmd=("${BAZEL_PREFIX[@]}" build --config=dev //tools/bazel:fmt)
@@ -139,6 +168,15 @@ main() {
       printf ' %q' "${cmd[idx]}"
     done
     printf '\n'
+    if [[ "${maybe_command}" == "test" && "${platform}" == "linux" && "$(uname -s)" == "Darwin" ]]; then
+      printf 'Host note:\n'
+      printf '  On macOS, this suite executes inside Docker using the same Bazel label.\n'
+    fi
+    exit 0
+  fi
+
+  if [[ "${maybe_command}" == "test" && "${platform}" == "linux" && "$(uname -s)" == "Darwin" ]]; then
+    run_linux_test_via_docker
     exit 0
   fi
 
