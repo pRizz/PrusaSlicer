@@ -14,8 +14,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Evaluate Build-System Fit** - Choose the authoritative build stack with explicit migration criteria and cutoff policy
 - [x] **Phase 2: Establish Build Graph Skeleton** - Create the root build definitions, command surface, and platform/dependency policy
-- [ ] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
-- [ ] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
+- [x] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
+- [x] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
 - [ ] **Phase 5: Make the New Path Authoritative** - Move CI and contributor guidance onto the new path and define the legacy exit
 
 ## Phase Details
@@ -59,11 +59,13 @@ Plans:
   2. Contributors can build the PrusaSlicer application on macOS through the authoritative path.
   3. Maintainers can declare third-party dependencies through explicit, version-pinned metadata in the new build stack.
   4. Maintainers can identify every temporary bridge to legacy tooling with ownership and retirement criteria.
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: Bring up Linux/macOS app targets under the selected build system
-- [ ] 03-02: Move core dependencies into explicit ownership and document bridge inventory
+- [x] 03-01: Establish the smallest real macOS Bazel-owned `//src:PrusaSlicer` boundary
+- [x] 03-02: Deepen one small Bazel-owned CLI/core seam behind `//src:PrusaSlicer`
+- [x] 03-03: Add a representative Bazel `//tests/libslic3r:config_test` target against the bounded seam
+- [x] 03-04: Prove Linux parity for the same labels and refresh the bridge inventory
 
 ### Phase 4: Add Local Tooling and Validation
 **Goal**: Make the new path credible for daily contributor use by running tests and developer tooling without falling back to the legacy build.
@@ -74,11 +76,11 @@ Plans:
   2. Contributors can run repository formatting through the authoritative toolchain.
   3. Contributors can run an initial lint/static-analysis pass through the authoritative toolchain.
   4. Contributors can use `clangd` or equivalent editor metadata without generating it from the legacy build.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Wire core test execution into the authoritative graph
-- [ ] 04-02: Add formatting, linting, and editor metadata targets
+- [x] 04-01: Wire bounded core test execution into the authoritative graph
+- [x] 04-02: Add formatting, linting, and editor metadata targets
 
 ### Phase 5: Make the New Path Authoritative
 **Goal**: Put Linux/macOS CI and contributor guidance on the new path so the repo has one enforceable source of truth and a clear legacy exit.
@@ -104,6 +106,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Evaluate Build-System Fit | 4/4 | Complete | 2026-04-04 |
 | 2. Establish Build Graph Skeleton | 2/2 | Complete | 2026-04-04 |
-| 3. Migrate Core Targets and Dependencies | 0/TBD | Not started | - |
-| 4. Add Local Tooling and Validation | 0/TBD | Not started | - |
+| 3. Migrate Core Targets and Dependencies | 4/4 | Complete | 2026-04-06 |
+| 4. Add Local Tooling and Validation | 2/2 | Complete | 2026-04-07 |
 | 5. Make the New Path Authoritative | 0/TBD | Not started | - |

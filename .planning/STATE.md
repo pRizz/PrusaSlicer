@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 4: Add Local Tooling and Validation
+**Current focus:** Phase 5: Make the New Path Authoritative
 
 ## Current Position
 
-Phase: 4 of 5 (Add Local Tooling and Validation)
+Phase: 5 of 5 (Make the New Path Authoritative)
 Plan: Not started
-Status: Context gathered, ready to plan
-Last activity: 2026-04-07 — Gathered Phase 4 context for tests, formatting, lint, and editor metadata
+Status: Ready to discuss
+Last activity: 2026-04-07 — Completed Phase 4 local tooling and validation execution
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 12
 - Average duration: 5 min
 - Total execution time: 0.0 hours
 
@@ -29,9 +29,11 @@ Progress: [██████░░░░] 60%
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
 | 02 | 2 | 9 min | 4 min |
+| 03 | 4 | 3 min | 1 min |
+| 04 | 2 | 0 min | 0 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 15 min, 0 min, 6 min, 3 min
+- Last 5 plans: 0 min, 0 min, 2 min, 1 min, 0 min
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -57,6 +59,7 @@ Recent decisions affecting current work:
 - Phase 03 complete: Prove the same bounded Bazel-owned binary/test slice on macOS and Linux/arm64 with explicit bridge and system-library classifications
 - Phase 04 context: Make a bounded non-GUI core test surface, formatting flow, lint pass, and editor metadata path usable from Bazel before attempting CI authority work
 - Phase 04 context: Prefer high-signal bounded tooling coverage with explicit exclusions over broad but noisy pseudo-parity
+- Phase 04 complete: Make `./prusa test`, `fmt`, `lint`, and `compdb` real bounded Bazel-backed local workflows with explicit scope and a scratch-safe clangd metadata path
 
 ### Pending Todos
 
@@ -66,11 +69,11 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- Phase 4 must stay bounded to local tooling and validation; CI rollout and authority transfer remain Phase 5 work.
-- Tests, formatting, lint, and editor metadata should all expose clear scope boundaries and tracked temporary gaps instead of overstating coverage.
+- Phase 5 should move CI and contributor guidance onto the new path without silently widening the bounded local tooling surface into fake whole-repo parity.
+- Remaining local-tooling exclusions and legacy exceptions must stay explicit during the authority-transfer phase.
 
 ## Session Continuity
 
-Last session: 2026-04-07 00:00 CDT
-Stopped at: Phase 4 context gathered, ready to plan local tooling and validation
-Resume file: .planning/phases/04-add-local-tooling-and-validation/04-CONTEXT.md
+Last session: 2026-04-07 17:52 CDT
+Stopped at: Phase 4 complete, ready to begin Phase 5 discussion
+Resume file: .planning/phases/04-add-local-tooling-and-validation/04-VERIFICATION.md

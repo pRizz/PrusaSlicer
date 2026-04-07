@@ -13,22 +13,22 @@
 
 ### Build
 
-- [ ] **BLD-01**: Contributor can build the PrusaSlicer application on Linux through the authoritative build path
-- [ ] **BLD-02**: Contributor can build the PrusaSlicer application on macOS through the authoritative build path
+- [x] **BLD-01**: Contributor can build the PrusaSlicer application on Linux through the authoritative build path
+- [x] **BLD-02**: Contributor can build the PrusaSlicer application on macOS through the authoritative build path
 - [x] **BLD-03**: Contributor can run one documented authoritative command surface instead of choosing between competing primary build workflows
-- [ ] **BLD-04**: Contributor can run the core automated test suites through the authoritative build path on Linux and macOS
+- [x] **BLD-04**: Contributor can run the core automated test suites through the authoritative build path on Linux and macOS
 
 ### Dependencies
 
-- [ ] **DEPS-01**: Maintainer can declare third-party dependencies through explicit, version-pinned, reproducible metadata in the new build stack
+- [x] **DEPS-01**: Maintainer can declare third-party dependencies through explicit, version-pinned, reproducible metadata in the new build stack
 - [x] **DEPS-02**: Maintainer can allow selected system-library exceptions only when they are documented with rationale and scope
-- [ ] **DEPS-03**: Maintainer can track temporary legacy-build bridges with clear ownership and retirement criteria
+- [x] **DEPS-03**: Maintainer can track temporary legacy-build bridges with clear ownership and retirement criteria
 
 ### Tooling
 
-- [ ] **TOOL-01**: Contributor can run repository formatting through the authoritative toolchain with documented expectations
-- [ ] **TOOL-02**: Contributor can run an initial lint/static-analysis pass through the authoritative toolchain without relying on the legacy build
-- [ ] **TOOL-03**: Contributor can use `clangd` or equivalent editor metadata without generating build information from the legacy build
+- [x] **TOOL-01**: Contributor can run repository formatting through the authoritative toolchain with documented expectations
+- [x] **TOOL-02**: Contributor can run an initial lint/static-analysis pass through the authoritative toolchain without relying on the legacy build
+- [x] **TOOL-03**: Contributor can use `clangd` or equivalent editor metadata without generating build information from the legacy build
 - [ ] **TOOL-04**: Contributor can follow one maintained setup guide for Linux and macOS build, test, format, lint, and editor workflows
 
 ### CI
@@ -74,16 +74,16 @@
 | EVAL-01 | Phase 1 | Complete |
 | EVAL-02 | Phase 1 | Complete |
 | EVAL-03 | Phase 1 | Complete |
-| BLD-01 | Phase 3 | Pending |
-| BLD-02 | Phase 3 | Pending |
+| BLD-01 | Phase 3 | Complete |
+| BLD-02 | Phase 3 | Complete |
 | BLD-03 | Phase 2 | Complete |
-| BLD-04 | Phase 4 | Pending |
-| DEPS-01 | Phase 3 | Pending |
+| BLD-04 | Phase 4 | Complete |
+| DEPS-01 | Phase 3 | Complete |
 | DEPS-02 | Phase 2 | Complete |
-| DEPS-03 | Phase 3 | Pending |
-| TOOL-01 | Phase 4 | Pending |
-| TOOL-02 | Phase 4 | Pending |
-| TOOL-03 | Phase 4 | Pending |
+| DEPS-03 | Phase 3 | Complete |
+| TOOL-01 | Phase 4 | Complete |
+| TOOL-02 | Phase 4 | Complete |
+| TOOL-03 | Phase 4 | Complete |
 | TOOL-04 | Phase 5 | Pending |
 | CI-01 | Phase 5 | Pending |
 | CI-02 | Phase 5 | Pending |
@@ -96,4 +96,4 @@
 
 ---
 *Requirements defined: 2026-04-03*
-*Last updated: 2026-04-04 after Phase 1 completion*
+*Last updated: 2026-04-07 after Phase 4 completion*
