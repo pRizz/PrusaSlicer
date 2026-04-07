@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 3: Migrate Core Targets and Dependencies
+**Current focus:** Phase 4: Add Local Tooling and Validation
 
 ## Current Position
 
-Phase: 3 of 5 (Migrate Core Targets and Dependencies)
+Phase: 4 of 5 (Add Local Tooling and Validation)
 Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-06 — Aborted oversized Phase 3 attempt and replanned into 4 smaller waves
+Status: Context gathered, ready to plan
+Last activity: 2026-04-07 — Gathered Phase 4 context for tests, formatting, lint, and editor metadata
 
-Progress: [████░░░░░░] 40%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -54,6 +54,9 @@ Recent decisions affecting current work:
 - Phase 03 context: Treat macOS as the immediate proving ground, but require explicit Linux evidence in the same target shape
 - Phase 03 context: Every bridge must be visible, scoped, and temporary by default
 - Phase 03 replan: Replace the oversized 2-wave proof with a 4-wave dependency ladder, starting from a tiny macOS binary boundary and narrowing bridge scope aggressively
+- Phase 03 complete: Prove the same bounded Bazel-owned binary/test slice on macOS and Linux/arm64 with explicit bridge and system-library classifications
+- Phase 04 context: Make a bounded non-GUI core test surface, formatting flow, lint pass, and editor metadata path usable from Bazel before attempting CI authority work
+- Phase 04 context: Prefer high-signal bounded tooling coverage with explicit exclusions over broad but noisy pseudo-parity
 
 ### Pending Todos
 
@@ -63,11 +66,11 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- Phase 3 must start from the replanned 4-wave path, not from the aborted broad proof attempt.
-- Any bridge used in Phase 3 must stay narrow and explicitly documented with retirement conditions.
+- Phase 4 must stay bounded to local tooling and validation; CI rollout and authority transfer remain Phase 5 work.
+- Tests, formatting, lint, and editor metadata should all expose clear scope boundaries and tracked temporary gaps instead of overstating coverage.
 
 ## Session Continuity
 
-Last session: 2026-04-06 00:00 CDT
-Stopped at: Aborted broad Phase 3 proof, replanned to 4 waves, cleanup pending before execution
-Resume file: .planning/phases/03-migrate-core-targets-and-dependencies/03-01-PLAN.md
+Last session: 2026-04-07 00:00 CDT
+Stopped at: Phase 4 context gathered, ready to plan local tooling and validation
+Resume file: .planning/phases/04-add-local-tooling-and-validation/04-CONTEXT.md
