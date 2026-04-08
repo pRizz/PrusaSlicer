@@ -25,6 +25,7 @@ Install the current bounded-slice prerequisites:
 sudo apt-get install -y \
   build-essential \
   catch2 \
+  clang-format \
   clang-tidy \
   cmake \
   curl \

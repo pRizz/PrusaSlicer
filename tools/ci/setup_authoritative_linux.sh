@@ -11,6 +11,7 @@ fi
 "${SUDO[@]}" apt-get install -y \
   build-essential \
   catch2 \
+  clang-format \
   clang-tidy \
   cmake \
   curl \
