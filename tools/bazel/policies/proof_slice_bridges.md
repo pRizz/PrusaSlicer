@@ -1,5 +1,8 @@
 # Phase 3 Proof Slice Bridges
 
+This file remains the source of truth for the Bazel path's tracked legacy build
+bridges during Phase 5 authority transfer.
+
 | label | kind | scope | reason | owner | retire_when | status |
 |-------|------|-------|--------|-------|-------------|--------|
 | `//src:PrusaSlicer -> build/src/{Debug/,}PrusaSlicer|prusa-slicer` | binary handoff | macOS, Linux | Keeps the remaining runtime handoff narrow while later Phase 3 work replaces more of the CLI/core path with Bazel-owned source | Bazel migration | `//src:PrusaSlicer` can run the selected proof path without `execv` handoff | active |

@@ -19,15 +19,17 @@ PrusaSlicer is based on [Slic3r](https://github.com/Slic3r/Slic3r) by Alessandro
 See the [project homepage](https://www.prusa3d.com/slic3r-prusa-edition/) and
 the [documentation directory](doc/) for more information.
 
-### Bazel-first front door
+### Authoritative Bazel workflow
 
-The repository is moving to a Bazel-first local workflow. The supported root
-entry point is `./prusa`, with the direct Bazel equivalent shown for each
-action:
+The maintained Linux/macOS contributor workflow now lives in
+[Build and Tooling - Bazel](doc/Build%20and%20Tooling%20-%20Bazel.md).
+
+The supported root entry point is `./prusa`, with the direct Bazel equivalent
+shown for each action:
 
 ```shell
 ./prusa build --dry-run
-# bazel build --config=dev --config=<platform> //...
+# bazel build --config=dev --config=<platform> //src:PrusaSlicer
 
 ./prusa test --platform macos --dry-run
 # bazel test --config=dev --config=macos //tools/bazel:test_suite
@@ -103,8 +105,8 @@ Refresh this metadata after changing Bazel BUILD definitions, moving files into
 or out of the bounded test surface, or changing compile-affecting flags for the
 current proof slice.
 
-The existing platform-specific CMake build guides remain available below as
-legacy transition documentation while the Bazel graph is expanded.
+The older Linux/macOS CMake build guides remain available only as legacy
+exception references while the Bazel graph continues to expand.
 
 ### What language is it written in?
 
@@ -141,11 +143,13 @@ Other major features are:
 
 ### Development
 
-If you want to compile the source yourself, follow the instructions on one of
-these documentation pages:
-* [Linux](doc/How%20to%20build%20-%20Linux%20et%20al.md)
-* [macOS](doc/How%20to%20build%20-%20Mac%20OS.md)
-* [Windows](doc/How%20to%20build%20-%20Windows.md)
+If you want to compile or work on the source yourself, start here:
+* [Authoritative Linux/macOS Bazel workflow](doc/Build%20and%20Tooling%20-%20Bazel.md)
+
+Legacy exception references:
+* [Linux CMake reference](doc/How%20to%20build%20-%20Linux%20et%20al.md)
+* [macOS CMake reference](doc/How%20to%20build%20-%20Mac%20OS.md)
+* [Windows legacy build reference](doc/How%20to%20build%20-%20Windows.md)
 
 ### Can I help?
 

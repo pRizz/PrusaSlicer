@@ -2,6 +2,10 @@
 
 This directory holds the Bazel-owned structural skeleton introduced in Phase 2.
 
+During Phase 5 authority transfer, this subtree plus
+`doc/Build and Tooling - Bazel.md` define the maintained Linux/macOS build,
+test, tooling, and exception story for the Bazel path.
+
 ## Purpose
 
 - Make Bazel visibly first-class at the repository root
@@ -205,6 +209,9 @@ flags change for the migrated proof slice.
 
 System-library exceptions are centralized in
 `tools/bazel/policies/system_libraries.bzl`.
+
+The remaining proof-slice bridge inventory is centralized in
+`tools/bazel/policies/proof_slice_bridges.md`.
 
 The default stance is source-fetched ownership. A system-library exception is
 allowed only by explicit registry entry with documented scope, rationale, and

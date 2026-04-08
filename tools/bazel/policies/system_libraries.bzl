@@ -4,6 +4,10 @@ Phase 2 default:
 - Source-fetched dependencies are preferred.
 - System-library exceptions require explicit approval here.
 - Historical CMake/Linux dynamic-link behavior does not automatically carry over.
+
+Phase 5 note:
+- This file remains the source of truth for tracked system-library exceptions
+  while the Bazel Linux/macOS path becomes authoritative.
 """
 
 def system_library_exception(
