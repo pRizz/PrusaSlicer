@@ -13,16 +13,16 @@
 
 ### Build
 
-- [x] **BLD-01**: Contributor can build the PrusaSlicer application on Linux through the authoritative build path
-- [x] **BLD-02**: Contributor can build the PrusaSlicer application on macOS through the authoritative build path
+- [ ] **BLD-01**: Contributor can build the PrusaSlicer application on Linux through the authoritative build path
+- [ ] **BLD-02**: Contributor can build the PrusaSlicer application on macOS through the authoritative build path
 - [x] **BLD-03**: Contributor can run one documented authoritative command surface instead of choosing between competing primary build workflows
 - [x] **BLD-04**: Contributor can run the core automated test suites through the authoritative build path on Linux and macOS
 
 ### Dependencies
 
-- [x] **DEPS-01**: Maintainer can declare third-party dependencies through explicit, version-pinned, reproducible metadata in the new build stack
+- [ ] **DEPS-01**: Maintainer can declare third-party dependencies through explicit, version-pinned, reproducible metadata in the new build stack
 - [x] **DEPS-02**: Maintainer can allow selected system-library exceptions only when they are documented with rationale and scope
-- [x] **DEPS-03**: Maintainer can track temporary legacy-build bridges with clear ownership and retirement criteria
+- [ ] **DEPS-03**: Maintainer can track temporary legacy-build bridges with clear ownership and retirement criteria
 
 ### Tooling
 
@@ -74,13 +74,13 @@
 | EVAL-01 | Phase 1 | Complete |
 | EVAL-02 | Phase 1 | Complete |
 | EVAL-03 | Phase 1 | Complete |
-| BLD-01 | Phase 3 | Complete |
-| BLD-02 | Phase 3 | Complete |
+| BLD-01 | Phase 6 | Pending |
+| BLD-02 | Phase 6 | Pending |
 | BLD-03 | Phase 2 | Complete |
 | BLD-04 | Phase 4 | Complete |
-| DEPS-01 | Phase 3 | Complete |
+| DEPS-01 | Phase 6 | Pending |
 | DEPS-02 | Phase 2 | Complete |
-| DEPS-03 | Phase 3 | Complete |
+| DEPS-03 | Phase 6 | Pending |
 | TOOL-01 | Phase 4 | Complete |
 | TOOL-02 | Phase 4 | Complete |
 | TOOL-03 | Phase 4 | Complete |
@@ -96,4 +96,4 @@
 
 ---
 *Requirements defined: 2026-04-03*
-*Last updated: 2026-04-08 after Phase 5 completion*
+*Last updated: 2026-04-08 after milestone gap planning*

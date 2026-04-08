@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Milestone audit and closure
+**Current focus:** Phase 6: Backfill Verification Evidence
 
 ## Current Position
 
-Phase: 5 of 5 (Make the New Path Authoritative)
+Phase: 6 of 6 (Backfill Verification Evidence)
 Plan: Not started
-Status: Phase complete, ready to audit milestone
-Last activity: 2026-04-08 — Completed Phase 5 authority transfer execution
+Status: Ready to plan
+Last activity: 2026-04-08 — Added milestone gap-closure phase from v1.0 audit
 
-Progress: [██████████] 100%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
@@ -63,6 +63,8 @@ Recent decisions affecting current work:
 - Phase 04 complete: Make `./prusa test`, `fmt`, `lint`, and `compdb` real bounded Bazel-backed local workflows with explicit scope and a scratch-safe clangd metadata path
 - Phase 05 context: Put one authoritative Linux/macOS CI workflow and one maintained Bazel-first contributor guide in front of the repo, while demoting legacy workflows/docs to tracked exceptions
 - Phase 05 complete: Make `Authoritative Bazel CI` plus the maintained Bazel-first guide the Linux/macOS source of truth, while demoting legacy workflows/docs to tracked exceptions
+- Milestone audit: The only blocking gap is missing Phase 3 verification evidence for BLD-01, BLD-02, DEPS-01, and DEPS-03
+- Gap closure plan: Add one focused follow-up phase instead of reopening milestone implementation scope broadly
 
 ### Pending Todos
 
@@ -72,11 +74,11 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- Milestone is feature-complete, but the authoritative path is still intentionally bounded and its remaining exceptions need to stay visible through milestone audit.
-- macOS still relies on the local vendor-tree bridge and Linux still keeps explicit scoped exceptions; milestone audit should verify those are documented coherently.
+- Milestone audit cannot pass until Phase 6 backfills the missing Phase 3 verification artifact.
+- The gap is evidence/process completeness, not a newly discovered implementation failure.
 
 ## Session Continuity
 
-Last session: 2026-04-08 11:02 CDT
-Stopped at: Phase 5 complete, ready to audit the milestone
-Resume file: .planning/phases/05-make-the-new-path-authoritative/05-VERIFICATION.md
+Last session: 2026-04-08 11:10 CDT
+Stopped at: Added Phase 6 gap-closure phase to close the milestone audit blocker
+Resume file: .planning/v1.0-MILESTONE-AUDIT.md

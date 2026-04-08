@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
 - [x] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
 - [x] **Phase 5: Make the New Path Authoritative** - Move CI and contributor guidance onto the new path and define the legacy exit
+- [ ] **Phase 6: Backfill Verification Evidence** - Verify the completed Phase 3 outcomes against the live repo so milestone requirement evidence is complete
 
 ## Phase Details
 
@@ -97,6 +98,20 @@ Plans:
 - [x] 05-01: Move Linux/macOS CI onto the authoritative targets
 - [x] 05-02: Publish contributor workflow docs and define the legacy exit steps
 
+### Phase 6: Backfill Verification Evidence
+**Goal**: Close the milestone audit blocker by verifying the already-implemented Phase 3 Linux/macOS build and dependency outcomes against the live repo state.
+**Depends on**: Phase 5
+**Requirements**: [BLD-01, BLD-02, DEPS-01, DEPS-03]
+**Gap Closure**: Closes the v1.0 milestone audit gap caused by the missing Phase 3 verification artifact.
+**Success Criteria** (what must be TRUE):
+  1. Maintainers can point to a phase-level verification report covering the completed Phase 3 Linux/macOS build outcomes.
+  2. Maintainers can point to a phase-level verification report covering the completed Phase 3 dependency-ownership and bridge-tracking outcomes.
+  3. The milestone audit can treat the affected requirements as fully verified rather than partial.
+**Plans**: TBD
+
+Plans:
+- [ ] 06-01: Verify Phase 3 outcomes and close the audit evidence gap
+
 ## Progress
 
 **Execution Order:**
@@ -109,3 +124,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 3. Migrate Core Targets and Dependencies | 4/4 | Complete | 2026-04-06 |
 | 4. Add Local Tooling and Validation | 2/2 | Complete | 2026-04-07 |
 | 5. Make the New Path Authoritative | 2/2 | Complete | 2026-04-08 |
+| 6. Backfill Verification Evidence | 0/TBD | Not started | - |
