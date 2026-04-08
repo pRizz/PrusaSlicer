@@ -1,0 +1,44 @@
+name: Authoritative Bazel CI
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux_authoritative:
+    name: Linux authoritative
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Linux authoritative prerequisites
+        run: ./tools/ci/setup_authoritative_linux.sh
+
+      - name: Run Linux authoritative workflow
+        run: ./tools/ci/run_authoritative_ci_linux.sh
+
+  macos_authoritative:
+    name: macOS authoritative
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache macOS dependency bundle
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps/.pkg_cache
+            deps/build/destdir/usr/local
+          key: macos-authoritative-deps-${{ hashFiles('deps/CMakeLists.txt', 'deps/CMakePresets.json', 'deps/+*/**') }}
+
+      - name: Set up macOS authoritative prerequisites
+        run: ./tools/ci/setup_authoritative_macos.sh
+
+      - name: Run macOS authoritative workflow
+        run: ./tools/ci/run_authoritative_ci_macos.sh
