@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-04-03)
 Phase: 5 of 5 (Make the New Path Authoritative)
 Plan: Not started
 Status: Ready to discuss
-Last activity: 2026-04-07 — Completed Phase 4 local tooling and validation execution
+Last activity: 2026-04-08 — Gathered Phase 5 authority-transfer context
 
 Progress: [████████░░] 80%
 
@@ -60,6 +60,7 @@ Recent decisions affecting current work:
 - Phase 04 context: Make a bounded non-GUI core test surface, formatting flow, lint pass, and editor metadata path usable from Bazel before attempting CI authority work
 - Phase 04 context: Prefer high-signal bounded tooling coverage with explicit exclusions over broad but noisy pseudo-parity
 - Phase 04 complete: Make `./prusa test`, `fmt`, `lint`, and `compdb` real bounded Bazel-backed local workflows with explicit scope and a scratch-safe clangd metadata path
+- Phase 05 context: Put one authoritative Linux/macOS CI workflow and one maintained Bazel-first contributor guide in front of the repo, while demoting legacy workflows/docs to tracked exceptions
 
 ### Pending Todos
 
@@ -74,6 +75,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-04-07 17:52 CDT
-Stopped at: Phase 4 complete, ready to begin Phase 5 discussion
-Resume file: .planning/phases/04-add-local-tooling-and-validation/04-VERIFICATION.md
+Last session: 2026-04-08 00:00 CDT
+Stopped at: Phase 5 context gathered, ready to plan authority transfer
+Resume file: .planning/phases/05-make-the-new-path-authoritative/05-CONTEXT.md
