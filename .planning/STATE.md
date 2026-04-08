@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 5: Make the New Path Authoritative
+**Current focus:** Milestone audit and closure
 
 ## Current Position
 
 Phase: 5 of 5 (Make the New Path Authoritative)
 Plan: Not started
-Status: Ready to discuss
-Last activity: 2026-04-08 — Gathered Phase 5 authority-transfer context
+Status: Phase complete, ready to audit milestone
+Last activity: 2026-04-08 — Completed Phase 5 authority transfer execution
 
-Progress: [████████░░] 80%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 14
 - Average duration: 5 min
 - Total execution time: 0.0 hours
 
@@ -31,9 +31,10 @@ Progress: [████████░░] 80%
 | 02 | 2 | 9 min | 4 min |
 | 03 | 4 | 3 min | 1 min |
 | 04 | 2 | 0 min | 0 min |
+| 05 | 2 | 0 min | 0 min |
 
 **Recent Trend:**
-- Last 5 plans: 0 min, 0 min, 2 min, 1 min, 0 min
+- Last 5 plans: 0 min, 0 min, 0 min, 2 min, 1 min
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -61,6 +62,7 @@ Recent decisions affecting current work:
 - Phase 04 context: Prefer high-signal bounded tooling coverage with explicit exclusions over broad but noisy pseudo-parity
 - Phase 04 complete: Make `./prusa test`, `fmt`, `lint`, and `compdb` real bounded Bazel-backed local workflows with explicit scope and a scratch-safe clangd metadata path
 - Phase 05 context: Put one authoritative Linux/macOS CI workflow and one maintained Bazel-first contributor guide in front of the repo, while demoting legacy workflows/docs to tracked exceptions
+- Phase 05 complete: Make `Authoritative Bazel CI` plus the maintained Bazel-first guide the Linux/macOS source of truth, while demoting legacy workflows/docs to tracked exceptions
 
 ### Pending Todos
 
@@ -70,11 +72,11 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- Phase 5 should move CI and contributor guidance onto the new path without silently widening the bounded local tooling surface into fake whole-repo parity.
-- Remaining local-tooling exclusions and legacy exceptions must stay explicit during the authority-transfer phase.
+- Milestone is feature-complete, but the authoritative path is still intentionally bounded and its remaining exceptions need to stay visible through milestone audit.
+- macOS still relies on the local vendor-tree bridge and Linux still keeps explicit scoped exceptions; milestone audit should verify those are documented coherently.
 
 ## Session Continuity
 
-Last session: 2026-04-08 00:00 CDT
-Stopped at: Phase 5 context gathered, ready to plan authority transfer
-Resume file: .planning/phases/05-make-the-new-path-authoritative/05-CONTEXT.md
+Last session: 2026-04-08 11:02 CDT
+Stopped at: Phase 5 complete, ready to audit the milestone
+Resume file: .planning/phases/05-make-the-new-path-authoritative/05-VERIFICATION.md

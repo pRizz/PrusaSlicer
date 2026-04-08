@@ -29,13 +29,13 @@
 - [x] **TOOL-01**: Contributor can run repository formatting through the authoritative toolchain with documented expectations
 - [x] **TOOL-02**: Contributor can run an initial lint/static-analysis pass through the authoritative toolchain without relying on the legacy build
 - [x] **TOOL-03**: Contributor can use `clangd` or equivalent editor metadata without generating build information from the legacy build
-- [ ] **TOOL-04**: Contributor can follow one maintained setup guide for Linux and macOS build, test, format, lint, and editor workflows
+- [x] **TOOL-04**: Contributor can follow one maintained setup guide for Linux and macOS build, test, format, lint, and editor workflows
 
 ### CI
 
-- [ ] **CI-01**: Maintainer can run Linux CI jobs against the same authoritative build and test targets used locally
-- [ ] **CI-02**: Maintainer can run macOS CI jobs against the same authoritative build and test targets used locally
-- [ ] **CI-03**: Maintainer can verify that the authoritative path, not the legacy build, is the gate for new build/test/tooling changes
+- [x] **CI-01**: Maintainer can run Linux CI jobs against the same authoritative build and test targets used locally
+- [x] **CI-02**: Maintainer can run macOS CI jobs against the same authoritative build and test targets used locally
+- [x] **CI-03**: Maintainer can verify that the authoritative path, not the legacy build, is the gate for new build/test/tooling changes
 
 ## v2 Requirements
 
@@ -84,10 +84,10 @@
 | TOOL-01 | Phase 4 | Complete |
 | TOOL-02 | Phase 4 | Complete |
 | TOOL-03 | Phase 4 | Complete |
-| TOOL-04 | Phase 5 | Pending |
-| CI-01 | Phase 5 | Pending |
-| CI-02 | Phase 5 | Pending |
-| CI-03 | Phase 5 | Pending |
+| TOOL-04 | Phase 5 | Complete |
+| CI-01 | Phase 5 | Complete |
+| CI-02 | Phase 5 | Complete |
+| CI-03 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 17 total
@@ -96,4 +96,4 @@
 
 ---
 *Requirements defined: 2026-04-03*
-*Last updated: 2026-04-07 after Phase 4 completion*
+*Last updated: 2026-04-08 after Phase 5 completion*

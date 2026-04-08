@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Establish Build Graph Skeleton** - Create the root build definitions, command surface, and platform/dependency policy
 - [x] **Phase 3: Migrate Core Targets and Dependencies** - Build the real product on Linux and macOS through the new path with explicit third-party ownership
 - [x] **Phase 4: Add Local Tooling and Validation** - Make tests, formatting, linting, and editor workflows work without the legacy build
-- [ ] **Phase 5: Make the New Path Authoritative** - Move CI and contributor guidance onto the new path and define the legacy exit
+- [x] **Phase 5: Make the New Path Authoritative** - Move CI and contributor guidance onto the new path and define the legacy exit
 
 ## Phase Details
 
@@ -91,11 +91,11 @@ Plans:
   2. Maintainers can run macOS CI jobs against the same authoritative targets used locally.
   3. Contributors can follow one maintained guide for Linux and macOS build, test, format, lint, and editor setup.
   4. Maintainers can verify that the authoritative path, not the legacy build, is the gate for new build/test/tooling changes.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Move Linux/macOS CI onto the authoritative targets
-- [ ] 05-02: Publish contributor workflow docs and define the legacy exit steps
+- [x] 05-01: Move Linux/macOS CI onto the authoritative targets
+- [x] 05-02: Publish contributor workflow docs and define the legacy exit steps
 
 ## Progress
 
@@ -108,4 +108,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Establish Build Graph Skeleton | 2/2 | Complete | 2026-04-04 |
 | 3. Migrate Core Targets and Dependencies | 4/4 | Complete | 2026-04-06 |
 | 4. Add Local Tooling and Validation | 2/2 | Complete | 2026-04-07 |
-| 5. Make the New Path Authoritative | 0/TBD | Not started | - |
+| 5. Make the New Path Authoritative | 2/2 | Complete | 2026-04-08 |
