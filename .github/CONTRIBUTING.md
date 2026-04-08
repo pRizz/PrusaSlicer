@@ -17,5 +17,17 @@ If possible, please include the following information when [reporting an issue](
 
 Please make sure only to include one issue per report. If you encounter multiple, unrelated issues, please report them as such.
 
-Simon Tatham has written an excellent on article on [How to Report Bugs Effectively](http://www.chiark.greenend.org.uk/~sgtatham/bugs.html) which is well worth reading, although it is not specific to PrusaSlicer.
+## Authoritative build and tooling path
 
+For Linux/macOS build, test, and local tooling issues, use the Bazel-first
+workflow documented in the repo and mirrored by the `Authoritative Bazel CI`
+workflow. The expected command surface is:
+
+- `./prusa test`
+- `./prusa fmt --check`
+- `./prusa lint`
+- `./prusa compdb`
+
+Legacy CMake-oriented workflows and older CI jobs are tracked exceptions only.
+
+Simon Tatham has written an excellent on article on [How to Report Bugs Effectively](http://www.chiark.greenend.org.uk/~sgtatham/bugs.html) which is well worth reading, although it is not specific to PrusaSlicer.

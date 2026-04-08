@@ -1,7 +1,6 @@
-name: Build flatpak
+name: Legacy build flatpak
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:

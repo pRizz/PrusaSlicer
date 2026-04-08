@@ -1,9 +1,6 @@
-name: Build osx asan
+name: Legacy build osx asan
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:

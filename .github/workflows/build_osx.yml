@@ -1,7 +1,6 @@
-name: Build osx
+name: Legacy build osx
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
