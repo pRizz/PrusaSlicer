@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-bazelisk build --config=dev --config=linux //src:PrusaSlicer
+./prusa build --platform linux
 ./prusa test --platform linux
 ./prusa fmt --check
 ./prusa lint

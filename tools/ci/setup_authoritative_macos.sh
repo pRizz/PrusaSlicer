@@ -21,7 +21,16 @@ if ! command -v bazelisk >/dev/null 2>&1; then
   esac
 
   curl -fsSL -o /tmp/bazelisk "https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-darwin-${bazelisk_arch}"
-  install -m 0755 /tmp/bazelisk /usr/local/bin/bazelisk
+  if [[ -w /usr/local/bin ]]; then
+    install -m 0755 /tmp/bazelisk /usr/local/bin/bazelisk
+  else
+    mkdir -p "${HOME}/.local/bin"
+    install -m 0755 /tmp/bazelisk "${HOME}/.local/bin/bazelisk"
+    export PATH="${HOME}/.local/bin:${PATH}"
+    if [[ -n "${GITHUB_PATH:-}" ]]; then
+      printf '%s\n' "${HOME}/.local/bin" >> "${GITHUB_PATH}"
+    fi
+  fi
 fi
 
 mkdir -p deps/build
