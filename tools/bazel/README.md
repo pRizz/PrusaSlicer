@@ -37,14 +37,19 @@ Temporary system-library exceptions for the proof slice are tracked in
 Current proof status:
 - `//src:PrusaSlicer` builds on macOS and Linux/arm64 behind the same public label
 - `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
-- `--help` is served directly by Bazel-owned source, while other runtime paths still use the explicit legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
+- `--help` and the bounded `--save [--load ...]` workflow are served directly by Bazel-owned source
+- unsupported runtime paths still use the explicit narrowed legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
 - binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
 
 macOS proof commands:
 
 ```shell
 npx -y @bazel/bazelisk build --config=dev --config=macos //src:PrusaSlicer
+npx -y @bazel/bazelisk test --config=dev --config=macos //src/CLI:bazel_owned_cli_test
 npx -y @bazel/bazelisk test --config=dev --config=macos //tests/libslic3r:config_test
+tmpdir=$(mktemp -d)
+BUILD_WORKSPACE_DIRECTORY="$tmpdir/does-not-exist" "$PWD/bazel-bin/src/PrusaSlicer" --save "$tmpdir/default.ini"
+BUILD_WORKSPACE_DIRECTORY="$tmpdir/does-not-exist" "$PWD/bazel-bin/src/PrusaSlicer" --load "$PWD/tests/data/test_config/new_from_ini.ini" --save "$tmpdir/loaded.ini"
 ```
 
 Linux/arm64 proof commands inside a Linux environment:
@@ -113,6 +118,7 @@ The current authoritative local Bazel test front door is:
 
 Its bounded non-GUI contents are:
 
+- `//src/CLI:bazel_owned_cli_test`
 - `//tests/libslic3r:config_test`
 - `//tests/thumbnails:thumbnails_test`
 
@@ -171,6 +177,8 @@ It runs `clang-tidy` on the bounded Bazel-owned contributor surface:
 
 - `src/BazelMain.cpp`
 - `src/CLI/BazelHandoff.cpp`
+- `src/CLI/BazelOwnedCli.cpp`
+- `src/CLI/BazelOwnedCliTest.cpp`
 - `src/libslic3r/BazelConfigCompat.cpp`
 - `tests/libslic3r/BazelCatchMain.cpp`
 - `tests/thumbnails/BazelCatchMain.cpp`

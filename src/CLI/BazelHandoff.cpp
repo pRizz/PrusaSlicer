@@ -1,4 +1,5 @@
 #include "PrusaSlicer.hpp"
+#include "BazelOwnedCli.hpp"
 
 #include <errno.h>
 #include <stdio.h>
@@ -38,12 +39,14 @@ bool wants_help(int argc, char **argv) {
 void print_bazel_help() {
     puts("PrusaSlicer Bazel Phase 3 proof slice");
     puts("");
-    puts("This Bazel-owned seam handles `--help` directly while later Phase 3");
-    puts("waves deepen the owned CLI/core slice behind the same //src:PrusaSlicer label.");
+    puts("This Bazel-owned seam now handles `--help` plus the bounded `--save`");
+    puts("workflow directly while later phases deepen the owned CLI/core slice");
+    puts("behind the same //src:PrusaSlicer label.");
     puts("");
     puts("Current behavior:");
     puts("- `--help` and `-h` are served directly by the Bazel-owned CLI seam");
-    puts("- other arguments still hand off to the locally built legacy PrusaSlicer binary");
+    puts("- `--save <file>` with optional repeated `--load <file>` runs directly in Bazel-owned source");
+    puts("- unsupported arguments still hand off to the locally built legacy PrusaSlicer binary");
 }
 
 } // namespace
@@ -55,6 +58,9 @@ int run(int argc, char **argv) {
         print_bazel_help();
         return 0;
     }
+
+    if (const int direct_result = maybe_run_owned_cli(argc, argv); direct_result != -1)
+        return direct_result;
 
     const char *binary = nullptr;
     std::string resolved_path;

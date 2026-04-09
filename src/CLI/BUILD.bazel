@@ -1,11 +1,23 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_test")
 
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "bazel_handoff",
-    srcs = ["BazelHandoff.cpp"],
+    hdrs = ["BazelOwnedCli.hpp"],
+    srcs = [
+        "BazelHandoff.cpp",
+        "BazelOwnedCli.cpp",
+    ],
     deps = [
         "//src:prusa_headers",
+        "//src/libslic3r:config_core",
     ],
+)
+
+cc_test(
+    name = "bazel_owned_cli_test",
+    srcs = ["BazelOwnedCliTest.cpp"],
+    deps = [":bazel_handoff"],
 )

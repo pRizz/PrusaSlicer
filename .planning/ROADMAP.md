@@ -19,9 +19,9 @@
 
 </details>
 
-### 🚧 v1.1 Slice Deepening (Planned)
+### 🚧 v1.1 Slice Deepening (In Progress)
 
-- [ ] **Phase 7: Replace Runtime Handoff** - Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
+- [x] **Phase 7: Replace Runtime Handoff** - Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
 - [ ] **Phase 8: Deepen Owned Runtime Slice** - Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
 - [ ] **Phase 9: Re-establish Linux Parity** - Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
 - [ ] **Phase 10: Refresh Remaining Bridge Contracts** - Close the milestone with an updated bridge inventory and verification story for the deeper slice
@@ -39,8 +39,8 @@
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: Source-own one real non-help CLI execution path on macOS
-- [ ] 07-02: Preserve and verify the public command surface while retiring runtime handoff
+- [x] 07-01: Source-own one real non-help CLI execution path on macOS
+- [x] 07-02: Preserve and verify the public command surface while retiring runtime handoff
 
 ### Phase 8: Deepen Owned Runtime Slice
 **Goal**: Replace the temporary entry shim and pull one high-value dependency bridge into explicit Bazel ownership for the deeper slice.
@@ -88,11 +88,11 @@ Plans:
 | Milestone | Phase Range | Plans Complete | Status | Shipped |
 |-----------|-------------|----------------|--------|---------|
 | v1.0 Authoritative Build Path | 1-6 | 15/15 | Complete | 2026-04-09 |
-| v1.1 Slice Deepening | 7-10 | 0/7 | Not started | - |
+| v1.1 Slice Deepening | 7-10 | 2/7 | In progress | - |
 
 ## Next Up
 
-**Phase 7: Replace Runtime Handoff** — Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
+**Phase 8: Deepen Owned Runtime Slice** — Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
 
-- Run `/gsd-discuss-phase 7` to gather context and clarify the first owned runtime slice
-- Run `/gsd-plan-phase 7` to skip discussion and plan directly
+- Run `/gsd-discuss-phase 8` to gather context and clarify the next slice-deepening step
+- Run `/gsd-plan-phase 8` to skip discussion and plan directly

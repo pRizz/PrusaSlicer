@@ -3,6 +3,7 @@ package(default_visibility = ["//visibility:public"])
 test_suite(
     name = "test_suite",
     tests = [
+        "//src/CLI:bazel_owned_cli_test",
         "//tests/libslic3r:config_test",
         "//tests/thumbnails:thumbnails_test",
     ],

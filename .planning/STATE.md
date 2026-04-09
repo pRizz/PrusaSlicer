@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Slice Deepening
-status: roadmap_created
-stopped_at: Defined v1.1 requirements and created the roadmap through Phase 10
-last_updated: "2026-04-09T08:40:00Z"
+status: phase_7_complete
+stopped_at: Completed Phase 7 and narrowed the runtime handoff to unsupported CLI paths
+last_updated: "2026-04-09T09:05:00Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 7
-  completed_plans: 0
-  percent: 0
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 7: Replace Runtime Handoff
+**Current focus:** Phase 8: Deepen Owned Runtime Slice
 
 ## Current Position
 
-Phase: 7 of 10 (Replace Runtime Handoff)
+Phase: 8 of 10 (Deepen Owned Runtime Slice)
 Plan: Not started
 Status: Ready to discuss and plan
 Last activity: 2026-04-09
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -86,6 +86,7 @@ Recent decisions affecting current work:
 - Gap closure plan: Add one focused follow-up phase instead of reopening milestone implementation scope broadly
 - Phase 06 complete: Backfill `03-VERIFICATION.md` and reconcile milestone traceability without reopening Phase 3 implementation
 - Milestone v1.1 start: Focus the next cycle on deepening the owned Bazel runtime slice and retiring the highest-value temporary bridges
+- Phase 07 complete: Source-own the `--save [--load ...]` CLI workflow on macOS and narrow the remaining runtime handoff to unsupported paths
 
 ### Pending Todos
 
@@ -96,10 +97,10 @@ Recent decisions affecting current work:
 ### Blockers/Concerns
 
 - Nyquist validation files are still missing across archived phases; this remains separate audit-discovery debt.
-- The new milestone still needs phase-level discussion, planning, and execution beginning at Phase 7.
+- Phase 8 still needs discussion, planning, and execution.
 
 ## Session Continuity
 
-Last session: 2026-04-09 03:40 CDT
-Stopped at: Defined v1.1 requirements and roadmap; next step is Phase 7 discussion or planning
-Resume file: .planning/ROADMAP.md
+Last session: 2026-04-09 04:05 CDT
+Stopped at: Completed Phase 7 and prepared the project for Phase 8 planning
+Resume file: .planning/phases/07-replace-runtime-handoff/07-VERIFICATION.md

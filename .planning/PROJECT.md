@@ -37,10 +37,11 @@ Maintainers and contributors can build, test, and work on PrusaSlicer through a 
 - ✓ The bounded `PrusaSlicer` CLI/config slice is proven on macOS and Linux/arm64 through Bazel labels that maintainers can reproduce — v1.0
 - ✓ Dependency ownership, bridge inventory, and system-library exceptions are explicit and reviewable instead of hidden in legacy side effects — v1.0
 - ✓ Contributor workflows for test, format, lint, editor metadata, CI, and documentation now point at the Bazel-first path — v1.0
+- ✓ A first non-help CLI workflow (`--save` with optional `--load`) now runs on macOS through Bazel-owned source without legacy `execv` handoff — Phase 7
 
 ### Active
 
-- [ ] Retire the current `//src:PrusaSlicer` runtime handoff so the authoritative path executes a deeper Bazel-owned slice directly
+- [ ] Retire the remaining unsupported `//src:PrusaSlicer` runtime handoff paths so the authoritative path executes a deeper Bazel-owned slice directly
 - [ ] Deepen the Bazel-owned CLI/core slice beyond the current `--help` and config-only proof boundaries
 - [ ] Replace the highest-value temporary dependency bridges for the deeper slice with explicit Bazel-owned or imported artifacts
 - [ ] Keep the same authoritative public labels and `./prusa` command surface across macOS and Linux while the slice deepens

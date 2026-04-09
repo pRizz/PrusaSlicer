@@ -9,13 +9,13 @@ Requirements for milestone `v1.1 Slice Deepening`. Each maps to exactly one road
 
 ### Execution
 
-- [ ] **EXEC-01**: Contributor can run a real non-help PrusaSlicer CLI workflow through the authoritative Bazel path on macOS without the current legacy runtime handoff
+- [x] **EXEC-01**: Contributor can run a real non-help PrusaSlicer CLI workflow through the authoritative Bazel path on macOS without the current legacy runtime handoff
 - [ ] **EXEC-02**: Contributor can run the same Bazel-owned CLI workflow on Linux through the same authoritative public labels
-- [ ] **EXEC-03**: Contributor can keep using the existing `./prusa` command surface and `//src:PrusaSlicer` label while the owned slice deepens
+- [x] **EXEC-03**: Contributor can keep using the existing `./prusa` command surface and `//src:PrusaSlicer` label while the owned slice deepens
 
 ### Bridge Retirement
 
-- [ ] **BRDG-01**: Maintainer can remove the current `//src:PrusaSlicer -> build/src/{Debug/,}PrusaSlicer|prusa-slicer` runtime handoff bridge
+- [x] **BRDG-01**: Maintainer can remove the current `//src:PrusaSlicer -> build/src/{Debug/,}PrusaSlicer|prusa-slicer` runtime handoff bridge from the first selected Bazel-owned CLI workflow
 - [ ] **BRDG-02**: Maintainer can narrow or remove the temporary `src/BazelMain.cpp` entry shim so it no longer defines the primary execution path
 - [ ] **BRDG-03**: Maintainer can track any remaining deep-slice bridges with explicit owner and retirement criteria
 
@@ -58,10 +58,10 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EXEC-01 | Phase 7 | Pending |
+| EXEC-01 | Phase 7 | Complete |
 | EXEC-02 | Phase 9 | Pending |
-| EXEC-03 | Phase 7 | Pending |
-| BRDG-01 | Phase 7 | Pending |
+| EXEC-03 | Phase 7 | Complete |
+| BRDG-01 | Phase 7 | Complete |
 | BRDG-02 | Phase 8 | Pending |
 | BRDG-03 | Phase 10 | Pending |
 | DEEP-01 | Phase 8 | Pending |
@@ -74,4 +74,4 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after initial v1.1 roadmap creation*
+*Last updated: 2026-04-09 after Phase 7 completion*
