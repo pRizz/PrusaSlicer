@@ -121,6 +121,7 @@ Product build target:
 
 Authoritative local test suite:
 - `//tools/bazel:test_suite`
+- `//src/CLI:bazel_owned_cli_test`
 - `//tests/libslic3r:config_test`
 - `//tests/thumbnails:thumbnails_test`
 
@@ -136,9 +137,18 @@ Source of truth:
 - [proof_slice_bridges.md](/Users/peterryszkiewicz/Repos/PrusaSlicer/tools/bazel/policies/proof_slice_bridges.md)
 - [system_libraries.bzl](/Users/peterryszkiewicz/Repos/PrusaSlicer/tools/bazel/policies/system_libraries.bzl)
 
+`proof_slice_bridges.md` now carries the owner and retirement criteria for each
+remaining deep-slice bridge contract.
+
 Current notable exceptions:
-- macOS still relies on the local `deps/build/destdir/usr/local` vendor-tree bridge for the bounded slice.
-- Linux still relies on documented system-library exceptions for the bounded slice.
+- Unsupported export, slice, and profile-query paths still narrow through the
+  explicit legacy binary handoff behind `//src:PrusaSlicer`.
+- `//src/libslic3r:config_core` still relies on `BazelConfigCompat.cpp` for the
+  bounded bgcode/I18N seam.
+- macOS still relies on the local `deps/build/destdir/usr/local` vendor-tree
+  bridge for the bounded slice.
+- Linux still relies on documented runtime and test-only system-library
+  exceptions for the bounded slice.
 - Broader CTest-only suites and legacy CMake build flows remain available only as tracked exception paths.
 
 ## Legacy Exit Policy

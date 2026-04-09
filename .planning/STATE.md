@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Slice Deepening
-status: phase_9_complete
-stopped_at: Completed Phase 9 and re-established Linux parity for the deepened slice
-last_updated: "2026-04-09T08:46:33Z"
+status: phase_10_complete
+stopped_at: Completed Phase 10 and closed the remaining bridge inventory and verification story
+last_updated: "2026-04-09T11:50:37Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 7
-  completed_plans: 6
-  percent: 75
+  completed_plans: 7
+  percent: 100
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 10: Refresh Remaining Bridge Contracts
+**Current focus:** Milestone closeout: v1.1 Slice Deepening
 
 ## Current Position
 
 Phase: 10 of 10 (Refresh Remaining Bridge Contracts)
-Plan: Not started
-Status: Ready to discuss and plan
+Plan: Complete
+Status: Ready to complete milestone
 Last activity: 2026-04-09
 
-Progress: [████████░░] 75%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -89,6 +89,7 @@ Recent decisions affecting current work:
 - Phase 07 complete: Source-own the `--save [--load ...]` CLI workflow on macOS and narrow the remaining runtime handoff to unsupported paths
 - Phase 08 complete: Use `src/PrusaSlicer.cpp` as the primary runtime entrypoint and replace the broad macOS runtime lib bridge with explicit imports
 - Phase 09 complete: Prove the deepened slice on Linux and split Linux runtime-vs-test system-library exceptions explicitly
+- Phase 10 complete: Refresh the remaining deep-slice bridge inventory, align the authoritative docs, and record one closeout verification story for macOS and Linux
 
 ### Pending Todos
 
@@ -99,10 +100,10 @@ Recent decisions affecting current work:
 ### Blockers/Concerns
 
 - Nyquist validation files are still missing across archived phases; this remains separate audit-discovery debt.
-- Phase 10 still needs discussion, planning, and execution.
+- Milestone archival is still pending; run `/gsd-complete-milestone` when ready.
 
 ## Session Continuity
 
-Last session: 2026-04-09 08:46 CDT
-Stopped at: Completed Phase 9 and prepared the project for Phase 10 closeout
-Resume file: .planning/phases/09-re-establish-linux-parity/09-VERIFICATION.md
+Last session: 2026-04-09 06:50 CDT
+Stopped at: Completed Phase 10 and prepared milestone `v1.1` for archival
+Resume file: .planning/phases/10-refresh-remaining-bridge-contracts/10-VERIFICATION.md

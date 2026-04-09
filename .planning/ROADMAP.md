@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Authoritative Build Path** — Phases 1-6 shipped 2026-04-09. Archive: [`v1.0-ROADMAP.md`](/Users/peterryszkiewicz/Repos/PrusaSlicer/.planning/milestones/v1.0-ROADMAP.md)
-- 🚧 **v1.1 Slice Deepening** — Phases 7-10 planned. Focus: deepen the Bazel-owned runtime slice and retire the highest-value temporary bridges.
+- ✅ **v1.1 Slice Deepening** — Phases 7-10 completed 2026-04-09. Ready to archive with `/gsd-complete-milestone`.
 
 ## Phases
 
@@ -19,12 +19,12 @@
 
 </details>
 
-### 🚧 v1.1 Slice Deepening (In Progress)
+### ✅ v1.1 Slice Deepening (Complete)
 
 - [x] **Phase 7: Replace Runtime Handoff** - Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
 - [x] **Phase 8: Deepen Owned Runtime Slice** - Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
 - [x] **Phase 9: Re-establish Linux Parity** - Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
-- [ ] **Phase 10: Refresh Remaining Bridge Contracts** - Close the milestone with an updated bridge inventory and verification story for the deeper slice
+- [x] **Phase 10: Refresh Remaining Bridge Contracts** - Close the milestone with an updated bridge inventory and verification story for the deeper slice
 
 ## Phase Details
 
@@ -81,18 +81,18 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 10-01: Refresh bridge inventory, verification, and milestone handoff
+- [x] 10-01: Refresh bridge inventory, verification, and milestone handoff
 
 ## Progress
 
 | Milestone | Phase Range | Plans Complete | Status | Shipped |
 |-----------|-------------|----------------|--------|---------|
 | v1.0 Authoritative Build Path | 1-6 | 15/15 | Complete | 2026-04-09 |
-| v1.1 Slice Deepening | 7-10 | 6/7 | In progress | - |
+| v1.1 Slice Deepening | 7-10 | 7/7 | Complete | 2026-04-09 |
 
 ## Next Up
 
-**Phase 10: Refresh Remaining Bridge Contracts** — Close the milestone with an updated bridge inventory and verification story for the deeper slice
+**Complete Milestone** — Archive `v1.1 Slice Deepening` and prepare the next planning cycle
 
-- Run `/gsd-discuss-phase 10` to gather context and clarify the closeout phase
-- Run `/gsd-plan-phase 10` to skip discussion and plan directly
+- Run `/gsd-complete-milestone`
+- Run `/gsd-verify-work` if you want one more acceptance pass before archiving

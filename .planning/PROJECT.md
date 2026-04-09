@@ -13,10 +13,11 @@ Maintainers and contributors can build, test, and work on PrusaSlicer through a 
 ## Current State
 
 - **Shipped milestone:** `v1.0 Authoritative Build Path` on 2026-04-09
+- **Completed milestone work:** `v1.1 Slice Deepening` planned phases finished on 2026-04-09 and are ready for archival
 - **Authoritative local front door:** `./prusa build`, `./prusa test`, `./prusa fmt`, `./prusa lint`, `./prusa compdb`
 - **Authoritative CI/docs:** `Authoritative Bazel CI` and `doc/Build and Tooling - Bazel.md`
 - **Proven product slice:** `//src:PrusaSlicer` and `//tests/libslic3r:config_test` on macOS and Linux/arm64
-- **Known bounded edges:** explicit runtime handoff, entry shim, compat shim, vendor/system-library bridges, and intentionally bounded formatting/lint/test coverage
+- **Known bounded edges:** explicit unsupported-path runtime handoff, compat shim, vendor/system-library bridges, and intentionally bounded formatting/lint/test coverage
 
 ## Current Milestone: v1.1 Slice Deepening
 
@@ -40,6 +41,7 @@ Maintainers and contributors can build, test, and work on PrusaSlicer through a 
 - ✓ A first non-help CLI workflow (`--save` with optional `--load`) now runs on macOS through Bazel-owned source without legacy `execv` handoff — Phase 7
 - ✓ The primary Bazel runtime entrypoint now uses `src/PrusaSlicer.cpp`, and the broad macOS runtime lib bundle has been replaced with explicit imported artifacts — Phase 8
 - ✓ The deeper owned slice now proves on Linux too, with separate runtime and test-only system-library exceptions — Phase 9
+- ✓ Remaining deep-slice bridges are now tracked with explicit owner and retirement criteria, and the authoritative Bazel docs close the milestone honestly — Phase 10
 
 ### Active
 
@@ -107,4 +109,4 @@ This document evolves at phase transitions and milestone boundaries.
 - Tighten validation coverage, including Nyquist artifacts, without reopening shipped milestone scope.
 
 ---
-*Last updated: 2026-04-09 after starting v1.1 Slice Deepening*
+*Last updated: 2026-04-09 after Phase 10 completion*

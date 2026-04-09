@@ -17,7 +17,7 @@ Requirements for milestone `v1.1 Slice Deepening`. Each maps to exactly one road
 
 - [x] **BRDG-01**: Maintainer can remove the current `//src:PrusaSlicer -> build/src/{Debug/,}PrusaSlicer|prusa-slicer` runtime handoff bridge from the first selected Bazel-owned CLI workflow
 - [x] **BRDG-02**: Maintainer can narrow or remove the temporary `src/BazelMain.cpp` entry shim so it no longer defines the primary execution path
-- [ ] **BRDG-03**: Maintainer can track any remaining deep-slice bridges with explicit owner and retirement criteria
+- [x] **BRDG-03**: Maintainer can track any remaining deep-slice bridges with explicit owner and retirement criteria
 
 ### Dependency Ownership
 
@@ -63,7 +63,7 @@ Which phases will cover which requirements. Updated during roadmap creation.
 | EXEC-03 | Phase 7 | Complete |
 | BRDG-01 | Phase 7 | Complete |
 | BRDG-02 | Phase 8 | Complete |
-| BRDG-03 | Phase 10 | Pending |
+| BRDG-03 | Phase 10 | Complete |
 | DEEP-01 | Phase 8 | Complete |
 | DEEP-02 | Phase 9 | Complete |
 
@@ -74,4 +74,4 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after Phase 9 completion*
+*Last updated: 2026-04-09 after Phase 10 completion*

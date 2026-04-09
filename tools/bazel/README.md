@@ -1,10 +1,12 @@
-# Bazel Skeleton Layout
+# Bazel Authoritative Slice
 
-This directory holds the Bazel-owned structural skeleton introduced in Phase 2.
+This directory holds the Bazel-owned structure, policy files, and bounded-slice
+documentation for the authoritative Linux/macOS workflow.
 
-During Phase 5 authority transfer, this subtree plus
-`doc/Build and Tooling - Bazel.md` define the maintained Linux/macOS build,
-test, tooling, and exception story for the Bazel path.
+Together with `doc/Build and Tooling - Bazel.md`, this subtree defines the
+maintained build/test/tooling surface, the remaining deep-slice bridge
+contracts, and the explicit exceptions the current milestone still leaves
+visible.
 
 ## Purpose
 
@@ -16,34 +18,35 @@ test, tooling, and exception story for the Bazel path.
 This directory does **not** imply that the full PrusaSlicer target graph is
 already migrated. Full product-target migration remains later-phase work.
 
-## Phase 3 Proof Slice
+## Current Bounded Slice
 
-Phase 3 now proves the same bounded Bazel-owned slice on macOS and Linux/arm64:
+The current bounded Bazel-owned slice still proves on macOS and Linux/arm64:
 
 - `//src:PrusaSlicer`
 - `//tests/libslic3r:config_test`
 - one shared config-oriented seam in `//src/libslic3r:config_core`
 - no broad `libslic3r` or GUI migration in the proof
 
-Owned dependencies for the current proof slice live in
+Owned dependencies for the current bounded slice live in
 `tools/bazel/deps/proof_slice_deps.bzl`.
 
-Temporary proof-slice bridges live in
+Remaining deep-slice bridges live in
 `tools/bazel/policies/proof_slice_bridges.md`.
 
-Temporary system-library exceptions for the proof slice are tracked in
+Remaining system-library exceptions for the bounded slice are tracked in
 `tools/bazel/policies/system_libraries.bzl`.
 
-Current proof status:
+Current slice status:
 - `//src:PrusaSlicer` builds on macOS, native Linux/x86_64 CI, and Linux/arm64 Docker proof behind the same public label
 - the primary Bazel runtime entrypoint now uses `src/PrusaSlicer.cpp` instead of the temporary `src/BazelMain.cpp` shim
 - `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
 - `//tests/thumbnails:thumbnails_test` also passes on macOS and Linux/arm64 under the same bounded suite
 - `--help` and the bounded `--save [--load ...]` workflow are served directly by Bazel-owned source
-- unsupported runtime paths still use the explicit narrowed legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
+- unsupported export, slice, and profile-query paths still use the explicit narrowed legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
 - binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
 - macOS runtime imports are now explicit per-library Bazel imports instead of the older aggregate runtime vendor-lib bridge
 - Linux now keeps runtime and test-only system-library exceptions explicit instead of mixing Catch2 into the runtime bridge
+- `tools/bazel/policies/proof_slice_bridges.md` now records the owner and retirement criteria for every remaining bridge contract
 - Linux CI currently relies on a generated deps/include tree under `deps/build/destdir/usr/local/include`, cached through `deps/.pkg_cache` and `deps/build/destdir/usr/local`
 
 macOS proof commands:
@@ -115,7 +118,7 @@ shared `.bazelrc` config names:
 - `--config=macos`
 - `--config=compdb`
 
-## Phase 4 Test Surface
+## Current Test Surface
 
 The current authoritative local Bazel test front door is:
 
@@ -143,14 +146,14 @@ x86_64 Bazel config. On macOS, the same command runs inside Docker with the
 Linux arm64 Bazel config so the public label stays stable while the local proof
 still relies on the arm64 containerized path.
 
-## Phase 4 Formatting Surface
+## Current Formatting Surface
 
 The current authoritative formatting commands are:
 
 - `./prusa fmt --check`
 - `./prusa fmt --fix`
 
-They operate on the bounded Phase 4 C/C++ contributor surface:
+They operate on the bounded C/C++ contributor surface:
 
 - `src/PrusaSlicer.cpp`
 - `src/CLI/BazelHandoff.cpp`
@@ -171,9 +174,9 @@ Tracked formatting exclusions still include:
 - `tests/sla_print`
 - `tests/slic3rutils`
 - `tests/arrange`
-- broader GUI and packaging-heavy source files outside the migrated proof slice
+- broader GUI and packaging-heavy source files outside the migrated bounded slice
 
-## Phase 4 Lint Surface
+## Current Lint Surface
 
 The current authoritative lint command is:
 
@@ -203,9 +206,9 @@ Tracked lint deferrals currently include:
 - `src/libslic3r/Point.cpp`
 - `src/libslic3r/PrintConfig.cpp`
 - `tests/libslic3r/test_config.cpp`
-- GUI, packaging, and larger CTest-only suites outside the migrated proof slice
+- GUI, packaging, and larger CTest-only suites outside the migrated bounded slice
 
-## Phase 4 Editor Metadata
+## Current Editor Metadata
 
 The authoritative metadata refresh command is:
 
@@ -217,14 +220,14 @@ It writes the bounded slice compile database to:
 
 `.clangd` points editors at `build/compdb`, so contributors only need to rerun
 `./prusa compdb` when BUILD targets, source membership, or compile-affecting
-flags change for the migrated proof slice.
+flags change for the migrated bounded slice.
 
 ## Policy
 
 System-library exceptions are centralized in
 `tools/bazel/policies/system_libraries.bzl`.
 
-The remaining proof-slice bridge inventory is centralized in
+The remaining deep-slice bridge inventory is centralized in
 `tools/bazel/policies/proof_slice_bridges.md`.
 
 The default stance is source-fetched ownership. A system-library exception is

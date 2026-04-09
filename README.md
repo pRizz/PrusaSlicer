@@ -50,8 +50,9 @@ shown for each action:
 # bazel run --config=dev --config=compdb //tools/bazel/compdb:refresh
 ```
 
-Current bounded Phase 4 local test surface:
+Current bounded local test surface:
 - `//tools/bazel:test_suite`
+- `//src/CLI:bazel_owned_cli_test`
 - `//tests/libslic3r:config_test`
 - `//tests/thumbnails:thumbnails_test`
 
@@ -67,22 +68,24 @@ On a macOS host, `./prusa test --platform linux` runs the same bounded Bazel
 suite inside Docker so the Linux label stays visible without pretending
 host-side cross-platform toolchains already exist.
 
-Current bounded Phase 4 formatting surface:
-- `src/BazelMain.cpp`
+Current bounded formatting surface:
+- `src/PrusaSlicer.cpp`
 - `src/CLI/BazelHandoff.cpp`
 - `src/libslic3r/BazelConfigCompat.cpp`
 - `tests/libslic3r/{BazelCatchMain.cpp,test_config.cpp}`
 - `tests/thumbnails/*.cpp`
 
-Tracked formatting exclusions still include the inherited proof-slice core
+Tracked formatting exclusions still include the inherited bounded-slice core
 translation units in `src/libslic3r/{BoundingBox.cpp,Config.cpp,Point.cpp,PrintConfig.cpp}`,
 plus `tests/fff_print`, `tests/sla_print`, `tests/slic3rutils`,
 `tests/arrange`, and the broader GUI and packaging-heavy source tree outside
-the migrated proof slice.
+the migrated bounded slice.
 
-Current bounded Phase 4 lint surface:
-- `src/BazelMain.cpp`
+Current bounded lint surface:
+- `src/PrusaSlicer.cpp`
 - `src/CLI/BazelHandoff.cpp`
+- `src/CLI/BazelOwnedCli.cpp`
+- `src/CLI/BazelOwnedCliTest.cpp`
 - `src/libslic3r/BazelConfigCompat.cpp`
 - `tests/libslic3r/BazelCatchMain.cpp`
 - `tests/thumbnails/*.cpp`
@@ -90,20 +93,24 @@ Current bounded Phase 4 lint surface:
 Tracked lint deferrals currently include broader readability/modernization work,
 the inherited proof-slice core translation units in `src/libslic3r`, and the
 current Catch-heavy `tests/libslic3r/test_config.cpp`, plus the GUI, packaging,
-and larger CTest-only suites outside the migrated proof slice.
+and larger CTest-only suites outside the migrated bounded slice.
 
 On macOS, `./prusa lint` uses `clang-tidy` from Homebrew LLVM
 (`/opt/homebrew/opt/llvm/bin/clang-tidy`) when present and otherwise falls back
 to `clang-tidy` on `PATH`.
 
-Current bounded Phase 4 editor metadata path:
+Current editor metadata path:
 - `./prusa compdb`
 - `build/compdb/compile_commands.json`
 - `.clangd` points editors at `build/compdb`
 
 Refresh this metadata after changing Bazel BUILD definitions, moving files into
 or out of the bounded test surface, or changing compile-affecting flags for the
-current proof slice.
+current bounded slice.
+
+Remaining deep-slice bridges and explicit system-library exceptions are tracked
+in [proof_slice_bridges.md](tools/bazel/policies/proof_slice_bridges.md) and
+[system_libraries.bzl](tools/bazel/policies/system_libraries.bzl).
 
 The older Linux/macOS CMake build guides remain available only as legacy
 exception references while the Bazel graph continues to expand.
