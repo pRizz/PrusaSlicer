@@ -18,6 +18,16 @@ Maintainers and contributors can build, test, and work on PrusaSlicer through a 
 - **Proven product slice:** `//src:PrusaSlicer` and `//tests/libslic3r:config_test` on macOS and Linux/arm64
 - **Known bounded edges:** explicit runtime handoff, entry shim, compat shim, vendor/system-library bridges, and intentionally bounded formatting/lint/test coverage
 
+## Current Milestone: v1.1 Slice Deepening
+
+**Goal:** Deepen the Bazel-owned product slice enough to retire the highest-value temporary execution bridges without widening scope into Windows or packaging.
+
+**Target features:**
+- Replace the current runtime handoff from `//src:PrusaSlicer` to the legacy locally built binary
+- Deepen the Bazel-owned CLI/core path beyond the current `--help` and config-oriented proof slice
+- Retire or materially narrow the highest-value temporary dependency bridges while keeping the same authoritative command surface
+- Preserve one shared public label shape across macOS and Linux as ownership deepens
+
 ## Requirements
 
 ### Validated
@@ -30,17 +40,18 @@ Maintainers and contributors can build, test, and work on PrusaSlicer through a 
 
 ### Active
 
-- [ ] Expand the authoritative product slice beyond the bounded CLI/config proof so more of the real application runs without legacy runtime handoff
-- [ ] Replace the highest-value temporary bridges and Linux/macOS exception paths with narrower or fully owned Bazel imports
-- [ ] Add Windows as a first-class authoritative build target
-- [ ] Move release packaging onto the authoritative build path
-- [ ] Ratchet bounded formatting/lint/tooling coverage toward broader repository enforcement without drowning in inherited debt
+- [ ] Retire the current `//src:PrusaSlicer` runtime handoff so the authoritative path executes a deeper Bazel-owned slice directly
+- [ ] Deepen the Bazel-owned CLI/core slice beyond the current `--help` and config-only proof boundaries
+- [ ] Replace the highest-value temporary dependency bridges for the deeper slice with explicit Bazel-owned or imported artifacts
+- [ ] Keep the same authoritative public labels and `./prusa` command surface across macOS and Linux while the slice deepens
 
 ### Out of Scope
 
 - New slicer end-user features — this project remains build/tooling/CI migration work
 - Pretending whole-repo parity already exists — the shipped milestone is intentionally bounded and documents its edges
 - Permanent dual maintenance of CMake and Bazel as equal primary workflows — tracked temporary overlap is acceptable, permanent split authority is not
+- Windows as a first-class target in this milestone — still deferred until the deeper Linux/macOS slice is more fully owned
+- Release packaging migration in this milestone — still deferred until the owned runtime slice is deeper and more stable
 
 ## Context
 
@@ -69,12 +80,28 @@ The shipped state is intentionally honest about scope. The migration proved a re
 | Prefer bounded high-signal tooling over broad noisy pseudo-parity | Contributor trust matters more than claiming repo-wide enforcement prematurely | ✓ Validated in v1.0 |
 | Make the Bazel path authoritative before whole-repo parity | The repo needed one real source of truth; bounded explicit debt is better than permanent dual authority | ✓ Validated in v1.0 |
 
-## Next Milestone Goals
+## Evolution
 
-- Deepen the Bazel-owned product slice enough to retire the current runtime handoff.
-- Replace the most expensive or confusing temporary bridges with narrower owned imports.
-- Decide how aggressively to pursue Windows and packaging in the next milestone.
-- Tighten validation coverage, including Nyquist artifacts, without reopening the shipped v1.0 scope.
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition**:
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone**:
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
+## Future Directions
+
+- Add Windows as a first-class authoritative build target once the deeper Linux/macOS slice is stable.
+- Move release packaging onto the authoritative build path after the runtime slice is more fully owned.
+- Tighten validation coverage, including Nyquist artifacts, without reopening shipped milestone scope.
 
 ---
-*Last updated: 2026-04-09 after v1.0 milestone completion*
+*Last updated: 2026-04-09 after starting v1.1 Slice Deepening*

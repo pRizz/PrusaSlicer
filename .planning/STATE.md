@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: Authoritative Build Path
-status: completed
-stopped_at: Archived milestone v1.0 and reset the planning surface for the next milestone
-last_updated: "2026-04-09T07:25:00Z"
+milestone: v1.1
+milestone_name: Slice Deepening
+status: defining_requirements
+stopped_at: Started milestone v1.1 and reset the project to requirements-definition mode
+last_updated: "2026-04-09T08:10:00Z"
 last_activity: 2026-04-09
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 15
-  completed_plans: 15
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Planning the next milestone
+**Current focus:** Defining milestone v1.1 requirements
 
 ## Current Position
 
-Phase: No active phase
-Plan: None
-Status: Ready for next milestone definition
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
 Last activity: 2026-04-09
 
-Progress: [██████████] 100%
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -85,6 +85,7 @@ Recent decisions affecting current work:
 - Milestone audit (resolved): The only blocker had been missing Phase 3 verification evidence for BLD-01, BLD-02, DEPS-01, and DEPS-03
 - Gap closure plan: Add one focused follow-up phase instead of reopening milestone implementation scope broadly
 - Phase 06 complete: Backfill `03-VERIFICATION.md` and reconcile milestone traceability without reopening Phase 3 implementation
+- Milestone v1.1 start: Focus the next cycle on deepening the owned Bazel runtime slice and retiring the highest-value temporary bridges
 
 ### Pending Todos
 
@@ -94,12 +95,11 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- No active implementation blockers remain for the v1.0 milestone.
-- Nyquist validation files are still missing across phases; this remains separate audit-discovery debt.
-- The next milestone still needs fresh goals and a new milestone-scoped requirements file.
+- Nyquist validation files are still missing across archived phases; this remains separate audit-discovery debt.
+- The new milestone still needs fresh REQUIREMENTS.md and roadmap phases.
 
 ## Session Continuity
 
-Last session: 2026-04-09 02:25 CDT
-Stopped at: Completed v1.0 archival, tagged the release, and left the project ready for `/gsd-new-milestone`
-Resume file: .planning/MILESTONES.md
+Last session: 2026-04-09 03:10 CDT
+Stopped at: Started v1.1 Slice Deepening and prepared to define new requirements and roadmap phases
+Resume file: .planning/PROJECT.md
