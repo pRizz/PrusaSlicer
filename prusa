@@ -3,6 +3,8 @@ set -euo pipefail
 
 readonly BAZEL_TEST_SUITE="//tools/bazel:test_suite"
 readonly BAZEL_BUILD_TARGET="//src:PrusaSlicer"
+readonly BAZEL_LINUX_NATIVE_CONFIG="linux"
+readonly BAZEL_LINUX_DOCKER_CONFIG="linux_arm64"
 
 set_bazel_prefix() {
   if command -v bazelisk >/dev/null 2>&1; then
@@ -47,8 +49,8 @@ Examples:
   ./prusa compdb --dry-run
 
 Direct Bazel equivalents:
-  build  -> bazel build --config=dev --config=<platform> //src:PrusaSlicer
-  test   -> bazel test --config=dev --config=<platform> //tools/bazel:test_suite
+  build  -> bazel build --config=dev --config=<resolved-platform> //src:PrusaSlicer
+  test   -> bazel test --config=dev --config=<resolved-platform> //tools/bazel:test_suite
   fmt    -> bazel run --config=dev //tools/bazel/format:<check|fix>
   lint   -> bazel run --config=dev //tools/bazel/lint:clang_tidy
   compdb -> bazel run --config=dev --config=compdb //tools/bazel/compdb:refresh
@@ -60,7 +62,8 @@ Notes:
   - `fmt` currently covers the Bazel-owned proof slice and adjacent non-GUI tests, not the whole repo.
   - `lint` currently uses clang-tidy on the Bazel-owned proof slice and adjacent non-GUI tests only.
   - `compdb` writes to build/compdb/compile_commands.json for clangd and other editor tooling.
-  - On macOS, `--platform linux` runs the same Bazel suite inside Docker.
+  - On Linux hosts, `--platform linux` uses the native x86_64 Bazel config.
+  - On macOS, `--platform linux` runs the same labels inside Docker using the Linux arm64 Bazel config.
   - Legacy CMake build docs remain available during the transition.
   - Platform configs are centralized under //tools/bazel/platforms.
   - System-library exceptions are centralized under tools/bazel/policies/system_libraries.bzl.
@@ -102,7 +105,7 @@ apt-get install -y ca-certificates curl git unzip zip openjdk-21-jdk build-essen
 curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-arm64
 chmod +x /usr/local/bin/bazelisk
 mkdir -p /tmp/codex-home /tmp/bazelroot
-HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //tools/bazel:test_suite
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux_arm64 //tools/bazel:test_suite
 '
 }
 
@@ -123,7 +126,7 @@ apt-get install -y ca-certificates curl git unzip zip openjdk-21-jdk build-essen
 curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-arm64
 chmod +x /usr/local/bin/bazelisk
 mkdir -p /tmp/codex-home /tmp/bazelroot
-HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux //src:PrusaSlicer
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux_arm64 //src:PrusaSlicer
 '
 }
 
@@ -132,10 +135,12 @@ main() {
   local dry_run="false"
   local platform
   local fmt_mode="check"
+  local bazel_platform_config
 
   shift || true
 
   platform="$(platform_config)"
+  bazel_platform_config="${platform}"
 
   while (($#)); do
     case "$1" in
@@ -176,12 +181,18 @@ main() {
   set_bazel_prefix
   local -a cmd
 
+  if [[ "${platform}" == "linux" && "$(uname -s)" == "Darwin" ]]; then
+    bazel_platform_config="${BAZEL_LINUX_DOCKER_CONFIG}"
+  elif [[ "${platform}" == "linux" ]]; then
+    bazel_platform_config="${BAZEL_LINUX_NATIVE_CONFIG}"
+  fi
+
   case "${maybe_command}" in
     build)
-      cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config="${platform}" "${BAZEL_BUILD_TARGET}")
+      cmd=("${BAZEL_PREFIX[@]}" build --config=dev --config="${bazel_platform_config}" "${BAZEL_BUILD_TARGET}")
       ;;
     test)
-      cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${platform}" "${BAZEL_TEST_SUITE}")
+      cmd=("${BAZEL_PREFIX[@]}" test --config=dev --config="${bazel_platform_config}" "${BAZEL_TEST_SUITE}")
       ;;
     fmt)
       cmd=("${BAZEL_PREFIX[@]}" run --config=dev "//tools/bazel/format:${fmt_mode}")
@@ -213,11 +224,19 @@ main() {
     printf '\n'
     if [[ "${maybe_command}" == "build" && "${platform}" == "linux" && "$(uname -s)" == "Darwin" ]]; then
       printf 'Host note:\n'
-      printf '  On macOS, this build executes inside Docker using the same Bazel label.\n'
+      printf '  On macOS, this build executes inside Docker using --config=%s.\n' "${BAZEL_LINUX_DOCKER_CONFIG}"
     fi
     if [[ "${maybe_command}" == "test" && "${platform}" == "linux" && "$(uname -s)" == "Darwin" ]]; then
       printf 'Host note:\n'
-      printf '  On macOS, this suite executes inside Docker using the same Bazel label.\n'
+      printf '  On macOS, this suite executes inside Docker using --config=%s.\n' "${BAZEL_LINUX_DOCKER_CONFIG}"
+    fi
+    if [[ "${maybe_command}" == "build" && "${platform}" == "linux" && "$(uname -s)" == "Linux" ]]; then
+      printf 'Host note:\n'
+      printf '  On Linux, this build executes natively using --config=%s.\n' "${BAZEL_LINUX_NATIVE_CONFIG}"
+    fi
+    if [[ "${maybe_command}" == "test" && "${platform}" == "linux" && "$(uname -s)" == "Linux" ]]; then
+      printf 'Host note:\n'
+      printf '  On Linux, this suite executes natively using --config=%s.\n' "${BAZEL_LINUX_NATIVE_CONFIG}"
     fi
     exit 0
   fi

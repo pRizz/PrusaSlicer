@@ -3,7 +3,6 @@ package(default_visibility = ["//visibility:public"])
 config_setting(
     name = "is_linux",
     constraint_values = [
-        "@platforms//cpu:aarch64",
         "@platforms//os:linux",
     ],
 )
@@ -18,6 +17,14 @@ config_setting(
 
 platform(
     name = "linux",
+    constraint_values = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+)
+
+platform(
+    name = "linux_arm64",
     constraint_values = [
         "@platforms//cpu:aarch64",
         "@platforms//os:linux",
@@ -36,10 +43,10 @@ platform(
 # Keep macOS as the first proving ground without creating a separate target
 # namespace. The same labels must later work on Linux.
 #
-# Phase 3 wave 4 note:
-# The current Linux proof runs in a Linux/arm64 Docker environment to match
-# the available host architecture without introducing a second Linux target
-# tree. Future phases can widen this into additional Linux CPU variants.
+# Linux note:
+# Native Linux CI now uses the x86_64 platform above. The macOS-hosted Docker
+# proof continues to use a Linux/arm64 target platform so the same public
+# labels can still be exercised from the available local arm64 host.
 
 # Reserved for later phases. Do not wire active Windows behavior here yet.
 platform(

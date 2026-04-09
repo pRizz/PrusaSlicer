@@ -4,10 +4,12 @@ common --enable_bzlmod
 common:dev --announce_rc
 
 # Centralized platform names consumed by ./prusa.
-# Phase 3 currently proves Linux through a Linux/arm64 environment so the
-# shared proof-slice labels can be validated from the available macOS host.
+# Native Linux CI uses linux/x86_64 while the macOS Docker proof still runs the
+# same labels against linux/arm64.
 build:linux --platforms=//tools/bazel/platforms:linux
 test:linux --platforms=//tools/bazel/platforms:linux
+build:linux_arm64 --platforms=//tools/bazel/platforms:linux_arm64
+test:linux_arm64 --platforms=//tools/bazel/platforms:linux_arm64
 build:macos --platforms=//tools/bazel/platforms:macos
 test:macos --platforms=//tools/bazel/platforms:macos
 

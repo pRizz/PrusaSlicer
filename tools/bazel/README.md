@@ -35,7 +35,7 @@ Temporary system-library exceptions for the proof slice are tracked in
 `tools/bazel/policies/system_libraries.bzl`.
 
 Current proof status:
-- `//src:PrusaSlicer` builds on macOS and Linux/arm64 behind the same public label
+- `//src:PrusaSlicer` builds on macOS, native Linux/x86_64 CI, and Linux/arm64 Docker proof behind the same public label
 - the primary Bazel runtime entrypoint now uses `src/PrusaSlicer.cpp` instead of the temporary `src/BazelMain.cpp` shim
 - `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
 - `//tests/thumbnails:thumbnails_test` also passes on macOS and Linux/arm64 under the same bounded suite
@@ -56,7 +56,7 @@ BUILD_WORKSPACE_DIRECTORY="$tmpdir/does-not-exist" "$PWD/bazel-bin/src/PrusaSlic
 BUILD_WORKSPACE_DIRECTORY="$tmpdir/does-not-exist" "$PWD/bazel-bin/src/PrusaSlicer" --load "$PWD/tests/data/test_config/new_from_ini.ini" --save "$tmpdir/loaded.ini"
 ```
 
-Linux/arm64 proof commands inside a Linux environment:
+Linux/x86_64 proof commands inside a native Linux environment:
 
 ```shell
 sudo apt-get install -y libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2
@@ -75,8 +75,8 @@ apt-get install -y ca-certificates curl git unzip zip openjdk-21-jdk build-essen
 curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-arm64
 chmod +x /usr/local/bin/bazelisk
 mkdir -p /tmp/codex-home /tmp/bazelroot
-HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux //src:PrusaSlicer
-HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //src/CLI:bazel_owned_cli_test //tests/libslic3r:config_test //tests/thumbnails:thumbnails_test
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux_arm64 //src:PrusaSlicer
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux_arm64 //src/CLI:bazel_owned_cli_test //tests/libslic3r:config_test //tests/thumbnails:thumbnails_test
 '
 ```
 
@@ -137,9 +137,10 @@ Tracked legacy CTest exceptions still include broader suites such as:
 - `tests/arrange`
 - the larger `tests/libslic3r` CMake suite beyond `config_test`
 
-On macOS, `./prusa test --platform linux` runs the same Bazel suite inside
-Docker so the Linux label stays explicit while the project still relies on the
-Phase 3 Linux/arm64 containerized proof path.
+On Linux hosts, `./prusa test --platform linux` runs natively with the Linux
+x86_64 Bazel config. On macOS, the same command runs inside Docker with the
+Linux arm64 Bazel config so the public label stays stable while the local proof
+still relies on the arm64 containerized path.
 
 ## Phase 4 Formatting Surface
 
