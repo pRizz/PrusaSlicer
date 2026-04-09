@@ -50,7 +50,7 @@ cc_library(
         "//deps/build/destdir/usr/local/include:vendor_headers",
     ] + select({
         "//tools/bazel/platforms:is_linux": [
-            "//deps/build/destdir/usr/local/lib:proof_slice_linux_system_libs",
+            "//deps/build/destdir/usr/local/lib:proof_slice_linux_runtime_libs",
         ],
         "//conditions:default": [
             "//deps/build/destdir/usr/local/lib:boost_atomic",

@@ -18,7 +18,9 @@ cc_test(
         "//deps/build/destdir/usr/local/include:catch2_headers",
         "//src/libslic3r:config_core",
     ] + select({
-        "//tools/bazel/platforms:is_linux": [],
+        "//tools/bazel/platforms:is_linux": [
+            "//deps/build/destdir/usr/local/lib:proof_slice_linux_catch2",
+        ],
         "//conditions:default": [
             "//deps/build/destdir/usr/local/lib:catch2",
         ],

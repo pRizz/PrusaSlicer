@@ -108,7 +108,7 @@ cc_import(
 )
 
 cc_library(
-    name = "proof_slice_linux_system_libs",
+    name = "proof_slice_linux_runtime_libs",
     linkopts = [
         "-lboost_atomic",
         "-lboost_chrono",
@@ -121,7 +121,6 @@ cc_library(
         "-lboost_nowide",
         "-lboost_program_options",
         "-lboost_thread",
-        "-lCatch2",
         "-ldl",
         "-lexpat",
         "-lpng16",
@@ -129,5 +128,13 @@ cc_library(
         "-ltbbmalloc",
         "-pthread",
         "-lz",
+    ],
+)
+
+cc_library(
+    name = "proof_slice_linux_catch2",
+    linkopts = [
+        "-lCatch2",
+        "-pthread",
     ],
 )

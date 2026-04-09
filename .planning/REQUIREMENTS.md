@@ -10,7 +10,7 @@ Requirements for milestone `v1.1 Slice Deepening`. Each maps to exactly one road
 ### Execution
 
 - [x] **EXEC-01**: Contributor can run a real non-help PrusaSlicer CLI workflow through the authoritative Bazel path on macOS without the current legacy runtime handoff
-- [ ] **EXEC-02**: Contributor can run the same Bazel-owned CLI workflow on Linux through the same authoritative public labels
+- [x] **EXEC-02**: Contributor can run the same Bazel-owned CLI workflow on Linux through the same authoritative public labels
 - [x] **EXEC-03**: Contributor can keep using the existing `./prusa` command surface and `//src:PrusaSlicer` label while the owned slice deepens
 
 ### Bridge Retirement
@@ -22,7 +22,7 @@ Requirements for milestone `v1.1 Slice Deepening`. Each maps to exactly one road
 ### Dependency Ownership
 
 - [x] **DEEP-01**: Maintainer can replace at least one high-value temporary dependency bridge in the deepened slice with explicit Bazel-owned or imported artifacts
-- [ ] **DEEP-02**: Maintainer can keep macOS and Linux dependency exceptions for the deepened slice minimal, explicit, and reproducible
+- [x] **DEEP-02**: Maintainer can keep macOS and Linux dependency exceptions for the deepened slice minimal, explicit, and reproducible
 
 ## Future Requirements
 
@@ -59,13 +59,13 @@ Which phases will cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | EXEC-01 | Phase 7 | Complete |
-| EXEC-02 | Phase 9 | Pending |
+| EXEC-02 | Phase 9 | Complete |
 | EXEC-03 | Phase 7 | Complete |
 | BRDG-01 | Phase 7 | Complete |
 | BRDG-02 | Phase 8 | Complete |
 | BRDG-03 | Phase 10 | Pending |
 | DEEP-01 | Phase 8 | Complete |
-| DEEP-02 | Phase 9 | Pending |
+| DEEP-02 | Phase 9 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 8 total
@@ -74,4 +74,4 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after Phase 8 completion*
+*Last updated: 2026-04-09 after Phase 9 completion*

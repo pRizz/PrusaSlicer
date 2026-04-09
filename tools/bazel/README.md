@@ -38,10 +38,12 @@ Current proof status:
 - `//src:PrusaSlicer` builds on macOS and Linux/arm64 behind the same public label
 - the primary Bazel runtime entrypoint now uses `src/PrusaSlicer.cpp` instead of the temporary `src/BazelMain.cpp` shim
 - `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
+- `//tests/thumbnails:thumbnails_test` also passes on macOS and Linux/arm64 under the same bounded suite
 - `--help` and the bounded `--save [--load ...]` workflow are served directly by Bazel-owned source
 - unsupported runtime paths still use the explicit narrowed legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
 - binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
 - macOS runtime imports are now explicit per-library Bazel imports instead of the older aggregate runtime vendor-lib bridge
+- Linux now keeps runtime and test-only system-library exceptions explicit instead of mixing Catch2 into the runtime bridge
 
 macOS proof commands:
 
@@ -59,7 +61,7 @@ Linux/arm64 proof commands inside a Linux environment:
 ```shell
 sudo apt-get install -y libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2
 bazelisk build --config=dev --config=linux //src:PrusaSlicer
-bazelisk test --config=dev --config=linux //tests/libslic3r:config_test
+bazelisk test --config=dev --config=linux //src/CLI:bazel_owned_cli_test //tests/libslic3r:config_test //tests/thumbnails:thumbnails_test
 ```
 
 Linux/arm64 proof command from a macOS host via Docker:
@@ -74,7 +76,7 @@ curl -fsSL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk/rel
 chmod +x /usr/local/bin/bazelisk
 mkdir -p /tmp/codex-home /tmp/bazelroot
 HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot build --config=dev --config=linux //src:PrusaSlicer
-HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //tests/libslic3r:config_test
+HOME=/tmp/codex-home bazelisk --output_user_root=/tmp/bazelroot test --config=dev --config=linux //src/CLI:bazel_owned_cli_test //tests/libslic3r:config_test //tests/thumbnails:thumbnails_test
 '
 ```
 

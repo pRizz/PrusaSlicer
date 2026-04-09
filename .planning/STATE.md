@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Slice Deepening
-status: phase_8_complete
-stopped_at: Completed Phase 8 and moved the primary runtime entrypoint onto src/PrusaSlicer.cpp
-last_updated: "2026-04-09T09:25:00Z"
+status: phase_9_complete
+stopped_at: Completed Phase 9 and re-established Linux parity for the deepened slice
+last_updated: "2026-04-09T08:46:33Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 7
-  completed_plans: 4
-  percent: 50
+  completed_plans: 6
+  percent: 75
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Phase 9: Re-establish Linux Parity
+**Current focus:** Phase 10: Refresh Remaining Bridge Contracts
 
 ## Current Position
 
-Phase: 9 of 10 (Re-establish Linux Parity)
+Phase: 10 of 10 (Refresh Remaining Bridge Contracts)
 Plan: Not started
 Status: Ready to discuss and plan
 Last activity: 2026-04-09
 
-Progress: [█████░░░░░] 50%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -88,6 +88,7 @@ Recent decisions affecting current work:
 - Milestone v1.1 start: Focus the next cycle on deepening the owned Bazel runtime slice and retiring the highest-value temporary bridges
 - Phase 07 complete: Source-own the `--save [--load ...]` CLI workflow on macOS and narrow the remaining runtime handoff to unsupported paths
 - Phase 08 complete: Use `src/PrusaSlicer.cpp` as the primary runtime entrypoint and replace the broad macOS runtime lib bridge with explicit imports
+- Phase 09 complete: Prove the deepened slice on Linux and split Linux runtime-vs-test system-library exceptions explicitly
 
 ### Pending Todos
 
@@ -98,10 +99,10 @@ Recent decisions affecting current work:
 ### Blockers/Concerns
 
 - Nyquist validation files are still missing across archived phases; this remains separate audit-discovery debt.
-- Phase 9 still needs discussion, planning, and execution.
+- Phase 10 still needs discussion, planning, and execution.
 
 ## Session Continuity
 
-Last session: 2026-04-09 04:25 CDT
-Stopped at: Completed Phase 8 and prepared the project for Phase 9 planning
-Resume file: .planning/phases/08-deepen-owned-runtime-slice/08-VERIFICATION.md
+Last session: 2026-04-09 08:46 CDT
+Stopped at: Completed Phase 9 and prepared the project for Phase 10 closeout
+Resume file: .planning/phases/09-re-establish-linux-parity/09-VERIFICATION.md

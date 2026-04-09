@@ -23,7 +23,7 @@
 
 - [x] **Phase 7: Replace Runtime Handoff** - Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
 - [x] **Phase 8: Deepen Owned Runtime Slice** - Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
-- [ ] **Phase 9: Re-establish Linux Parity** - Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
+- [x] **Phase 9: Re-establish Linux Parity** - Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
 - [ ] **Phase 10: Refresh Remaining Bridge Contracts** - Close the milestone with an updated bridge inventory and verification story for the deeper slice
 
 ## Phase Details
@@ -67,8 +67,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: Prove the deeper runtime slice on Linux
-- [ ] 09-02: Normalize and document remaining cross-platform dependency exceptions
+- [x] 09-01: Prove the deeper runtime slice on Linux
+- [x] 09-02: Normalize and document remaining cross-platform dependency exceptions
 
 ### Phase 10: Refresh Remaining Bridge Contracts
 **Goal**: Close the milestone with an honest inventory of any remaining deep-slice bridges and a fresh verification story for the deeper owned slice.
@@ -88,11 +88,11 @@ Plans:
 | Milestone | Phase Range | Plans Complete | Status | Shipped |
 |-----------|-------------|----------------|--------|---------|
 | v1.0 Authoritative Build Path | 1-6 | 15/15 | Complete | 2026-04-09 |
-| v1.1 Slice Deepening | 7-10 | 4/7 | In progress | - |
+| v1.1 Slice Deepening | 7-10 | 6/7 | In progress | - |
 
 ## Next Up
 
-**Phase 9: Re-establish Linux Parity** — Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
+**Phase 10: Refresh Remaining Bridge Contracts** — Close the milestone with an updated bridge inventory and verification story for the deeper slice
 
-- Run `/gsd-discuss-phase 9` to gather context and clarify the Linux parity step
-- Run `/gsd-plan-phase 9` to skip discussion and plan directly
+- Run `/gsd-discuss-phase 10` to gather context and clarify the closeout phase
+- Run `/gsd-plan-phase 10` to skip discussion and plan directly
