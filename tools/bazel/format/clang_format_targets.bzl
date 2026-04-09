@@ -1,7 +1,7 @@
 """Bounded Phase 4 clang-format surface."""
 
 CLANG_FORMAT_TARGETS = [
-    "src/BazelMain.cpp",
+    "src/PrusaSlicer.cpp",
     "src/CLI/BazelHandoff.cpp",
     "src/libslic3r/BazelConfigCompat.cpp",
     "tests/libslic3r/BazelCatchMain.cpp",

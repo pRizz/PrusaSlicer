@@ -16,12 +16,12 @@ Requirements for milestone `v1.1 Slice Deepening`. Each maps to exactly one road
 ### Bridge Retirement
 
 - [x] **BRDG-01**: Maintainer can remove the current `//src:PrusaSlicer -> build/src/{Debug/,}PrusaSlicer|prusa-slicer` runtime handoff bridge from the first selected Bazel-owned CLI workflow
-- [ ] **BRDG-02**: Maintainer can narrow or remove the temporary `src/BazelMain.cpp` entry shim so it no longer defines the primary execution path
+- [x] **BRDG-02**: Maintainer can narrow or remove the temporary `src/BazelMain.cpp` entry shim so it no longer defines the primary execution path
 - [ ] **BRDG-03**: Maintainer can track any remaining deep-slice bridges with explicit owner and retirement criteria
 
 ### Dependency Ownership
 
-- [ ] **DEEP-01**: Maintainer can replace at least one high-value temporary dependency bridge in the deepened slice with explicit Bazel-owned or imported artifacts
+- [x] **DEEP-01**: Maintainer can replace at least one high-value temporary dependency bridge in the deepened slice with explicit Bazel-owned or imported artifacts
 - [ ] **DEEP-02**: Maintainer can keep macOS and Linux dependency exceptions for the deepened slice minimal, explicit, and reproducible
 
 ## Future Requirements
@@ -62,9 +62,9 @@ Which phases will cover which requirements. Updated during roadmap creation.
 | EXEC-02 | Phase 9 | Pending |
 | EXEC-03 | Phase 7 | Complete |
 | BRDG-01 | Phase 7 | Complete |
-| BRDG-02 | Phase 8 | Pending |
+| BRDG-02 | Phase 8 | Complete |
 | BRDG-03 | Phase 10 | Pending |
-| DEEP-01 | Phase 8 | Pending |
+| DEEP-01 | Phase 8 | Complete |
 | DEEP-02 | Phase 9 | Pending |
 
 **Coverage:**
@@ -74,4 +74,4 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after Phase 7 completion*
+*Last updated: 2026-04-09 after Phase 8 completion*

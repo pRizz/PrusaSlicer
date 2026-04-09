@@ -17,3 +17,11 @@ cc_library(
         "LibBGCode",
     ],
 )
+
+cc_library(
+    name = "catch2_headers",
+    hdrs = glob([
+        "catch2/**/*.hpp",
+    ]),
+    includes = ["."],
+)

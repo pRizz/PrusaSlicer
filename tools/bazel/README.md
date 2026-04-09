@@ -36,10 +36,12 @@ Temporary system-library exceptions for the proof slice are tracked in
 
 Current proof status:
 - `//src:PrusaSlicer` builds on macOS and Linux/arm64 behind the same public label
+- the primary Bazel runtime entrypoint now uses `src/PrusaSlicer.cpp` instead of the temporary `src/BazelMain.cpp` shim
 - `//tests/libslic3r:config_test` passes on macOS and Linux/arm64 against the same `config_core` seam
 - `--help` and the bounded `--save [--load ...]` workflow are served directly by Bazel-owned source
 - unsupported runtime paths still use the explicit narrowed legacy binary handoff in `tools/bazel/policies/proof_slice_bridges.md`
 - binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
+- macOS runtime imports are now explicit per-library Bazel imports instead of the older aggregate runtime vendor-lib bridge
 
 macOS proof commands:
 
@@ -146,7 +148,7 @@ The current authoritative formatting commands are:
 
 They operate on the bounded Phase 4 C/C++ contributor surface:
 
-- `src/BazelMain.cpp`
+- `src/PrusaSlicer.cpp`
 - `src/CLI/BazelHandoff.cpp`
 - `src/libslic3r/BazelConfigCompat.cpp`
 - `tests/libslic3r/BazelCatchMain.cpp`
@@ -175,7 +177,7 @@ The current authoritative lint command is:
 
 It runs `clang-tidy` on the bounded Bazel-owned contributor surface:
 
-- `src/BazelMain.cpp`
+- `src/PrusaSlicer.cpp`
 - `src/CLI/BazelHandoff.cpp`
 - `src/CLI/BazelOwnedCli.cpp`
 - `src/CLI/BazelOwnedCliTest.cpp`

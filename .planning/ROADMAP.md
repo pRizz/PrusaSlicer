@@ -22,7 +22,7 @@
 ### 🚧 v1.1 Slice Deepening (In Progress)
 
 - [x] **Phase 7: Replace Runtime Handoff** - Execute a real non-help CLI path through Bazel-owned source on macOS while preserving the existing public entry points
-- [ ] **Phase 8: Deepen Owned Runtime Slice** - Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
+- [x] **Phase 8: Deepen Owned Runtime Slice** - Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
 - [ ] **Phase 9: Re-establish Linux Parity** - Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
 - [ ] **Phase 10: Refresh Remaining Bridge Contracts** - Close the milestone with an updated bridge inventory and verification story for the deeper slice
 
@@ -53,8 +53,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: Replace or absorb the temporary entry shim into the owned slice
-- [ ] 08-02: Import one high-value dependency path explicitly into Bazel
+- [x] 08-01: Replace or absorb the temporary entry shim into the owned slice
+- [x] 08-02: Import one high-value dependency path explicitly into Bazel
 
 ### Phase 9: Re-establish Linux Parity
 **Goal**: Prove the deeper owned runtime slice on Linux through the same public labels and keep platform-specific dependency exceptions minimal and explicit.
@@ -88,11 +88,11 @@ Plans:
 | Milestone | Phase Range | Plans Complete | Status | Shipped |
 |-----------|-------------|----------------|--------|---------|
 | v1.0 Authoritative Build Path | 1-6 | 15/15 | Complete | 2026-04-09 |
-| v1.1 Slice Deepening | 7-10 | 2/7 | In progress | - |
+| v1.1 Slice Deepening | 7-10 | 4/7 | In progress | - |
 
 ## Next Up
 
-**Phase 8: Deepen Owned Runtime Slice** — Retire the temporary entry shim and replace at least one high-value dependency bridge with explicit owned/imported artifacts
+**Phase 9: Re-establish Linux Parity** — Prove the deeper owned slice on Linux through the same public labels and keep platform exceptions minimal
 
-- Run `/gsd-discuss-phase 8` to gather context and clarify the next slice-deepening step
-- Run `/gsd-plan-phase 8` to skip discussion and plan directly
+- Run `/gsd-discuss-phase 9` to gather context and clarify the Linux parity step
+- Run `/gsd-plan-phase 9` to skip discussion and plan directly

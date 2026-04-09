@@ -16,9 +16,14 @@ cc_test(
         "CATCH_CONFIG_FAST_COMPILE",
     ],
     deps = [
-        "//deps/build/destdir/usr/local/include:vendor_headers",
+        "//deps/build/destdir/usr/local/include:catch2_headers",
         "//src/libslic3r:config_core",
-    ],
+    ] + select({
+        "//tools/bazel/platforms:is_linux": [],
+        "//conditions:default": [
+            "//deps/build/destdir/usr/local/lib:catch2",
+        ],
+    }),
     data = ["//tests:test_data"],
     linkopts = [],
 )
