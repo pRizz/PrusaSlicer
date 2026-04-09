@@ -44,6 +44,7 @@ Current proof status:
 - binary G-code metadata parsing and GUI-driven translation callbacks are explicitly deferred through `src/libslic3r/BazelConfigCompat.cpp`
 - macOS runtime imports are now explicit per-library Bazel imports instead of the older aggregate runtime vendor-lib bridge
 - Linux now keeps runtime and test-only system-library exceptions explicit instead of mixing Catch2 into the runtime bridge
+- Linux CI currently relies on a generated deps/include tree under `deps/build/destdir/usr/local/include`, cached through `deps/.pkg_cache` and `deps/build/destdir/usr/local`
 
 macOS proof commands:
 
@@ -59,7 +60,7 @@ BUILD_WORKSPACE_DIRECTORY="$tmpdir/does-not-exist" "$PWD/bazel-bin/src/PrusaSlic
 Linux/x86_64 proof commands inside a native Linux environment:
 
 ```shell
-sudo apt-get install -y libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2
+sudo apt-get install -y autoconf automake libtool m4 texinfo zlib1g-dev libboost-all-dev libtbb-dev libexpat1-dev libpng-dev catch2
 bazelisk build --config=dev --config=linux //src:PrusaSlicer
 bazelisk test --config=dev --config=linux //src/CLI:bazel_owned_cli_test //tests/libslic3r:config_test //tests/thumbnails:thumbnails_test
 ```

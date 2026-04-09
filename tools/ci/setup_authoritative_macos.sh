@@ -51,11 +51,13 @@ if ! command -v bazelisk >/dev/null 2>&1; then
   fi
 fi
 
+mkdir -p deps/.pkg_cache
 mkdir -p deps/build
 if [[ ! -f deps/build/destdir/usr/local/lib/libbgcode_core.a ]]; then
   (
     cd deps/build
     cmake .. \
+      -DDEP_DOWNLOAD_DIR="$PWD/../.pkg_cache" \
       -DCMAKE_OSX_SYSROOT="${sdk_path}" \
       -DCMAKE_OSX_DEPLOYMENT_TARGET="${sdk_version}" \
       -DCMAKE_OSX_ARCHITECTURES="${macos_arch}"

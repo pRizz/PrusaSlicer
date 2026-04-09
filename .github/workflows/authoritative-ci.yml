@@ -16,6 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache Linux dependency bundle
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps/.pkg_cache
+            deps/build/destdir/usr/local
+          key: linux-authoritative-deps-${{ hashFiles('deps/CMakeLists.txt', 'deps/CMakePresets.json', 'deps/+*/**') }}
+
       - name: Set up Linux authoritative prerequisites
         run: ./tools/ci/setup_authoritative_linux.sh
 

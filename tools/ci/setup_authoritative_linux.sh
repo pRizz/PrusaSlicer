@@ -9,6 +9,8 @@ fi
 
 "${SUDO[@]}" apt-get update
 "${SUDO[@]}" apt-get install -y \
+  autoconf \
+  automake \
   build-essential \
   catch2 \
   clang-format \
@@ -18,14 +20,18 @@ fi
   git \
   libboost-all-dev \
   libexpat1-dev \
+  libtool \
   libpng-dev \
   libtbb-dev \
+  m4 \
   ninja-build \
   openjdk-21-jdk \
   pkg-config \
   python3 \
+  texinfo \
   unzip \
-  zip
+  zip \
+  zlib1g-dev
 
 if ! command -v bazelisk >/dev/null 2>&1; then
   arch="$(uname -m)"
@@ -55,4 +61,11 @@ if ! command -v bazelisk >/dev/null 2>&1; then
       printf '%s\n' "${HOME}/.local/bin" >> "${GITHUB_PATH}"
     fi
   fi
+fi
+
+mkdir -p deps/.pkg_cache
+
+if [[ ! -f deps/build/destdir/usr/local/include/cereal/cereal.hpp || ! -f deps/build/destdir/usr/local/include/LibBGCode/core/core.hpp ]]; then
+  cmake -S deps -B deps/build -DDEP_DOWNLOAD_DIR="$PWD/deps/.pkg_cache"
+  cmake --build deps/build --parallel 3 --target dep_Boost dep_Eigen dep_Catch2 dep_Cereal dep_LibBGCode
 fi
