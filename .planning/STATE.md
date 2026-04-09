@@ -1,24 +1,41 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: Authoritative Build Path
+status: completed
+stopped_at: Completed Phase 6 verification backfill and prepared the project for milestone re-audit
+last_updated: "2026-04-09T06:52:41.677Z"
+last_activity: 2026-04-09
+progress:
+  total_phases: 6
+  completed_phases: 6
+  total_plans: 15
+  completed_plans: 15
+  percent: 100
+---
+
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-03)
+See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
-**Current focus:** Milestone v1.0 audit/closure
+**Current focus:** Planning the next milestone
 
 ## Current Position
 
 Phase: 6 of 6 (Backfill Verification Evidence)
 Plan: Completed
-Status: Ready to re-audit milestone
-Last activity: 2026-04-08 — Backfilled Phase 3 verification evidence and closed the milestone blocker
+Status: v1.0 milestone complete
+Last activity: 2026-04-09
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 15
 - Average duration: 5 min
 - Total execution time: 0.0 hours
@@ -35,6 +52,7 @@ Progress: [██████████] 100%
 | 06 | 1 | 0 min | 0 min |
 
 **Recent Trend:**
+
 - Last 5 plans: 0 min, 0 min, 2 min, 1 min, 0 min
 - Trend: Stable
 
@@ -78,9 +96,10 @@ Recent decisions affecting current work:
 
 - No active implementation blockers remain for the v1.0 milestone.
 - Nyquist validation files are still missing across phases; this remains separate audit-discovery debt.
+- The next milestone still needs fresh goals and a new milestone-scoped requirements file.
 
 ## Session Continuity
 
-Last session: 2026-04-08 17:31 CDT
-Stopped at: Completed Phase 6 verification backfill and prepared the project for milestone re-audit
-Resume file: .planning/v1.0-MILESTONE-AUDIT.md
+Last session: 2026-04-09 01:52 CDT
+Stopped at: Began milestone archival and live planning-surface cleanup after the v1.0 audit passed
+Resume file: .planning/PROJECT.md

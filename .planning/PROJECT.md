@@ -2,70 +2,79 @@
 
 ## What This Is
 
-This project modernizes how PrusaSlicer is built, tested, and maintained for repository maintainers and contributors. The goal is to replace the current CMake-first, custom-dependency-heavy workflow with a more modern, reliable, and repeatable build stack, preferably Bazel, while preserving the existing Linux and macOS product behavior closely enough for the new path to become authoritative.
+This project delivered a Bazel-first authoritative build and tooling path for PrusaSlicer on Linux and macOS. The shipped v1.0 work replaced the old “choose between competing primary workflows” state with one documented command surface, one authoritative CI path, and one maintained contributor guide, while keeping the migration honestly bounded to the proven CLI/config slice instead of pretending whole-repo parity already exists.
 
-This is a brownfield migration, not a product redesign. PrusaSlicer remains the same cross-platform slicer application; the work is focused on build orchestration, dependency management, CI, developer tooling, and the minimum source changes required to make that modernization succeed.
+PrusaSlicer remains the same brownfield C++ desktop application. The work shipped here is infrastructure and contributor-surface modernization: build orchestration, dependency policy, CI, developer tooling, and the minimum source seams required to prove the new path against the real codebase.
 
 ## Core Value
 
 Maintainers and contributors can build, test, and work on PrusaSlicer through a simple, repeatable, authoritative toolchain on Linux and macOS.
 
+## Current State
+
+- **Shipped milestone:** `v1.0 Authoritative Build Path` on 2026-04-09
+- **Authoritative local front door:** `./prusa build`, `./prusa test`, `./prusa fmt`, `./prusa lint`, `./prusa compdb`
+- **Authoritative CI/docs:** `Authoritative Bazel CI` and `doc/Build and Tooling - Bazel.md`
+- **Proven product slice:** `//src:PrusaSlicer` and `//tests/libslic3r:config_test` on macOS and Linux/arm64
+- **Known bounded edges:** explicit runtime handoff, entry shim, compat shim, vendor/system-library bridges, and intentionally bounded formatting/lint/test coverage
+
 ## Requirements
 
 ### Validated
 
-- ✓ PrusaSlicer already exists as a large C++ desktop application with shared CLI and GUI entry paths — existing
-- ✓ The product already supports Linux, macOS, and Windows builds, even though the current build flow is CMake-first and platform-conditional — existing
-- ✓ The repository already contains reusable core libraries, GUI code, CLI flows, and specialized support libraries that must keep working through the migration — existing
-- ✓ The repo already has unit and integration test coverage centered around Catch2 and CTest — existing
-- ✓ The current dependency story relies on bundled third-party code, custom discovery logic, and platform-specific build glue that now needs modernization — existing
+- ✓ Bazel was evaluated against Meson + Ninja with explicit criteria before long-term migration work proceeded — v1.0
+- ✓ Linux and macOS now have one authoritative build/test/tooling command surface instead of competing primary workflows — v1.0
+- ✓ The bounded `PrusaSlicer` CLI/config slice is proven on macOS and Linux/arm64 through Bazel labels that maintainers can reproduce — v1.0
+- ✓ Dependency ownership, bridge inventory, and system-library exceptions are explicit and reviewable instead of hidden in legacy side effects — v1.0
+- ✓ Contributor workflows for test, format, lint, editor metadata, CI, and documentation now point at the Bazel-first path — v1.0
 
 ### Active
 
-- [ ] Evaluate Bazel against Meson + Ninja and select the authoritative modern build stack for this repository
-- [ ] Provide a Linux and macOS build path that can build PrusaSlicer reproducibly without CMake remaining the primary maintained workflow
-- [ ] Support near-parity for the current Linux and macOS application behavior, allowing sensible deferral of obsolete or low-value legacy edges
-- [ ] Move dependency management toward mostly source-fetched, explicit, reproducible inputs while allowing some system libraries when that is the more sensible tradeoff
-- [ ] Run the core automated test suites through the new build stack with reliable local and CI execution
-- [ ] Add modern C/C++ developer tooling where practical, including formatting, linting, editor/`clangd` support, and other maintainability-focused checks
-- [ ] Establish CI around the new authoritative path for Linux and macOS
-- [ ] Simplify or replace custom dependency discovery and vendoring patterns where practical so dependency provenance and upgrade paths are clearer
+- [ ] Expand the authoritative product slice beyond the bounded CLI/config proof so more of the real application runs without legacy runtime handoff
+- [ ] Replace the highest-value temporary bridges and Linux/macOS exception paths with narrower or fully owned Bazel imports
+- [ ] Add Windows as a first-class authoritative build target
+- [ ] Move release packaging onto the authoritative build path
+- [ ] Ratchet bounded formatting/lint/tooling coverage toward broader repository enforcement without drowning in inherited debt
 
 ### Out of Scope
 
-- New slicer end-user features — this effort is strictly about build, tooling, CI, and migration work
-- Windows as a first-class migration target in the initial authoritative milestone — Linux and macOS come first
-- Perfect 100% parity for every obsolete or low-value legacy path — parity matters, but not at the cost of freezing the migration around dead weight
-- Permanent dual maintenance of old and new build stacks — temporary overlap is acceptable, but the goal is one authoritative path
+- New slicer end-user features — this project remains build/tooling/CI migration work
+- Pretending whole-repo parity already exists — the shipped milestone is intentionally bounded and documents its edges
+- Permanent dual maintenance of CMake and Bazel as equal primary workflows — tracked temporary overlap is acceptable, permanent split authority is not
 
 ## Context
 
-PrusaSlicer is currently a C++17 desktop application with shared CLI and GUI flows, centered around `libslic3r`, wxWidgets, OpenGL, and a substantial amount of platform-conditional CMake logic. The current stack depends on top-level build configuration in `CMakeLists.txt`, presets in `CMakePresets.json`, custom dependency handling in `deps/`, vendored code in `bundled_deps/`, and a mix of bundled and externally discovered libraries.
+PrusaSlicer is still a large C++17 desktop codebase with shared CLI and GUI flows, substantial `libslic3r` logic, wxWidgets/OpenGL UI layers, and a heavy third-party dependency footprint. The repo now also contains a real Bazel-first operating surface at the root, centralized policy files under `tools/bazel/`, bounded local tooling workflows, and authoritative Linux/macOS CI/doc wiring.
 
-The current build story works, but it is harder than desired to reason about, repeat, and maintain. Existing concerns include custom find-module drift, bundled dependency maintenance burden, warning suppressions that hide toolchain issues, and fragile platform-specific build glue. The existing test story is centered around Catch2 and CTest, which provides a concrete baseline that the new build path should preserve or improve.
-
-This project should include an explicit evaluation phase instead of assuming Bazel unconditionally. Bazel is the preferred candidate because of its dependency and hermetic-build story, but Meson + Ninja is an acceptable fallback if Bazel proves too painful for this repo's cross-platform C++ desktop reality.
+The shipped state is intentionally honest about scope. The migration proved a real product-oriented slice and made the new path authoritative for the supported workflows, but it did not claim that all packaging, GUI/runtime, or legacy-edge behavior is fully ported.
 
 ## Constraints
 
-- **Tech stack**: Large existing C++17 desktop codebase with GUI, CLI, geometry-heavy libraries, and many third-party dependencies — the migration must work with the current product rather than replacing it
-- **Platform**: Linux and macOS are the first-class targets for the authoritative new path — Windows can be deferred
-- **Compatibility**: Existing product behavior should stay near current parity on the supported platforms — maintainers are flexible on obsolete or low-value legacy edges
-- **Dependency strategy**: Prefer mostly source-fetched dependencies with explicit provenance — allow some system libraries when that is simpler and more robust
-- **Scope**: No intentional slicer feature work beyond source changes required to support the new build/tooling system — the migration should not become a product-feature project
-- **Outcome**: The new build path is intended to become authoritative for the repo — a permanent "experimental side build" is not the goal
+- **Tech stack:** Large existing C++17 desktop codebase with GUI, CLI, geometry-heavy libraries, and many third-party dependencies
+- **Platform:** Linux and macOS are authoritative now; Windows remains future work
+- **Compatibility:** Preserve existing product behavior closely enough for the authoritative slice to be credible without freezing the migration around obsolete edges
+- **Dependency strategy:** Prefer explicit, reproducible ownership and track every exception or temporary bridge in one visible place
+- **Scope:** Build, tooling, CI, and migration only; no product-feature expansion
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Include an explicit build-system evaluation phase | Bazel is preferred, but the repo should not commit blindly if Meson + Ninja fits the migration better | — Pending |
-| Prefer Bazel as the initial target candidate | Hermeticity, dependency modeling, repeatability, and CI ergonomics match the stated goals well | — Pending |
-| Select Bazel as the authoritative Phase 2 target, with Meson + Ninja as explicit fallback | Phase 1 scorecard favored Bazel on the project’s highest-weighted criteria even though Meson was easier to prototype | — Pending |
-| Accept Meson + Ninja as fallback if Bazel is too painful | Simpler C/C++ ergonomics may outweigh Bazel's advantages in practice for this repo | — Pending |
-| Target Linux and macOS first | This keeps the migration tractable while still covering the primary near-term authoritative path | — Pending |
-| Keep the project focused on build/tooling migration only | Avoids scope creep into unrelated slicer feature development | — Pending |
-| Allow temporary legacy-tool overlap where justified | Controlled overlap is acceptable during migration, but only on the way to one authoritative path | — Pending |
+| Include an explicit build-system evaluation phase | Bazel was preferred, but the repo needed a real decision rather than assumption | ✓ Validated in v1.0 |
+| Select Bazel as the authoritative build target, with Meson + Ninja as fallback | Bazel best matched repeatability, CI, and long-term authority goals for this repo | ✓ Validated in v1.0 |
+| Target Linux and macOS first | This kept the migration tractable while covering the first authoritative platforms | ✓ Validated in v1.0 |
+| Use a thin `./prusa` wrapper as the front door | Contributors needed one obvious repo-root command surface without hiding Bazel’s shape completely | ✓ Validated in v1.0 |
+| Keep system-library exceptions centralized and explicit | Exceptions were acceptable only if maintainers could name scope, rationale, and retirement conditions | ✓ Validated in v1.0 |
+| Prove a bounded CLI/config slice before broader parity | A smaller real slice was more honest and achievable than fake whole-app claims | ✓ Validated in v1.0 |
+| Prefer bounded high-signal tooling over broad noisy pseudo-parity | Contributor trust matters more than claiming repo-wide enforcement prematurely | ✓ Validated in v1.0 |
+| Make the Bazel path authoritative before whole-repo parity | The repo needed one real source of truth; bounded explicit debt is better than permanent dual authority | ✓ Validated in v1.0 |
+
+## Next Milestone Goals
+
+- Deepen the Bazel-owned product slice enough to retire the current runtime handoff.
+- Replace the most expensive or confusing temporary bridges with narrower owned imports.
+- Decide how aggressively to pursue Windows and packaging in the next milestone.
+- Tighten validation coverage, including Nyquist artifacts, without reopening the shipped v1.0 scope.
 
 ---
-*Last updated: 2026-04-04 after Phase 1 candidate comparison*
+*Last updated: 2026-04-09 after v1.0 milestone completion*
