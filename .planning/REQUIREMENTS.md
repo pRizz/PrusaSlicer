@@ -58,20 +58,20 @@ Which phases will cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EXEC-01 | TBD | Pending |
-| EXEC-02 | TBD | Pending |
-| EXEC-03 | TBD | Pending |
-| BRDG-01 | TBD | Pending |
-| BRDG-02 | TBD | Pending |
-| BRDG-03 | TBD | Pending |
-| DEEP-01 | TBD | Pending |
-| DEEP-02 | TBD | Pending |
+| EXEC-01 | Phase 7 | Pending |
+| EXEC-02 | Phase 9 | Pending |
+| EXEC-03 | Phase 7 | Pending |
+| BRDG-01 | Phase 7 | Pending |
+| BRDG-02 | Phase 8 | Pending |
+| BRDG-03 | Phase 10 | Pending |
+| DEEP-01 | Phase 8 | Pending |
+| DEEP-02 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 8 total
-- Mapped to phases: 0
-- Unmapped: 8 ⚠️
+- Mapped to phases: 8
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after initial v1.1 definition*
+*Last updated: 2026-04-09 after initial v1.1 roadmap creation*
