@@ -93,9 +93,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-1 pending todo:
-
-- Add justfile Bazel convenience commands (`tooling`) — capture a repo-root `justfile` that wraps common Bazel and `./prusa` workflows without changing the authoritative build path.
+0 pending todos.
 
 ### Blockers/Concerns
 
