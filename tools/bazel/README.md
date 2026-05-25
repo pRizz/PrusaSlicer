@@ -111,6 +111,12 @@ Use the root wrapper first:
 ./prusa compdb --dry-run
 ```
 
+If `just` is installed, the repo-root `justfile` mirrors the same bounded
+workflow with thin recipes such as `just build`, `just test-linux`,
+`just fmt`, `just proof-macos`, and `just proof-linux`. Those recipes
+delegate to `./prusa` or the proof commands documented below; `./prusa`
+remains the maintained front door.
+
 Direct Bazel equivalents remain visible through the wrapper output and the
 shared `.bazelrc` config names:
 

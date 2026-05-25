@@ -57,6 +57,7 @@ Direct Bazel equivalents:
 
 Notes:
   - Bazel is the repo-root front door for the migration work.
+  - Optional repo-root `just` recipes mirror these commands for convenience only.
   - `build` is the authoritative bounded product build target for the current Bazel slice.
   - `test` is the bounded non-GUI local test surface for Phase 4, not full legacy CTest parity.
   - `fmt` currently covers the Bazel-owned proof slice and adjacent non-GUI tests, not the whole repo.

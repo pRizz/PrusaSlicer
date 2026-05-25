@@ -14,6 +14,12 @@ The authoritative commands are the Bazel-first root commands:
 ./prusa compdb
 ```
 
+If `just` is installed, the repo-root `justfile` exposes thin convenience
+recipes such as `just build`, `just test`, `just fmt`, `just lint`,
+`just compdb`, `just proof-macos`, and `just proof-linux`. Those recipes
+delegate to the same `./prusa` commands plus the proof commands documented
+below, so they do not replace the authoritative wrapper.
+
 For Linux/macOS build, test, and tooling changes, this workflow is also what
 the `Authoritative Bazel CI` workflow validates in GitHub Actions.
 

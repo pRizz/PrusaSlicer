@@ -50,6 +50,12 @@ shown for each action:
 # bazel run --config=dev --config=compdb //tools/bazel/compdb:refresh
 ```
 
+If `just` is installed, the repo-root `justfile` mirrors the same bounded
+workflow with thin convenience recipes such as `just build`, `just test-linux`,
+`just fmt`, `just proof-macos`, and `just proof-linux`. Those recipes delegate
+to `./prusa` or the maintained proof commands; `./prusa` remains the
+authoritative front door.
+
 Current bounded local test surface:
 - `//tools/bazel:test_suite`
 - `//src/CLI:bazel_owned_cli_test`
